@@ -1,44 +1,30 @@
-\documentclass[9pt]{article}
+\documentclass[a4paper]{article}
 
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{amsmath}
-\usepackage{float} % lets us use the 'H' specifier and shout down LaTeX fig placement
+\usepackage{float}
 \usepackage{longtable}
+\usepackage{fullpage}
 
-% \setlength{\parskip}{0.5cm plus0mm minus4mm}
-
-\makeatletter
-% Make paragraphs with titles start on a new line
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-  {-3.25ex\@plus -1ex \@minus -.2ex}%
-  {1.5ex \@plus .2ex}%
-  {\normalfont\normalsize\bfseries}}
-% Define thickrulefill for a horizontal rule
-\def\thickhrulefill{\leavevmode \leaders \hrule height 1pt\hfill \kern \z@}
-\makeatother
-
-% Title info.
 \title{
-	\vspace{5cm}
-	\huge{\textbf{G53IDS Individual Dissertation}} \\[0.2cm]
-	\LARGE{\textbf{Single Honours}} \\[0.5cm]
+    \vspace{3cm}
+    \huge{G53IDS Individual Dissertation Single Honours} \\[0.5cm]
     \LARGE{Project Proposal} \\[0.2cm]
 }
 \author{Robert J. Golding (rjg08u)} \date{\today}
 
-% Margins
-\setlength{\topmargin}{-.4in}
-\setlength{\headsep}{0in}
-\setlength{\textheight}{9in}
-\setlength{\oddsidemargin}{.125in}
-\setlength{\textwidth}{6.25in}
-\setcounter{secnumdepth}{1}
-
 \begin{document}
-	\maketitle
-	\newpage
-	\section{Idea}
-        I propose to build a system to backup files on a local network. The backup system should have a web interface to provide full control of the process.
+    \maketitle
+    \vspace{10cm}
+    \begin{center}
+        \includegraphics{notts.jpg}
+    \end{center}
+    \newpage
+
+    \section{Idea}
+    I propose to build a system to backup files on a local network. The backup
+    system should have a web interface to provide full control of the process.
+
 \end{document}
