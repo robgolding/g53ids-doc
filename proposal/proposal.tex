@@ -7,6 +7,9 @@
 \usepackage{float}
 \usepackage{longtable}
 \usepackage{fullpage}
+\usepackage{fontspec}
+
+\setromanfont{Gentium}
 
 \title{
     \vspace{3cm}
@@ -23,8 +26,26 @@
     \end{center}
     \newpage
 
-    \section{Idea}
+    \section{Background \& Motivation}
+    There are many backup systems available, in both the proprietary and
+    open-source worlds. However, I have long felt that no one system meets all
+    the needs of the modern enterprise environment, with a focus on central
+    management, control and detailed reporting.
+
+    This gap in the market first came to my attention when I was designing
+    a network for my home, which consisted of multiple Linux servers, each with
+    files that needed backing up. The leading open-source contender seemed, at
+    the time, to be Amanda Open-Source Backup. Amanda, however, did not include
+    a web interface, and as a result was difficult to configure.
+
+    I have since made multiple attempts at creating a backup system that would
+    fulfill these requirements, though I have not yet been successful.
+
+    \section{Aims \& Objectives}
     I propose to build a system to backup files on a local network. The backup
-    system should have a web interface to provide full control of the process.
+    system will be centrally managed via a web application, and will store
+    detailed reports about what was backed up after every run.
+
+    \section{Project Plan}
 
 \end{document}
