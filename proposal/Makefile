@@ -1,6 +1,6 @@
 document = proposal
 $(document).pdf: *.tex
-	pdflatex $(document).tex && pdflatex $(document).tex && rm *.aux *.toc *.log
+	xelatex $(document).tex && xelatex $(document).tex && rm *.aux *.toc *.log
 
 $(document).ps: $(document).pdf
 	pdf2ps $(document).pdf $(document).ps
