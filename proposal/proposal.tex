@@ -7,9 +7,6 @@
 \usepackage{float}
 \usepackage{longtable}
 \usepackage{fullpage}
-\usepackage{fontspec}
-
-\setromanfont{Gentium}
 
 \title{
     \vspace{3cm}
@@ -27,24 +24,42 @@
     \newpage
 
     \section{Background \& Motivation}
-    There are many backup systems available, in both the proprietary and
-    open-source worlds. However, I have long felt that no one system meets all
-    the needs of the modern enterprise environment, with a focus on central
-    management, control and detailed reporting.
+    There are many backup systems available in both the proprietary and open
+    source worlds. However, I have long felt that there are no open source
+    systems that meet all the needs of the modern enterprise environment.
+    Backup systems are often thought of as `set-and-forget', though this is far
+    from the case in a typical IT department. Users are often requesting that
+    accidentally deleted files be restored, and administrators require detailed
+    reports to be sure that their data is safe at all times.
 
     This gap in the market first came to my attention when I was designing
-    a network for my home, which consisted of multiple Linux servers, each with
-    files that needed backing up. The leading open-source contender seemed, at
-    the time, to be Amanda Open-Source Backup. Amanda, however, did not include
-    a web interface, and as a result was difficult to configure.
+    a network for my home in 2007, consisting of multiple Linux servers, each
+    with files that needed backing up. I was unable to find an open source
+    backup solution that incorporated a central web interface for management
+    and reporting, that offered a simple setup procedure.
 
-    I have since made multiple attempts at creating a backup system that would
-    fulfill these requirements, though I have not yet been successful.
+    Eventually, I implemented a custom backup library in \emph{Python}, which
+    was in essence a simple wrapper around the \emph{rsync} program. This
+    system works at a most basic level, but is wholly inadequate for its
+    intended purpose. It consists of a simple script which calls \emph{rsync}
+    to copy files to a selected location. As the administrator, I have no way
+    of viewing the files that have been copied, save for manually inspecting
+    log files.
+
+    I would now like to take this project forward, by developing the system
+    I was unable to find three years ago.
 
     \section{Aims \& Objectives}
-    I propose to build a system to backup files on a local network. The backup
-    system will be centrally managed via a web application, and will store
-    detailed reports about what was backed up after every run.
+    I propose to develop a backup system to address the inadequacies present in
+    the currently available open source solutions:
+
+    \begin{itemize}
+        \item Web interface providing central management and reporting
+        \item Detailed reports and historical data for every backup
+        \item Instant file recovery offered through web interface, for
+            accidentally deleted files etc.
+        \item Ability to recover files without any special software or tools
+    \end{itemize}
 
     \section{Project Plan}
 
