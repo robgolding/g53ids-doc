@@ -1,6 +1,6 @@
 document = proposal
 $(document).pdf: *.tex
-	pdflatex $(document).tex && pdflatex $(document).tex && rm *.aux *.toc *.log
+	pdflatex $(document).tex && pdflatex $(document).tex && rm *.aux *.toc *.log; echo
 
 $(document).ps: $(document).pdf
 	pdf2ps $(document).pdf $(document).ps
