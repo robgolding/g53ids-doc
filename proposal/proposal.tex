@@ -7,6 +7,7 @@
 \usepackage{float}
 \usepackage{longtable}
 \usepackage{fullpage}
+\usepackage{pstricks}
 
 \title{
     \vspace{3cm}
@@ -18,9 +19,11 @@
 \begin{document}
     \maketitle
     \vspace{10cm}
-    \begin{center}
-        \includegraphics{notts.jpg}
-    \end{center}
+    \begin{figure}
+        \centering
+        \def\svgwidth{\columnwidth}
+        \input{nottingham}
+    \end{figure}
     \newpage
 
     \section{Background \& Motivation}
