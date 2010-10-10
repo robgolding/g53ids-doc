@@ -1,12 +1,16 @@
 document = proposal
-$(document).pdf: *.tex
-	pdflatex $(document).tex && pdflatex $(document).tex && rm *.aux *.toc *.log; echo
 
-$(document).ps: $(document).pdf
-	pdf2ps $(document).pdf $(document).ps
+$(document).pdf: $(document).ps
+	ps2pdf $(document).ps
+
+$(document).ps: $(document).dvi
+	dvips $(document).dvi
+
+$(document).dvi: *.tex
+	latex $(document).tex
 
 clean:
-	rm -f *.aux *.toc *.log $(document).pdf $(document).ps
+	rm -f *.aux *.toc *.log $(document).pdf $(document).ps $(document).dvi
 
 show: $(document).pdf
 	evince $(document).pdf &
