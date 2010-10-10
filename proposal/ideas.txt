@@ -1,0 +1,28 @@
+Ideas
+=====
+
+- Tapes are old & obsolete
+- Hard drive storage is cheap & abundant
+- Compression is therefore unnecessary
+- Web interface for detailed control & reporting
+
+Implementation
+==============
+
+- Send each file separately
+- Store file mtime, mode, owner/group in database
+- Use hardlinks to reduce storage requirements
+- Only send changed files
+- Remove stale database entries on backup completion
+
+Backup Protocol
+===============
+
+begin <passphrase>
+
+mtime /home/rob/Desktop/The Master Genealogist v7/tmg7setup.exe
+ -> 1276452505
+
+put /home/rob/Desktop/The Master Genealogist v7/tmg7setup.exe d264fad349f42d90e0cab220fcc7a36a
+
+
