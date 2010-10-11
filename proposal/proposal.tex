@@ -27,8 +27,9 @@
     \newpage
 
     \section{Background \& Motivation}
+
     There are many backup systems available in both the proprietary and open
-    source worlds. However, I have long felt that there are no open source
+    source worlds. I have long felt, however, that there are no open source
     systems that meet all the needs of the modern enterprise environment.
     Backup systems are often thought of as `set-and-forget', though this is far
     from the case in a typical IT department. Users are often requesting that
@@ -39,7 +40,7 @@
     a network for my home in 2007, consisting of multiple Linux servers, each
     with files that needed backing up. I was unable to find an open source
     backup solution that incorporated a central web interface for management
-    and reporting, that offered a simple setup procedure.
+    and reporting, and that offered a simple setup procedure.
 
     Eventually, I implemented a custom backup library in \emph{Python}, which
     was in essence a simple wrapper around the \emph{rsync} program. This
@@ -53,6 +54,7 @@
     I was unable to find three years ago.
 
     \section{Aims \& Objectives}
+
     I propose to develop a network backup system to address the inadequacies
     present in the currently available open source solutions:
 
@@ -73,14 +75,17 @@ f           accidentally deleted files etc.
     a database backend, which may require careful management to ensure that
     performance does not degrade with the amount of data that is stored.
 
-    As an example, a large amount of information could be summarized on
-    a `dashboard' page, with graphs and/or charts displaying data relating to
-    different aspects of the system (such as total bytes protected).
+    As an example, a large amount of information could be displayed with the
+    use of graphs and/or charts, to summarize data relating to different
+    aspects of the system. Trends in the data could then be analysed, such as
+    a sudden fall in the size of a backup on a given server, for example. This
+    type of information could help an administrator to avoid potential
+    problems, before they have chance to damage the infrastructure.
 
     Perhaps the most important aspect of my proposal however, is to include
     a form of version control in the backup process. I have recently been
     heavily involved in web applications development, and have therefore been
-    introduced to VCS systems such as Subversion and Git. It became obvious to
+    introduced to SCM systems such as Subversion and Git. It became obvious to
     me that to combining these two technologies would result in a very useful
     system for data protection.
 
@@ -89,6 +94,10 @@ f           accidentally deleted files etc.
     versions of that file. He/she will then be able to restore the desired
     version. I feel this is an important feature that is missing from the
     open-source backup tools at present.
+    
+    I feel this will present a challenging project, and one that I will enjoy
+    tackling. There are many aspects of this proposal that will require careful
+    and considered decision making, backed by suitable research into the field.
 
     \section{Project Plan}
 
@@ -100,5 +109,22 @@ f           accidentally deleted files etc.
             system
         \item Conduct thorough testing and record results
     \end{enumerate}
+
+    \subsection{Milestones}
+
+    \begin{tabular}{ r | l }
+        Date & Milestone \\ \hline
+
+        5th November 2010   & Complete research into currently available
+                                solutions \\ \\
+        12th November 2010  & Complete prototype code for storing and
+                                retrieving file versions \\ \\
+        19th November 2010  & Complete prototype of network backup
+                                protocol \\ \\
+        3rd December 2010   & Present current progress of project \\ \\
+        28th February 2011  & Submit dissertation outline \\ \\
+        6th May 2011        & Submit dissertation \\ \\
+        12th May 2011       & Demonstrate project software \\
+    \end{tabular}
 
 \end{document}
