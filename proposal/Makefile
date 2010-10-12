@@ -13,7 +13,7 @@ clean:
 	rm -f *.aux *.toc *.log $(document).pdf $(document).ps $(document).dvi
 
 show: $(document).pdf
-	evince $(document).pdf &
+	evince $(document).pdf & >/dev/null 2>&1
 
 pdf: $(document).pdf
 
