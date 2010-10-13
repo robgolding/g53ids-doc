@@ -8,6 +8,8 @@
 \usepackage{longtable}
 \usepackage{fullpage}
 \usepackage{pstricks}
+\usepackage{tikz}
+\usepackage[absolute]{textpos}
 
 \title{
     \vspace{3cm}
@@ -17,13 +19,10 @@
 \author{Robert J. Golding (rjg08u)} \date{\today}
 
 \begin{document}
-    \maketitle
-    \vspace{10cm}
-    \begin{figure}
-        \centering
-        \def\svgwidth{\columnwidth}
+    \begin{textblock*}{60mm}(145mm,10mm)
         \input{nottingham}
-    \end{figure}
+    \end{textblock*}
+    \maketitle
     \thispagestyle{empty}
     \newpage
 
@@ -104,40 +103,148 @@
 
     \subsection{Major Tasks}
 
+    Below is a list of the major milestones on the path to project completion.
+
     \begin{enumerate}
-        \item Research current open-source and proprietary backup solutions
-        \item Explore possible implementation methods for versioned file
-            storage and retrieval
-        \item Discuss implementation decisions and begin to implement backup
-            system
-        \item Conduct thorough testing and record results
+        \item Complete research
+        \item Implement prototype system
+        \item Implement full working system
+        \item Test \& evaluate complete system
+        \item Complete documentation
     \end{enumerate}
 
     \subsection{Milestones}
 
-    The dates detailed below represent the major milestones on the path to
-    project completion.
+    The major milestones above can each be broken down into a set of minor
+    milestones, which must be completed to reach the corresponding major
+    milestone.
 
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{ l | l }
-            Date & Milestone \\ \hline
+    The diagram below shows these minor milestones, which can be completed in
+    \emph{parallel}, giving a certain amount of flexibility with regards to the
+    order in which the they are undertaken.
 
-            5th November 2010   & Complete research into currently available
-                                    solutions \\ \\
-            12th November 2010  & Complete prototype code for storing and
-                                    retrieving file versions \\ \\
-            19th November 2010  & Complete prototype of network backup
-                                    protocol \\ \\
-            3rd December 2010   & Present current progress of project \\ \\
-            21st January 2010   & Finalise database models \\ \\
-            4th February 2010   & Finalise user interface design for web
-                                    interface \\ \\
-            28th February 2011  & Submit dissertation outline \\ \\
-            6th May 2011        & Submit dissertation \\ \\
-            12th May 2011       & Demonstrate project software \\
-        \end{tabular}
-        \caption{Summary of milestones}
-    \end{table}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{ l | l }
+%            Date & Milestone \\ \hline
+%
+%            5th November 2010   & Complete research into currently available
+%                                    solutions \\ \\
+%            12th November 2010  & Complete prototype code for storing and
+%                                    retrieving file versions \\ \\
+%            19th November 2010  & Complete prototype of network backup
+%                                    protocol \\ \\
+%            3rd December 2010   & Present current progress of project \\ \\
+%            21st January 2010   & Finalise database models \\ \\
+%            4th February 2010   & Finalise user interface design for web
+%                                    interface \\ \\
+%            28th February 2011  & Submit dissertation outline \\ \\
+%            6th May 2011        & Submit dissertation \\ \\
+%            12th May 2011       & Demonstrate project software \\
+%        \end{tabular}
+%        \caption{Summary of milestones}
+%    \end{table}
+
+\begin{flushright}
+\[ 
+\begin{tikzpicture}
+    \tikzstyle{every node}=[font=\small]
+    \draw (0,0) -- (12,0);
+
+    \draw (0cm,3pt) -- (0cm,-3pt) node[text width=3cm,above=6pt] {Research
+    current backup solutions};
+
+    \draw (4cm,3pt) -- (4cm,-3pt) node[text width=4cm,below=6pt] {Evaluate
+    existing version control systems};
+
+    \draw (8cm,3pt) -- (8cm,-3pt) node[text width=4.5cm,above=6pt] {Investigate
+    hybrid backup \& version control systems};
+
+    \draw (12cm,3pt) -- (12cm,-3pt) node[text width=3.2cm,below=6pt]
+    {\textbf{Research Complete} (19th November 2010)};
+
+\end{tikzpicture}
+\]
+
+\[ 
+\begin{tikzpicture}
+    \tikzstyle{every node}=[font=\small]
+    \draw (0,0) -- (12,0);
+
+    \draw (0cm,3pt) -- (0cm,-3pt) node[text width=3cm,above=6pt] {Implement
+    network protocol};
+
+    \draw (4cm,3pt) -- (4cm,-3pt) node[text width=4.3cm,below=6pt] {Implement
+    database storage \& catalog server-side data};
+
+    \draw (8cm,3pt) -- (8cm,-3pt) node[text width=5cm,above=6pt] {Detect
+    changes in source files};
+
+    \draw (12cm,3pt) -- (12cm,-3pt) node[text width=3.4cm,below=6pt]
+    {\textbf{Prototype Complete} (10th December 2010)};
+
+\end{tikzpicture}
+\]
+
+\[ 
+\begin{tikzpicture}
+    \tikzstyle{every node}=[font=\small]
+    \draw (0,0) -- (12,0);
+
+    \draw (0cm,3pt) -- (0cm,-3pt) node[text width=3cm,above=6pt] {Finalise web
+    UI};
+
+    \draw (4cm,3pt) -- (4cm,-3pt) node[text width=2.8cm,below=6pt] {Implement
+    instant retrieval of files};
+
+    \draw (8cm,3pt) -- (8cm,-3pt) node[text width=3cm,above=6pt] {Implement
+    graphical analysis of data};
+
+    \draw (12cm,3pt) -- (12cm,-3pt) node[text width=3.5cm,below=6pt]
+    {\textbf{Full Working System} (4th March 2011)};
+
+\end{tikzpicture}
+\]
+
+\[ 
+\begin{tikzpicture}
+    \tikzstyle{every node}=[font=\small]
+    \draw (0,0) -- (12,0);
+
+    \draw (0cm,3pt) -- (0cm,-3pt) node[text width=3.4cm,above=6pt] {Construct
+    testing plan};
+
+    \draw (4cm,3pt) -- (4cm,-3pt) node[text width=3cm,below=6pt] {Implement
+    unit tests};
+
+    \draw (8cm,3pt) -- (8cm,-3pt) node[text width=3.6cm,above=6pt] {Write up
+    testing results \& evaluate system};
+
+    \draw (12cm,3pt) -- (12cm,-3pt) node[text width=5.3cm,below=6pt]
+    {\textbf{Testing \& Evaluation Complete} (25th March 2011)};
+
+\end{tikzpicture}
+\]
+
+\[ 
+\begin{tikzpicture}
+    \tikzstyle{every node}=[font=\small]
+    \draw (0,0) -- (12,0);
+
+    \draw (0cm,3pt) -- (0cm,-3pt) node[text width=3cm,above=6pt] {Project plan};
+
+    \draw (3cm,3pt) -- (3cm,-3pt) node[text width=2cm,below=6pt] {Presentation};
+
+    \draw (6cm,3pt) -- (6cm,-3pt) node[text width=2.2cm,above=6pt] {Sample
+    chapter};
+
+    \draw (9cm,3pt) -- (9cm,-3pt) node[text width=0.8cm,below=6pt] {Draft};
+
+    \draw (12cm,3pt) -- (12cm,-3pt) node[text width=4.4cm,above=6pt]
+    {\textbf{Documentation Complete} (31st April 2010)};
+
+\end{tikzpicture}
+\]
+\end{flushright}
 
 \end{document}
