@@ -1,4 +1,27 @@
 \section{Introduction}
 
-Data loss is a very big, and very expensive problem. In the US alone, data loss
-is estimated to cost businesses \$18.2 billion annually\cite{smith03}.
+It is a well-known fact that computers (or more specifically hard drives) do
+not last forever. When these parts fail, it can be a very expensive and
+time-consuming process to recover the data that was stored on them - not to
+mention the cost of operating without said data until it is recovered (that is
+if it \emph{can} be recovered). In fact, in the US alone, data loss is
+estimated to cost businesses \$18.2 billion annually\cite{smith03}. Therefore,
+keeping backups of important or valuable data is an essential part of
+maintaining a computer system or network.
+
+There are two main approaches to backing up a file system: physical and
+logical\cite{hutchinson99}. Physical file system backups duplicate the physical
+medium upon which the data resides. This is analogous to the Unix ``dd''
+command, and requires that the backup image be ``mounted'' before individual
+files can be extracted. This method is a good fit for disaster recovery
+scenarios (when an entire server has failed, for example), but not so for
+accidentally deleted or overridden files.
+
+Logical file system backups, however, aim to interpret the file system meta
+data, in order to discover which files need to be duplicated.  In contrast to
+the physical method, logical file system backups make the process of restoring
+individual files and folders very simple, though they do not lend themselves so
+easily to ``bare-metal'' restores.
+
+Of course, backups are worth nothing if the data they contain cannot be
+restored. 
