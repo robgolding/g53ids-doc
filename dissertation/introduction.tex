@@ -23,5 +23,12 @@ the physical method, logical file system backups make the process of restoring
 individual files and folders very simple, though they do not lend themselves so
 easily to ``bare-metal'' restores.
 
-Of course, backups are worth nothing if the data they contain cannot be
-restored. 
+When referring to the restoration process, there are primarily two types of
+restore: disaster recovery and stupidity recovery\cite{hutchinson99}. These
+loosely correspond with the two backup approaches discussed earlier (physical
+and logical) respectively. Stupidity recovery refers to the request for a small
+number of files and/or folders to be recovered, due to accidental deletion or
+overwriting.
+
+This project concerns the development of a backup system to address this type
+of request (``stupidity recovery'') in a new way.
