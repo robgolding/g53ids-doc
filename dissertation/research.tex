@@ -1,0 +1,59 @@
+\section{Research}
+
+\subsection{Related Works}
+
+\subsubsection{Amanda Network Backup}
+
+AMANDA (Advanced Maryland Automatic Network Disk Archiver) is an open-source,
+multi-platform network backup solution. It uses native Unix tools to archive
+files (such as tar, dump etc.) to disk or tape on a central backup server.
+
+\subsubsection{Dropbox}
+
+Dropbox is primarily a file synchronization tool. It allows users to keep
+a single directory tree synchronized between multiple computers (on different
+platforms). The files are stored ``in the cloud'' on Dropbox's servers, and the
+service is free for up to 2GB of storage. Basic version-control is available,
+with a 30-day history allowed on the free plan.
+
+\subsubsection{Ubuntu One}
+
+Ubuntu One is essentially a clone of Dropbox, solely for Ubuntu users---though
+a Windows client is currently in development---with a paid mobile service for
+Android and iPhone devices. It is created and supported by Canonical, the
+company behind the development of Ubuntu. Although Ubuntu itself is
+open-source, Ubuntu one is a proprietary project. The ``agent'' that is
+installed on the client is open, but the server-side code is not.
+
+\subsubsection{Symantec Backup Exec}
+
+Symantec Backup Exec (formerly VERITAS Backup Exec) is a more ``traditional''
+network backup solution. It allows an administrator to backup multiple hosts to
+a single tape unit or disk. The software has a long, proprietary history
+starting with Maynard Electronics, and has recently added support for
+continuous backup.
+
+\subsubsection{Feature Comparison}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ | l | c | c | c | c | }
+        \hline
+        & Open source   & Version centric   & Web interface & Local network
+            \\ \hline
+
+        Amanda Network Backup   & $\times$  & $\cdot$   & $\cdot$   & $\times$
+            \\ \hline
+
+        Dropbox                 & $\cdot$   & $\times$  & $\times$  & $\cdot$
+            \\ \hline
+
+        Ubuntu One              & $\cdot$   & $\times$  & $\times$  & $\cdot$
+            \\ \hline
+
+        Symantec Backup Exec    & $\cdot$   & $\times$  & $\cdot$   & $\times$
+            \\ \hline
+    \end{tabular}
+    \caption{A comparison of features between a number of related works}
+    \label{tab:feature-comparison}
+\end{table}
