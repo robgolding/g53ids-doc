@@ -33,6 +33,14 @@ a single tape unit or disk. The software has a long, proprietary history
 starting with Maynard Electronics, and has recently added support for
 continuous backup.
 
+\subsubsection{Bacula}
+
+Bacula is an open-source network backup solution, based around a modular
+architecture comprising the \emph{Director}, the \emph{Storage Server}, the
+\emph{File Server}, the \emph{Monitor} and the \emph{Console}. The project uses
+a unique storage format, so backups cannot be restored without specially
+written tools.
+
 \subsubsection{Feature Comparison}
 
 \begin{table}[H]
@@ -52,6 +60,9 @@ continuous backup.
             \\ \hline
 
         Symantec Backup Exec    & $\cdot$   & $\times$  & $\cdot$   & $\times$
+            \\ \hline
+
+        Bacula                  & $\times$  & $\cdot$   & $\times$  & $\times$
             \\ \hline
     \end{tabular}
     \caption{A comparison of features between a number of related works}
