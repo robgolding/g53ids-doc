@@ -103,7 +103,7 @@ endef
 
 all 	: $(PDF)
 
-.PHONY	: all show clean ps pdf showps veryclean
+.PHONY	: all show clean ps pdf showps veryclean push
 
 clean	:
 	  -rm -f $(TRG) $(PSF) $(PDF) $(TRG:%.dvi=%.aux) $(TRG:%.dvi=%.bbl) $(TRG:%.dvi=%.blg) $(TRG:%.dvi=%.log) $(TRG:%.dvi=%.out) $(TRG:%.dvi=%.idx) $(TRG:%.dvi=%.ilg) $(TRG:%.dvi=%.ind) $(TRG:%.dvi=%.toc) $(TRG:%.dvi=%.d)
@@ -119,6 +119,8 @@ veryclean	: clean
 	$(manconf) ; echo  $$mandeps  ;\
 	echo "$*.dvi $@ : $< $$deps $$bibs $$epses $$mandeps" > $@ 
 
+push:
+	../upload/upload.sh $(PDF)
 include $(SRC:.tex=.d)
 
 # $(DEP) $(EPSPICS) $(BIBFILE)
