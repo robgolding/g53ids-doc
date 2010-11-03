@@ -4,26 +4,46 @@
 
 \subsubsection{Amanda Network Backup}
 
-AMANDA (Advanced Maryland Automatic Network Disk Archiver) is an open-source,
+Amanda (Advanced Maryland Automatic Network Disk Archiver) is an open-source,
 multi-platform network backup solution. It uses native Unix tools to archive
 files (such as tar, dump etc.) to disk or tape on a central backup server.
 
+The Amanda client agent runs on almost all Linux or Unix-based systems, and
+there is also a native Windows client available. An ``enterprise'' version is
+also available---supported by a company called Zmanda---based on an annual
+subscription model.
+
 \subsubsection{Dropbox}
 
-Dropbox is primarily a file synchronization tool. It allows users to keep
-a single directory tree synchronized between multiple computers (on different
-platforms). The files are stored ``in the cloud'' on Dropbox's servers, and the
-service is free for up to 2GB of storage. Basic version-control is available,
-with a 30-day history allowed on the free plan.
+Dropbox is primarily a file synchronisation tool. It allows users to keep
+a single directory tree synchronised between multiple computers (on different
+platforms). The files are synchronised to Dropbox's servers, and then to all
+other computers running the Dropbox client that are linked to user's account.
+
+The client and server code is proprietary, but the service is free for up to
+2GB of storage. A ``freemium'' subscription model is used whereby more storage
+can be purchased for a subscription charge. Basic version-control is also
+available, with a 30-day history allowed on the free plan.
 
 \subsubsection{Ubuntu One}
 
 Ubuntu One is essentially a clone of Dropbox, solely for Ubuntu users---though
 a Windows client is currently in development---with a paid mobile service for
 Android and iPhone devices. It is created and supported by Canonical, the
-company behind the development of Ubuntu. Although Ubuntu itself is
-open-source, Ubuntu one is a proprietary project. The ``agent'' that is
-installed on the client is open, but the server-side code is not.
+company sponsoring the development of the popular Linux operating system
+Ubuntu.
+
+Although Ubuntu itself is open-source, Ubuntu One is a proprietary project. The
+``agent'' that is installed on the client is open, but the server-side code is
+not. This means that users cannot run their own Ubuntu One servers, and are
+forced to use Canonical's service. Similarly to Dropbox, more storage space can
+be purchased for a subscription fee.
+
+Ubuntu One also integrates with the local CouchDB instance on the Ubuntu
+operating system, which allows it to synchronise data such as notes taken with
+Tomboy Notes, and email/contact data within Evolution. Also, a music store is
+available which, coupled with the paid mobile client, allows users to stream
+music to their hand-held device over the internet.
 
 \subsubsection{Symantec Backup Exec}
 
