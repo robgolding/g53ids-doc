@@ -2,7 +2,13 @@
 
 \subsection{Related Works}
 
-\subsubsection{Amanda Network Backup}
+Related works fit into one of three main categories: Traditional backup
+systems, on-line (cloud based) backup solutions, and file synchronisation
+services.
+
+\subsubsection{Traditional Backup Systems}
+
+\paragraph{Amanda Network Backup}
 
 Amanda (Advanced Maryland Automatic Network Disk Archiver) is an open-source,
 multi-platform network backup solution. It uses native Unix tools to archive
@@ -13,7 +19,27 @@ there is also a native Windows client available. An ``enterprise'' version is
 also available---supported by a company called Zmanda---based on an annual
 subscription model.
 
-\subsubsection{Dropbox}
+\paragraph{Symantec Backup Exec}
+
+Symantec Backup Exec (formerly VERITAS Backup Exec) is a more ``traditional''
+network backup solution. It allows an administrator to backup multiple hosts to
+a single tape unit or disk. The software has a long, proprietary history
+starting with Maynard Electronics, and has recently added support for
+continuous backup.
+
+\paragraph{Bacula}
+
+Bacula is an open-source network backup solution, based around a modular
+architecture comprising the \emph{Director}, the \emph{Storage Server}, the
+\emph{File Server}, the \emph{Monitor} and the \emph{Console}. The project uses
+a unique storage format, so backups cannot be restored without specially
+written tools.
+
+\subsubsection{Cloud-based Backup Solutions}
+
+\subsubsection{File Synchronisation Services}
+
+\paragraph{Dropbox}
 
 Dropbox is primarily a file synchronisation tool. It allows users to keep
 a single directory tree synchronised between multiple computers (on different
@@ -30,7 +56,7 @@ and view/restore archived versions of the files therein. A 30-day revision
 history is allowed on the free plan, with unlimited versions available on the
 paid subscription plan.
 
-\subsubsection{Ubuntu One}
+\paragraph{Ubuntu One}
 
 Ubuntu One is essentially a clone of Dropbox, solely for Ubuntu users---though
 a Windows client is currently in development---with a paid mobile service for
@@ -55,21 +81,6 @@ files and folders and restoring prior versions of said files. The Ubuntu One
 interface also summarises the recent activity with regards to the integrated
 applications (Tomboy and Evolution).
 
-\subsubsection{Symantec Backup Exec}
-
-Symantec Backup Exec (formerly VERITAS Backup Exec) is a more ``traditional''
-network backup solution. It allows an administrator to backup multiple hosts to
-a single tape unit or disk. The software has a long, proprietary history
-starting with Maynard Electronics, and has recently added support for
-continuous backup.
-
-\subsubsection{Bacula}
-
-Bacula is an open-source network backup solution, based around a modular
-architecture comprising the \emph{Director}, the \emph{Storage Server}, the
-\emph{File Server}, the \emph{Monitor} and the \emph{Console}. The project uses
-a unique storage format, so backups cannot be restored without specially
-written tools.
 
 \subsubsection{Feature Comparison}
 
@@ -83,16 +94,16 @@ written tools.
         Amanda Network Backup   & $\times$  & $\cdot$   & $\cdot$   & $\times$
             \\ \hline
 
-        Dropbox                 & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
-
-        Ubuntu One              & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
-
         Symantec Backup Exec    & $\cdot$   & $\times$  & $\cdot$   & $\times$
             \\ \hline
 
         Bacula                  & $\times$  & $\cdot$   & $\times$  & $\times$
+            \\ \hline
+
+        Dropbox                 & $\cdot$   & $\times$  & $\times$  & $\cdot$
+            \\ \hline
+
+        Ubuntu One              & $\cdot$   & $\times$  & $\times$  & $\cdot$
             \\ \hline
     \end{tabular}
     \caption{A comparison of features between a number of related works}
