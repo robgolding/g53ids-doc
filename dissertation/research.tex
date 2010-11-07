@@ -11,21 +11,40 @@ services.
 \paragraph{Amanda Network Backup}
 
 Amanda (Advanced Maryland Automatic Network Disk Archiver) is an open-source,
-multi-platform network backup solution. It uses native Unix tools to archive
-files (such as tar, dump etc.) to disk or tape on a central backup server.
+multi-platform network backup solution. The software is released under the
+Amanda Copyright and License (a BSD-style license) and is supported by Zmanda.
 
-The Amanda client agent runs on almost all Linux or Unix-based systems, and
-there is also a native Windows client available. An ``enterprise'' version is
-also available---supported by a company called Zmanda---based on an annual
-subscription model.
+Amanda uses native Unix tools to archive files (such as tar or dump) to disk or
+tape on a central backup server. The client agent runs on almost all Linux or
+Unix-based systems, while the server software only support Linux. Due the to
+fact that it only uses native tools, no special drivers are required for
+interfacing with devices such as tape libraries. Therefore, if the operating
+system is able to communicate with the device (via commands such as
+\textbf{mt}) then Amanda can use it.
+
+The software lends itself heavily to the use of tape devices for backing up
+data, and has some advanced features that facilitate this use. As such, it does
+not support a version-centric backup model or instant-recovery.
+
+An ``enterprise'' version is also available---supported by Zmanda---which
+offers a GUI management tool and enterprise-class support (SLA).  This version
+is based on an annual subscription model.
 
 \paragraph{Symantec Backup Exec}
 
-Symantec Backup Exec (formerly VERITAS Backup Exec) is a more ``traditional''
-network backup solution. It allows an administrator to backup multiple hosts to
-a single tape unit or disk. The software has a long, proprietary history
-starting with Maynard Electronics, and has recently added support for
-continuous backup.
+Symantec Backup Exec (formerly VERITAS Backup Exec) is a proprietary network
+backup solution. It allows an administrator to backup multiple hosts to
+a single tape unit or disk. The software has a long history starting with
+Maynard Electronics, and has recently added support for continuous backup.
+
+Though it is primarily a Windows-based application, agents are available for
+Linux/Unix, Solaris, Mac and Novel NetWare. A ``media agent'' is allow
+available for Linux, allowing Linux servers to be used as a storage medium for
+the archived files. The central management platform, however, runs only on
+Microsoft Windows.
+
+Each Symantec agent must be separately licensed, which buys support from
+Symantec for the software.
 
 \paragraph{Bacula}
 
@@ -43,7 +62,7 @@ written tools.
 
 Dropbox is primarily a file synchronisation tool. It allows users to keep
 a single directory tree synchronised between multiple computers (on different
-platforms). The files are synchronised to Dropbox's servers, and then to all
+platforms). The files are synchronised to the Dropbox servers, and then to all
 other computers running the Dropbox client that are linked to user's account.
 
 The client and server code is proprietary, but the service is free for up to
@@ -67,10 +86,10 @@ Ubuntu.
 Although Ubuntu itself is open-source, Ubuntu One is a proprietary project. The
 ``agent'' that is installed on the client is open, but the server-side code is
 not. This means that users cannot run their own Ubuntu One servers, and are
-forced to use Canonical's service. Similarly to Dropbox, more storage space can
+forced to use the service provided by Canonical. Similarly to Dropbox, more storage space can
 be purchased for a subscription fee.
 
-Ubuntu One also integrates with the local CouchDB instance on the Ubuntu
+Ubuntu One also integrates with the local ``CouchDB'' instance on the Ubuntu
 operating system, which allows it to synchronise data such as notes taken with
 Tomboy, and contact data within Evolution. Also, a music store is available
 which, coupled with the paid mobile client, allows users to stream music to
