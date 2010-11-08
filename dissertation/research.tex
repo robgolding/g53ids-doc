@@ -50,9 +50,24 @@ Symantec for the software.
 
 Bacula is an open-source network backup solution, based around a modular
 architecture comprising the \emph{Director}, the \emph{Storage Server}, the
-\emph{File Server}, the \emph{Monitor} and the \emph{Console}. The project uses
-a unique storage format, so backups cannot be restored without specially
-written tools.
+\emph{File Server}, the \emph{Monitor} and the \emph{Console}.
+
+Unlike Amanda, the project uses a unique storage format for archived files that
+is not compatible with tools such as \emph{tar} or \emph{dump}. This means that
+the storage server is not tied to a particular operating system, though backups
+cannot be restored without the use of Bacula restoration tools. This is not
+considered a limitation by the developers, due to the extensibility and
+superior capabilities of the format when compared with the aforementioned
+standard formats.
+
+The Bacula client agent (or \emph{File Server}) is available for multiple platforms,
+including Linux, Solaris, Windows and Mac.
+
+Similarly to Amanda, Bacula lends itself to archiving files to a tape device.
+For this reason, it does not support a version-centric backup model or instant
+recovery. A web interface is, however, available---though it is a separate
+project that requires independent installation and configuration and does not
+facilitate instant access to archived files through the browser.
 
 \subsubsection{Cloud-based Backup Solutions}
 
