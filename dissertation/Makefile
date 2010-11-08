@@ -123,7 +123,7 @@ push: $(PDF)
 	../upload/upload.sh $(PDF)
 
 wc: $(PDF)
-	pdftotext $(PDF) - | egrep -E '\w\w\w+' | iconv -f ISO-8859-15 -t UTF-8 | wc -w
+	pdftotext $(PDF) - | grep -E '\w\w\w+' | iconv -f ISO-8859-15 -t UTF-8 | wc -w
 
 include $(SRC:.tex=.d)
 
