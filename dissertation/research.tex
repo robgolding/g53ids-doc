@@ -13,8 +13,9 @@ services.
 \paragraph{Amanda Network Backup}
 
 Amanda (Advanced Maryland Automatic Network Disk Archiver) is an open-source,
-multi-platform network backup solution. The software is released under the
-Amanda Copyright and License (a BSD-style license) and is supported by Zmanda.
+multi-platform network backup solution\cite{AMANDA-about}. The software is
+released under the Amanda Copyright and License (a BSD-style license) and is
+supported by Zmanda\cite{AMANDA-license}.
 
 Amanda uses native Unix tools to archive files (such as tar or dump) to disk or
 tape on a central backup server. The client agent runs on almost all Linux or
@@ -22,15 +23,16 @@ Unix-based systems, while the server software only support Linux. Due the to
 fact that it only uses native tools, no special drivers are required for
 interfacing with devices such as tape libraries. Therefore, if the operating
 system is able to communicate with the device (via commands such as
-\textbf{mt}) then Amanda can use it.
+\textbf{mt}) then Amanda can use it.\cite{AMANDA-about}
 
 The software lends itself heavily to the use of tape devices for backing up
 data, and has some advanced features that facilitate this use. As such, it does
-not support a version-centric backup model or instant-recovery.
+not support a version-centric backup model or
+instant-recovery.\cite{AMANDA-about}
 
 An ``enterprise'' version is also available---supported by Zmanda---which
 offers a GUI management tool and enterprise-class support (SLA).  This version
-is based on an annual subscription model.
+is based on an annual subscription model\cite{AMANDA-ent}.
 
 \paragraph{Symantec Backup Exec}
 
