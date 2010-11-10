@@ -23,7 +23,7 @@ Unix-based systems, while the server software only support Linux. Due the to
 fact that it only uses native tools, no special drivers are required for
 interfacing with devices such as tape libraries. Therefore, if the operating
 system is able to communicate with the device (via commands such as
-\textbf{mt}) then Amanda can use it\cite{AMANDA-about}.
+\emph{mt}) then Amanda can use it\cite{AMANDA-about}.
 
 The software lends itself heavily to the use of tape devices for backing up
 data, and has some advanced features that facilitate this use. As such, it does
@@ -206,6 +206,28 @@ applications (Tomboy and Evolution)\cite{UbuntuOne}.
     \caption{A comparison of features between a number of related works}
     \label{tab:feature-comparison}
 \end{table}
+
+\subsubsection{Other}
+
+Aside from the aforementioned systems, another category is related to the
+development of this project. Collaborative version control services allow users
+to host repositories on their servers, and provide an interface to browse the
+code within those repositories. Social networking aspects are also featured in
+such services, with users being able to ``follow'' the activity of others, or
+interesting projects hosted on the website.
+
+Examples of this type of service include GitHub\cite{Github} and
+BitBucket\cite{Bitbucket}. While both are closed-source systems, the
+``clients'', which are effectively the version control systems that are used to
+contain the source code---git and mercurial respectively---are open source
+projects themselves.
+
+Though these services do not offer the ability to backup files in the same way
+as the other systems mentioned above, they do require an intensely
+version-centric interface, to allow users to browse the history of their source
+code (and indeed the history of each file individually). This is effectively
+the same interface that would be required for a version-centric backup system
+such as this.
 
 \putbib[research]
 
