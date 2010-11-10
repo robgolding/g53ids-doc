@@ -72,7 +72,7 @@ define run-latex
 	$(COPY);$(LATEX) $<
 	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%);$(COPY);$(LATEX) $<) >/dev/null; true
 	$(BIBTEX) $(<:%.tex=%);$(COPY);$(LATEX) $<; true
-	for f in bu*.aux; do $(BIBTEX) $$f; done;
+	for f in bu*.aux; do $(BIBTEX) $$f; done; true
 	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) >/dev/null; true
 	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) >/dev/null; true
 	if cmp -s $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); then true ;else $(LATEX) $< ; fi
