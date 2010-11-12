@@ -6,7 +6,8 @@
 
 Related works fit into one of three main categories: Traditional backup
 systems, on-line (cloud based) backup solutions, and file synchronisation
-services.
+services. Ideally, this project will combine the positive elements of each of
+these systems.
 
 \subsubsection{Traditional Backup Systems}
 
@@ -18,12 +19,16 @@ released under the Amanda Copyright and License (a BSD-style license) and is
 supported by Zmanda\cite{AMANDA-license}.
 
 Amanda uses native Unix tools to archive files (such as tar or dump) to disk or
-tape on a central backup server. The client agent runs on almost all Linux or
-Unix-based systems, while the server software only support Linux. Due the to
-fact that it only uses native tools, no special drivers are required for
-interfacing with devices such as tape libraries. Therefore, if the operating
-system is able to communicate with the device (via commands such as
-\emph{mt}) then Amanda can use it\cite{AMANDA-about}.
+tape on a central backup server. This means that an administrator can restore
+the archived data, even if the software on the backup server is malfunctioning
+(or indeed has failed altogether).
+
+The client agent runs on almost all Linux or Unix-based systems, while the
+server software only support Linux. Due the to fact that it only uses native
+tools, no special drivers are required for interfacing with devices such as
+tape libraries. Therefore, if the operating system is able to communicate with
+the device (via commands such as \emph{mt}) then Amanda can use
+it\cite{AMANDA-about}.
 
 The software lends itself heavily to the use of tape devices for backing up
 data, and has some advanced features that facilitate this use. As such, it does
@@ -48,6 +53,11 @@ available for Linux, allowing Linux servers to be used as a storage medium for
 the archived files. The central management platform, however, runs only on
 Microsoft Windows\cite{Symantec-about}.
 
+A unique and proprietary storage format is used for the archives, which limits
+recovery operations to proprietary Symantec tools. This also means that if the
+backup server itself were to fail, the data would not be recoverable unless
+a copy of the catalog were available.
+
 Each Symantec agent must be separately licensed, which buys support from
 Symantec for the software\cite{Symantec-about}.
 
@@ -58,22 +68,27 @@ architecture comprising the \emph{Director}, the \emph{Storage Server}, the
 \emph{File Server}, the \emph{Monitor} and the
 \emph{Console}\cite{Bacula-about}.
 
-Unlike Amanda, the project uses a unique storage format for archived files that
-is not compatible with tools such as \emph{tar} or \emph{dump}. This means that
+Similarly to Symantec, the project uses a unique storage format for archived
+files that is not compatible with tools such as \emph{tar} or \emph{dump}
+(though the Bacula format is open-source, and well documented). This means that
 the storage server is not tied to a particular operating system, though backups
-cannot be restored without the use of Bacula restoration tools. This is not
-considered a limitation by the developers, due to the extensibility and
-superior capabilities of the format when compared with the aforementioned
-standard formats\cite{Bacula-about}.
+cannot be restored without the use of specially written Bacula restoration
+tools. This is not considered a limitation by the developers, due to the
+extensibility and superior capabilities of the format when compared with the
+aforementioned standard formats\cite{Bacula-about}. Recovery, however, is made
+more difficult if the Bacula software---or the software running the Bacula
+server---were to fail, because the catalog is required to make sense of the
+archive. Data can be restored without the catalog, but it requires a separate
+``bootstrapping'' process, which adds to the complexity of the restoration.
 
 The Bacula client agent (or \emph{File Server}) is available for multiple platforms,
 including Linux, Solaris, Windows and Mac\cite{Bacula-features}.
 
-Similarly to Amanda, Bacula lends itself to archiving files to a tape device.
-For this reason, it does not support a version-centric backup model or instant
-recovery. A web interface is, however, available---though it is a separate
-project that requires independent installation and configuration and does not
-facilitate instant access to archived files through the
+Bacula lends itself to archiving files to a tape device in the same way as
+Amanda.  For this reason, it does not support a version-centric backup model or
+instant recovery. A web interface is, however, available---though it is
+a separate project requiring independent installation and configuration---and
+does not facilitate instant access to archived files through the
 browser\cite{Bacula-about}.
 
 \subsubsection{Cloud-based Backup Solutions}
