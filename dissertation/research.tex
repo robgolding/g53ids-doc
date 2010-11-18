@@ -213,40 +213,6 @@ applications (Tomboy and Evolution)\cite{UbuntuOne}.
 Finally, Ubuntu one is also limited by the upload speed of the user's internet
 connection, in the same was as the previous systems.
 
-\subsubsection{Feature Comparison}
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{ | l | c | c | c | c | }
-        \hline
-        & Open source   & Version centric   & Web interface & Local network
-            \\ \hline
-
-        Amanda Network Backup   & $\times$  & $\cdot$   & $\cdot$   & $\times$
-            \\ \hline
-
-        Symantec Backup Exec    & $\cdot$   & $\times$  & $\cdot$   & $\times$
-            \\ \hline
-
-        Bacula                  & $\times$  & $\cdot$   & $\times$  & $\times$
-            \\ \hline
-
-        Mozy                    & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
-
-        Carbonite               & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
-
-        Dropbox                 & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
-
-        Ubuntu One              & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
-    \end{tabular}
-    \caption{A comparison of features between a number of related works}
-    \label{tab:feature-comparison}
-\end{table}
-
 \subsubsection{Other}
 
 \paragraph{Version Control}
@@ -276,13 +242,54 @@ such as this.
 Vembu StoreGrid is somewhat of a hybrid between the traditional backup systems
 and the cloud-based backup solutions. It can be configured to backup to a local
 server, and then replicate to an off-site location (including cloud services
-such as Amazon S3).
+such as Amazon S3). The payment model is based around a license (called an
+MCAL), which costs a fixed amount and lasts for a finite time (i.e. a month).
+MCALs are consumed by backup clients at a rate which is determined by the
+functions performed by that particular client. For example, a Microsoft
+Exchange server would consume 4 MCALs per month.
 
 StoreGrid can backup files on a schedule, or in a continuous manner. The client
 application is available for Windows, Mac, Linux, Solaris and FreeBSD.
 
 Finally, StoreGrid allows service providers to sell a branded backup service to
 their customers, charging for storage space on their own servers.
+
+\subsubsection{Feature Comparison}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ | l | c | c | c | c | }
+        \hline
+        & Open source   & Version centric   & Web interface & Local network
+            \\ \hline
+
+        Amanda Network Backup   & $\times$  & $\cdot$   & $\cdot$   & $\times$
+            \\ \hline
+
+        Symantec Backup Exec    & $\cdot$   & $\times$  & $\cdot$   & $\times$
+            \\ \hline
+
+        Bacula                  & $\times$  & $\cdot$   & $\times$  & $\times$
+            \\ \hline
+
+        Mozy                    & $\cdot$   & $\times$  & $\times$  & $\cdot$
+            \\ \hline
+
+        Carbonite               & $\cdot$   & $\times$  & $\times$  & $\cdot$
+            \\ \hline
+
+        Dropbox                 & $\cdot$   & $\times$  & $\times$  & $\cdot$
+            \\ \hline
+
+        Ubuntu One              & $\cdot$   & $\times$  & $\times$  & $\cdot$
+            \\ \hline
+
+        Vembu StoreGrid         & $\cdot$   & $\times$  & $\times$  & $\times$
+            \\ \hline
+    \end{tabular}
+    \caption{A comparison of features between a number of related works}
+    \label{tab:feature-comparison}
+\end{table}
 
 \putbib[research]
 
