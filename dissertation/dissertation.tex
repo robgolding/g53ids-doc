@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper,11pt]{article}
 
 \usepackage{url}
 \usepackage{graphicx}
@@ -12,6 +12,8 @@
 \usepackage[absolute]{textpos}
 \usepackage[subsectionbib]{bibunits}
 
+\usepackage{fontspec}
+\setromanfont[Mapping=tex-text,Ligatures={Required,Common,Rare},Numbers={Lining}]{Calluna}
 \title{
     \vspace{1cm}
     G53IDS Individual Dissertation Single Honours
@@ -19,9 +21,6 @@
 \author{Robert J. Golding (rjg08u)} \date{\today}
 
 \begin{document}
-    \begin{textblock*}{60mm}(145mm,10mm)
-        \input{logo}
-    \end{textblock*}
     \maketitle
     \thispagestyle{empty}
 
