@@ -1,5 +1,15 @@
 \section{Design}
 
+\subsection{Context}
+
+At a very high-level, the backup system's context defines the boundaries of
+functionality, where those boundaries define interactions with other systems.
+
+Given the nature of the backup system, however, this type of interaction is
+minimal. That said, it is possible to draw clear lines between the system
+itself and, for example, external authentication mechanisms with which the
+system may interact when validating a user's credentials at login.
+
 \subsection{Architecture}
 
 The architecture of the system is similar to that of the open-source
