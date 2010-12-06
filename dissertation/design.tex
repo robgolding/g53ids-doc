@@ -1,5 +1,7 @@
 \section{Design}
 
+\subsection{Architecture}
+
 The architecture of the system is similar to that of the open-source
 \emph{Bacula} project, in that it is organised into separate modules. Figure
 \ref{fig:architecture} shows the high-level layout of the design, with arrows
@@ -19,9 +21,8 @@ It is this program that maintains a connection to the client d{\ae}mon,
 
 The server d{\ae}mon also has access to a database, which is used to store not
 only the meta-data relating to files protected by the system, but also to the
-hosts that it protects. For example, each client may have a unique encryption
-or authentication key. Figure \ref{fig:erd} shows the entity-relationship
-diagram for this database.
+hosts that it protects. Figure \ref{fig:erd} shows the entity-relationship
+diagram for the database.
 
 The \emph{storage} subsystem provides an interface for the server d{\ae}mon to
 read and write files to the physical disk, whilst not explicitly choosing their
