@@ -32,7 +32,8 @@
 
 # $Id: Makefile,v 1.18 2006-06-19 10:58:11 mairas Exp $
 
-LATEX	= xelatex
+LATEX	= latex
+XELATEX = xelatex
 BIBTEX	= bibtex
 MAKEINDEX = makeindex
 XDVI	= xdvi -gamma 4
@@ -40,7 +41,7 @@ DVIPS	= dvips
 DVIPDF  = dvipdft
 PS2PDF  = ps2pdf
 L2H	= latex2html
-GH	= evince
+GH	= evince >/dev/null 2>&1
 
 RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
 RERUNBIB = "No file.*\.bbl|Citation.*undefined"
@@ -67,15 +68,28 @@ PDF	= $(SRC:%.tex=%.pdf)
 #DEP     := $(shell perl -ne '($$_)=/^[^%]*\\include\{(.*?)\}/;@_=split /,/;foreach $$t (@_) {print "$$t.tex "}' $(SRC))
 #EPSPICS := $(shell perl -ne '@foo=/^[^%]*\\(includegraphics|psfig)(\[.*?\])?\{(.*?)\}/g;if (defined($$foo[2])) { if ($$foo[2] =~ /.eps$$/) { print "$$foo[2] "; } else { print "$$foo[2].eps "; }}' $(SRC) $(DEP))
 
+define run-bibtex
+	$(BIBTEX) $(<:%.tex=%); true
+	for f in bu*.aux; do $(BIBTEX) $$f; done; true
+endef
 
 define run-latex
 	$(COPY);$(LATEX) $<
 	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%);$(COPY);$(LATEX) $<) >/dev/null; true
-	$(BIBTEX) $(<:%.tex=%);$(COPY);$(LATEX) $<; true
-	for f in bu*.aux; do $(BIBTEX) $$f; done; true
-	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) >/dev/null; true
+	@$(run-bibtex)
 	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) >/dev/null; true
 	if cmp -s $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); then true ;else $(LATEX) $< ; fi
+	$(RM) $(<:%.tex=%.toc.bak)
+	# Display relevant warnings
+	egrep -i "(Reference|Citation).*undefined" $(<:%.tex=%.log) ; true
+endef
+
+define run-xelatex
+	$(COPY);$(XELATEX) $<
+	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%);$(COPY);$(XELATEX) $<) >/dev/null; true
+	@$(run-bibtex)
+	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(XELATEX) $<) >/dev/null; true
+	if cmp -s $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); then true ;else $(XELATEX) $< ; fi
 	$(RM) $(<:%.tex=%.toc.bak)
 	# Display relevant warnings
 	egrep -i "(Reference|Citation).*undefined" $(<:%.tex=%.log) ; true
@@ -135,9 +149,11 @@ $(TRG)	: %.dvi : %.tex
 $(PSF)	: %.ps : %.dvi
 	  @$(DVIPS) $< -o $@
 
-$(PDF)  : %.pdf : %.ps
-#	  @$(DVIPDF) -o $@ $<
-	  @$(PS2PDF) $< $@
+#$(PDF)  : %.pdf : %.ps
+#	  @$(PS2PDF) $< $@
+
+$(PDF)   : %.pdf : %.tex
+	  @$(run-xelatex)
 
 # To use pdflatex, comment the two lines above and uncomment the lines below
 #$(PDF) : %.pdf : %.tex
