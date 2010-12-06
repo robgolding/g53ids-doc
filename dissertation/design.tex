@@ -13,6 +13,29 @@ to represent the flow of data.
     \label{fig:architecture}
 \end{figure}
 
+At the centre of the system is the server d{\ae}mon, \emph{backtracserverd}.
+It is this program that maintains a connection to the client d{\ae}mon,
+\emph{backtracd}, which is installed and running on each protected client.
+
+The server d{\ae}mon also has access to a database, which is used to store not
+only the meta-data relating to files protected by the system, but also to the
+hosts that it protects. For example, each client may have a unique encryption
+or authentication key. Figure \ref{fig:erd} shows the entity-relationship
+diagram for this database.
+
+The \emph{storage} subsystem provides an interface for the server d{\ae}mon to
+read and write files to the physical disk, whilst not explicitly choosing their
+location or name. This level of abstraction provides extensibility, should
+a future implementation change be desired (for example, cloud storage).
+
+The web interface (denoted as \emph{backtracweb} in figure
+\ref{fig:architecture}) allows the administrator to manage and monitor all
+aspects of the backup system. The application has read and write access to the
+database so clients can be added or altered, and existing clients can be
+inspected. Also, read-only access to the storage interface is permitted,
+allowing the administrator to download files from the archive through the web
+browser.
+
 \begin{figure}[h]
     \begin{center}
         \input{erd}
