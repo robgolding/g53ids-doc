@@ -6,19 +6,30 @@
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{longtable}
-\usepackage{fullpage}
+%\usepackage{fullpage}
 \usepackage{pstricks}
 \usepackage{tikz}
 \usepackage[absolute]{textpos}
 \usepackage[subsectionbib]{bibunits}
-
+\usepackage{fancyhdr}
 \usepackage{fontspec}
+
 \setromanfont[Mapping=tex-text,Ligatures={Required,Common,Rare},Numbers={Lining}]{Calluna}
-\title{
-    \vspace{1cm}
-    G53IDS Individual Dissertation Single Honours
-}
+
+\pagestyle{fancy}
+
+\title{G53IDS Individual Dissertation Single Honours}
 \author{Robert J. Golding (rjg08u)} \date{\today}
+
+% Dutch style paragraph formatting
+\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
+\setlength{\parindent}{0pt}
+
+\fancyhead[LE,LO]{}
+\fancyhead[RE,RO]{\leftmark}
+
+\fancyfoot[CE,CO]{}
+\fancyfoot[LE,RO]{\thepage}
 
 \begin{document}
     \maketitle
