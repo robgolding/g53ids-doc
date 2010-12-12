@@ -94,3 +94,15 @@ encryption key, which can be used to encrypt the archived files for that host
 (and indeed the network communication with it). Two flags are also available,
 for signifying whether the client is \emph{authorized}, and whether it is
 \emph{active} (i.e. should be protecting changed files).
+
+As the system is designed to be fully configured from the web interface, the
+database also provides the ability to store the directories that should be
+protected on a given client. This is represented by the \verb!File Path!
+entity, which has only one attribute (the path to be protected), and a link to
+the client with which it is associated.
+
+Finally, to record the status of each client---including current connection
+status and a timestamp recording the last connection to the server---the
+catalog includes a \verb!Status! entity. The relationship between \verb!Client!
+and \verb!Status! is a one-to-one relationship, preventing a status-update from
+overwriting configuration changes that are in progress.
