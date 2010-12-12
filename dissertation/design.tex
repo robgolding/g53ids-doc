@@ -21,7 +21,7 @@ environment.
     \begin{center}
         \input{context}
     \end{center}
-    \caption{System Context Diagram}
+    \caption{System context diagram}
     \label{fig:context}
 \end{figure}
 
@@ -36,7 +36,7 @@ to represent the flow of data.
     \begin{center}
         \input{architecture}
     \end{center}
-    \caption{System Architecture Diagram}
+    \caption{System architecture diagram}
     \label{fig:architecture}
 \end{figure}
 
@@ -46,8 +46,7 @@ It is this program that maintains a connection to the client d{\ae}mon,
 
 The server d{\ae}mon also has access to a database, which is used to store not
 only the meta-data relating to files protected by the system, but also to the
-hosts that it protects. Figure \ref{fig:erd} shows the entity-relationship
-diagram for the database.
+hosts that it protects. This database is called the \emph{catalog}.
 
 The \emph{storage} subsystem provides an interface for the server d{\ae}mon to
 read and write files to the physical disk, whilst not explicitly choosing their
@@ -62,11 +61,36 @@ inspected. Also, read-only access to the storage interface is permitted,
 allowing the administrator to download files from the archive through the web
 browser.
 
-\begin{figure}[h]
+\subsection{Catalog}
+
+The catalog provides the facility to store meta-data regarding the files that
+are backed up. This meta-data includes the size of the file, when it was backed
+up, and the last modified time of the file itself.
+
+The structure of the relational model allows a tree structure to be
+constructed, representing the filesystem on the client. An \verb!Item! is
+a file or folder, which has a name and an optional parent attribute. If no
+parent is present, then the item must be at the top-level.
+
+A number of \verb!Version!s can be associated with each filesystem item. Each
+of these represents a version of the related item on the client, which has been
+protected and is stored in the archive. A version has a unique identifier,
+which can be used to retrieve the associated file from the storage subsystem.
+
+Figure \ref{fig:erd} shows the entity-relationship diagram for the catalog
+database.
+
+\begin{figure}
     \begin{center}
         \input{erd}
     \end{center}
-    \caption{Entity-Relationship Diagram}
+    \caption{Entity-relationship diagram for the catalog}
     \label{fig:erd}
 \end{figure}
 
+The database also has the facility for storing information regarding the hosts
+that are protected by the system. Each \verb!Client! is attributed with an
+encryption key, which can be used to encrypt the archived files for that host
+(and indeed the network communication with it). Two flags are also available,
+for signifying whether the client is \emph{authorized}, and whether it is
+\emph{active} (i.e. should be protecting changed files).
