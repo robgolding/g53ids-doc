@@ -132,7 +132,7 @@ veryclean	: clean
 	$(getbibs) ; echo $$bibs ; \
 	$(geteps) ; echo $$epses ; \
 	$(manconf) ; echo  $$mandeps  ;\
-	echo "$*.dvi $@ : $< $$deps $$bibs $$epses $$mandeps" > $@ 
+	echo "$*.pdf $@ : $< $$deps $$bibs $$epses $$mandeps" > $@ 
 
 push: $(PDF)
 	../upload/upload.sh $(PDF)
