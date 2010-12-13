@@ -11,7 +11,7 @@ these systems.
 
 \subsection{Traditional Backup Systems}
 
-\paragraph{Amanda Network Backup}
+\subsubsection{Amanda Network Backup}
 
 Amanda (Advanced Maryland Automatic Network Disk Archiver) is an open-source,
 multi-platform network backup solution\cite{AMANDA-about}. The software is
@@ -39,7 +39,7 @@ An ``enterprise'' version is also available---supported by Zmanda---which
 offers a GUI management tool and enterprise-class support (SLA).  This version
 is based on an annual subscription model\cite{AMANDA-ent}.
 
-\paragraph{Symantec Backup Exec}
+\subsubsection{Symantec Backup Exec}
 
 Symantec Backup Exec (formerly VERITAS Backup Exec) is a proprietary network
 backup solution. It allows an administrator to backup multiple hosts to
@@ -61,7 +61,7 @@ a copy of the catalog were available.
 Each Symantec agent must be separately licensed, which buys support from
 Symantec for the software\cite{Symantec-about}.
 
-\paragraph{Bacula}
+\subsubsection{Bacula}
 
 Bacula is an open-source network backup solution, based around a modular
 architecture comprising the \emph{Director}, the \emph{Storage Server}, the
@@ -93,7 +93,7 @@ browser\cite{Bacula-about}.
 
 \subsection{Cloud-based Backup Solutions}
 
-\paragraph{Mozy}
+\subsubsection{Mozy}
 
 Mozy is an online backup service that allows users to backup their files to
 ``the cloud'' (meaning the Mozy servers on the internet)\cite{Mozy}. This is
@@ -134,7 +134,7 @@ does not take into account other traffic using the connection, or any drop in
 speed whatsoever. It is obvious that this initial transfer time could cause
 major issues for an administrator with even a modest amount of data.
 
-\paragraph{Carbonite}
+\subsubsection{Carbonite}
 
 Carbonite is an online backup service similar to Mozy. The user's files are
 stored on servers in Carbonite's datacenter, and the client agent support
@@ -159,7 +159,7 @@ take approximately 10 months with Carbonite.
 
 \subsection{File Synchronisation Services}
 
-\paragraph{Dropbox}
+\subsubsection{Dropbox}
 
 Dropbox is primarily a file synchronisation tool. It allows users to keep
 a single directory tree synchronised between multiple computers (on different
@@ -181,7 +181,7 @@ paid subscription plan\cite{Dropbox}.
 Dropbox suffers from the same limitation as Mozy and Carbonite, in that files
 can only be transferred at the speed of the user's upload rate.
 
-\paragraph{Ubuntu One}
+\subsubsection{Ubuntu One}
 
 Ubuntu One is essentially a clone of Dropbox, solely for Ubuntu users---though
 a Windows client is currently in development---with a paid mobile service for
@@ -215,7 +215,7 @@ connection, in the same was as the previous systems.
 
 \subsection{Other}
 
-\paragraph{Version Control}
+\subsubsection{Version Control}
 
 Aside from the aforementioned systems, another category is related to the
 development of this project. Collaborative version control services allow users
@@ -237,7 +237,7 @@ code (and indeed the history of each file individually). This is effectively
 the same interface that would be required for a version-centric backup system
 such as this.
 
-\paragraph{Vembu StoreGrid}
+\subsubsection{Vembu StoreGrid}
 
 Vembu StoreGrid is somewhat of a hybrid between the traditional backup systems
 and the cloud-based backup solutions. It can be configured to backup to a local
