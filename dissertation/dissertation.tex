@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt,twoside]{article}
+\documentclass[a4paper,11pt,twoside,titlepage]{book}
 
 \usepackage{url}
 \usepackage{graphicx}
@@ -25,33 +25,27 @@
 \setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
 \setlength{\parindent}{0pt}
 
-\fancyhead[LE]{\thepage\hspace{2em}\footnotesize{\leftmark}}
-\fancyhead[RE,LO]{}
-\fancyhead[RO]{{\footnotesize\rightmark}\hspace{2em}\thepage}
-\fancyfoot{}
+%\fancyhead[LE]{\thepage\hspace{2em}\footnotesize{\leftmark}}
+%\fancyhead[RE,LO]{}
+%\fancyhead[RO]{{\footnotesize\rightmark}\hspace{2em}\thepage}
+%\fancyfoot{}
 
 \begin{document}
-    \maketitle
-    \thispagestyle{empty}
-    \input{abstract}
-    \newpage
+    \begin{titlepage}
+        \input{title}
+    \end{titlepage}
+
+    \include{abstract}
 
     \tableofcontents
+
     \listoffigures
-    \newpage
 
-    \input{introduction}
-
-    \input{motivation}
-
-    \newpage
-    \input{research}
-
-    \newpage
-    \input{requirements}
-
-    \newpage
-    \input{design}
+    \include{introduction}
+    \include{motivation}
+    \include{research}
+    \include{requirements}
+    \include{design}
 
     \newpage
     \nocite{*}

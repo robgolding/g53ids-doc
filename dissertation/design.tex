@@ -1,6 +1,6 @@
-\section{Design}
+\chapter{Design}
 
-\subsection{Context}
+\section{Context}
 
 At a very high-level, the backup system's context defines the boundaries of
 functionality, where those boundaries define interactions with other systems.
@@ -25,7 +25,7 @@ environment.
     \label{fig:context}
 \end{figure}
 
-\subsection{Architecture}
+\section{Architecture}
 
 The architecture of the system is similar to that of the open-source
 \emph{Bacula} project, in that it is organised into separate modules. Figure
@@ -61,7 +61,7 @@ inspected. Also, read-only access to the storage interface is permitted,
 allowing the administrator to download files from the archive through the web
 browser.
 
-\subsection{Catalog}
+\section{Catalog}
 
 The catalog provides the facility to store meta-data regarding the files that
 are backed up. This meta-data includes the size of the file, when it was backed
