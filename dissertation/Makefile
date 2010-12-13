@@ -295,6 +295,9 @@ endef
 
 default: $(PDF)
 
+push:
+	../upload/upload.sh $(PDF)
+
 # $(DEP) $(EPSPICS) $(BIBFILE)
 $(TRG)	: %.dvi : %.tex %.d
 	@$(run-latex)
