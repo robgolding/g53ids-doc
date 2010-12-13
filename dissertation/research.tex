@@ -291,6 +291,23 @@ their customers, charging for storage space on their own servers.
     \label{tab:feature-comparison}
 \end{table}
 
+\section{Technical Research}
+
+\subsection{inotify}
+
+In order to provide continuous protection for a filesystem, a backup program
+must somehow know when a file has changed. With a small set of files, this can
+be achieved by polling the filesystem at intervals. Obviously, this solution is
+not viable for larger (and indeed more realistic) file sets.
+
+Both Ubuntu One and the Linux version of Dropbox use a kernel subsystem called
+\emph{inotify}, which allows applications to listen for filesystem
+notifications, triggered when files are changed.
+
+\emph{inotify} was released in the Linux kernel version 2.6.13 and was
+developed as a replacement for \emph{dnotify}, which had many undesirable
+flaws, and was widely considered difficult to use\cite{love2005}.
+
 \putbib[research]
 
 \end{bibunit}
