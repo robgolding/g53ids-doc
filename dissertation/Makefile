@@ -105,7 +105,7 @@ define get_dependencies
 endef
 
 define getbibs
-	bibs=`perl -ne '($$_)=/^[^%]*\\\bibliography\{(.*?)\}/;@_=split /,/;foreach $$b (@_) {print "$$b.bib "}' $< $$deps`
+	bibs=`perl -ne '($$_)=/^[^%]*\\\(?:bibliography|putbib)(?:\{|\[)(.*?)(?:\}|\])/;@_=split /,/;foreach $$b (@_) {print "$$b.bib "}' $< $$deps`
 endef
 
 define geteps
