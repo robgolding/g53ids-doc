@@ -122,11 +122,11 @@ Mozy offers a web interface for users to access their data, and download the
 archived files for restoration. This can be done from any computer with access
 to the internet\cite{Mozy}.
 
-The shift to cloud-based storage, however, means that the transfer speed is limited to the upload speed
-of the user's internet connection. This limit might not be
-a problem for home users, but for businesses the delay between a file changing
-and that change being archived could prove to be very expensive. Also, the
-initial backup process is likely take a \emph{very} long time.
+The shift to cloud-based storage, however, means that the transfer speed is
+limited to the upload speed of the user's internet connection. This limit might
+not be a problem for home users, but for businesses the delay between a file
+changing and that change being archived could prove to be very expensive. Also,
+the initial backup process is likely take a \emph{very} long time.
 
 As a conservative example, uploading 500GB of data continuously, over
 a connection with a 2Mbps upload speed would take over 7 months. This estimate
@@ -156,6 +156,24 @@ however, imposes extra limitations on the speed that a client can upload
 data\cite{Carbonite-limits}. Continuing with the previous example, uploading
 500GB of data continuously over a connection with a 2Mbps upload speed would
 take approximately 10 months with Carbonite.
+
+
+\subsubsection{CrashPlan}
+
+CrashPlan is a backup service provider similar to Mozy and Carbonite, though it
+has some major differences. The free (ad-supported) service allows users to
+backup data to their friends' computers (also running the CrashPlan software)
+and vice-versa. Although this feature does not directly relate to the aims of
+this project, its uniqueness makes it worth mentioning.
+
+CrashPlan also offers a ``pro'' plan, which is aimed at businesses rather then
+individuals. The pro plan more closely mirrors the desired feature-set of this
+project, in that it backs data up to an on-site backup server for ease and
+speed of backup and restore operations. This server can also be synchronised to
+a cloud service, for greater redundancy.
+
+The client agent is compatible with Windows, Mac, Linux and Solaris operating
+systems, and allows continuous or scheduled backups. 
 
 \subsection{File Synchronisation Services}
 
