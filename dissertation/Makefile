@@ -73,6 +73,7 @@ MAKEINDEX = makeindex
 XDVI	= xdvi -gamma 4
 DVIPS	= dvips
 DVIPDF  = dvipdft
+PDF2TXT = pdftotext
 #MAKEDJVU= djvudigital --words
 MAKEDJVU= pdf2djvu -q
 DJVUVIEW= okular
@@ -295,8 +296,13 @@ endef
 
 default: $(PDF)
 
-push:
+push: $(PDF)
 	../upload/upload.sh $(PDF)
+
+wc		: $(PDF)
+	@for i in $(PDF) ; do \
+		echo "$$i: `$(PDF2TXT) $$i - | wc -w`"; \
+	done
 
 # $(DEP) $(EPSPICS) $(BIBFILE)
 $(TRG)	: %.dvi : %.tex %.d
