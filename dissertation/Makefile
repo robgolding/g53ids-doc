@@ -576,7 +576,7 @@ viewpdf	: showpdf
 showpdf	: pdf
 	@for i in $(PDF) ; do \
 		$(call echo-do, Viewing,$<: $$i);\
-		$(PDFVIEW) $$i; \
+		$(PDFVIEW) $$i >/dev/null 2>&1 & \
 	done
 
 psgz: $(PSZ)
