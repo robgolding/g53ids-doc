@@ -328,15 +328,15 @@ Both Ubuntu One and the Linux version of Dropbox use a kernel subsystem called
 \emph{inotify}, which allows applications to listen for filesystem
 notifications, triggered when files are changed.
 
-\emph{inotify} was released in the Linux kernel version 2.6.13 and was
-developed as a replacement for \emph{dnotify}, which had many undesirable
-flaws, and was widely considered difficult to use\cite{love2005}.
+inotify was released in the Linux kernel version 2.6.13 and was developed as
+a replacement for \emph{dnotify}, which had many undesirable flaws, and was
+widely considered difficult to use\cite{love2005}.
 
-There are a number of event types which can be ``listened for'' via
-\emph{inotify}, summarised in Table \ref{tab:inotify-events}. The API requires
-that the programmer specify which events they wish to be notified of, under
-which directory. A separate \emph{watch} must be added for each directory that
-is to be monitored, as these are not recursive in nature\cite{love2005}.
+There are a number of event types which can be ``listened for'' via inotify,
+summarised in Table \ref{tab:inotify-events}. The API requires that the
+programmer specify which events they wish to be notified of, under which
+directory. A separate \emph{watch} must be added for each directory that is to
+be monitored, as these are not recursive in nature\cite{love2005}.
 
 \begin{table}
     \centering
@@ -362,12 +362,12 @@ is to be monitored, as these are not recursive in nature\cite{love2005}.
 \subsection{pyinotify}
 
 \emph{pyinotify} is an open-source library for Python which provides
-a high-level API for the \emph{inotify} subsystem. It allows the programmer to
-add watches to a directory in a recursive manner, and to automatically add
-watches to newly created directories below the parent path.
+a high-level API for the inotify subsystem. It allows the programmer to add
+watches to a directory in a recursive manner, and to automatically add watches
+to newly created directories below the parent path.
 
-The open-source Ubuntu One client application uses the \emph{pyinotify} library
-to monitor the filesystem for changes to synchronise\cite{UbuntuOne-servers}.
+The open-source Ubuntu One client application uses the pyinotify library to
+monitor the filesystem for changes to synchronise\cite{UbuntuOne-servers}.
 
 \subsection{Twisted}
 
@@ -377,12 +377,12 @@ resorting to multiple threads or processes---which add to the overall
 complexity of the application\cite{kinder2005}.
 
 Due to the asynchronous nature of the framework, programming with
-\emph{Twisted} is different to other standard libraries. At the core is an
+Twisted is different to other standard libraries. At the core is an
 object called a \emph{deferred}, which represents an event that is yet to
 happen. This allows method calls to return without actually completing their
 task, and for a given piece of code to be executed once that task has ended.
 
-At the centre of the \emph{Twisted} framework is the \emph{reactor}---the main
+At the centre of the Twisted framework is the \emph{reactor}---the main
 event loop. This allows the entire application to be ``hooked'' into a central
 location, from which all events and callbacks are generated or called.
 
