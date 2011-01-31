@@ -376,14 +376,14 @@ Python. It allows programmers to write highly asynchronous programs without
 resorting to multiple threads or processes---which add to the overall
 complexity of the application\cite{kinder2005}.
 
-Due to the asynchronous nature of the framework, programming with
-Twisted is different to other standard libraries. At the core is an
-object called a \emph{deferred}, which represents an event that is yet to
-happen. This allows method calls to return without actually completing their
-task, and for a given piece of code to be executed once that task has ended.
+Due to the asynchronous nature of the framework, programming with Twisted is
+different to other standard libraries. At the core is an object called
+a \emph{deferred}, which represents an event that is yet to happen. This allows
+method calls to return without actually completing their task, and for a given
+piece of code to be executed once that task has ended.
 
-At the centre of the Twisted framework is the \emph{reactor}---the main
-event loop. This allows the entire application to be ``hooked'' into a central
+At the centre of the Twisted framework is the \emph{reactor}---the main event
+loop. This allows the entire application to be ``hooked'' into a central
 location, from which all events and callbacks are generated or called.
 
 The core networking functionality (i.e. file synchronisation) of the Ubuntu One
@@ -401,8 +401,9 @@ the overall system.
 principal (Don't Repeat Yourself)\cite{plekhanova2009}. Arguably the most
 useful part of the Django framework is the ORM (Object-Relational Mapper). This
 allows the developer to access records in a relational database easily, through
-a high-level Python API \cite{plekhanova2009}. The underlying database technology can also be swapped
-out at will, proving a great amount of flexibility for end users.
+a high-level Python API \cite{plekhanova2009}. The underlying database
+technology can also be swapped out at will, proving a great amount of
+flexibility for end users.
 
 \putbib[research]
 
