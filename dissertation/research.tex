@@ -390,6 +390,20 @@ The core networking functionality (i.e. file synchronisation) of the Ubuntu One
 client is based on the Twisted framework\cite{UbuntuOne-servers}, though the
 API is built atop a REST (Representational State Transfer) interface.
 
+\subsection{Django}
+
+An important aspect of this project is the ease and speed with which the
+backups can be accessed by an administrator (or indeed, by a user themselves).
+To this end, the quality of the web interface is essential to the success of
+the overall system.
+
+\emph{Django} is a high-level Python web framework which adheres to the ``DRY''
+principal (Don't Repeat Yourself)\cite{plekhanova2009}. Arguably the most
+useful part of the Django framework is the ORM (Object-Relational Mapper). This
+allows the developer to access records in a relational database easily, through
+a high-level Python API \cite{plekhanova2009}. The underlying database technology can also be swapped
+out at will, proving a great amount of flexibility for end users.
+
 \putbib[research]
 
 \end{bibunit}
