@@ -11,10 +11,14 @@
 \usepackage[absolute]{textpos}
 \usepackage[subsectionbib]{bibunits}
 \usepackage{fancyhdr}
-\usepackage{fontspec}
 \usepackage{emptypage}
 
-\setromanfont[Mapping=tex-text,Ligatures={Common},Numbers={Lining}]{Calluna}
+\IfFileExists{fontspec.sty}
+    {
+        \usepackage{fontspec}
+        \setromanfont[Mapping=tex-text,Ligatures={Common},Numbers={Lining}]{Calluna}
+    }
+
 
 \pagestyle{fancy}
 \headheight=14pt
