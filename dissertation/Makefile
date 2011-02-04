@@ -67,12 +67,13 @@
 
 SHELL = /bin/bash
 
-LATEX	= xetex -interaction=batchmode
+LATEX = $$([ -e /usr/bin/xelatex ] && echo "xelatex -interaction=batchmode -file-line-error-style" || echo "latex")
 BIBTEX	= bibtex
 MAKEINDEX = makeindex
 XDVI	= xdvi -gamma 4
 DVIPS	= dvips
 DVIPDF  = dvipdft
+PS2PDF  = ps2pdf
 PDF2TXT = pdftotext
 #MAKEDJVU= djvudigital --words
 MAKEDJVU= pdf2djvu -q
@@ -204,6 +205,7 @@ $1
 endef
 
 define run-latex
+	echo $(LATEX); \
 	$(COPY) $(QUIET);\
 	$(call echo-tex-step,Running,$(LTITLE),First Run);\
 	$(LATEX) $< $(QUIET) $(DISPLAYERROR) ; runs=1; \
@@ -317,10 +319,13 @@ $(PSZ) : %.ps.gz : %.ps
 	@$(call echo-do,Compressing,$@)
 	@$(GZIP) -c $< > $@
 
-$(PDF)	: LATEX = xelatex -interaction=batchmode -file-line-error-style
-$(PDF)	: LTITLE = XeTeX
+$(PDF)	: LTITLE = $$([ $(LATEX) == "latex" ] && echo "LaTeX" || echo "XeTeX")
 $(PDF)	: %.pdf : %.tex %.d
 	@$(run-latex)
+	if [ $(LATEX) == "latex" ]; then \
+		$(DVIPS) $(@:.pdf=.dvi); \
+		$(PS2PDF) $(@:.pdf=.ps); \
+	fi
 	@$(call echo-do,Optimizing,$@)
 	@(pdfopt $@ $@.pdf)
 	@mv $@.pdf $@ 
