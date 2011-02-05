@@ -66,8 +66,8 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 
 SHELL = /bin/bash
-
-LATEX = $$([ -e /usr/bin/xelatex ] && echo "xelatex -interaction=batchmode -file-line-error-style" || echo "latex")
+XELATEXTEST = -e /usr/bin/xelatex
+LATEX = $$([ $(XELATEXTEST) ] && echo "xelatex -interaction=batchmode -file-line-error-style" || echo "latex")
 BIBTEX	= bibtex
 MAKEINDEX = makeindex
 XDVI	= xdvi -gamma 4
@@ -205,7 +205,6 @@ $1
 endef
 
 define run-latex
-	echo $(LATEX); \
 	$(COPY) $(QUIET);\
 	$(call echo-tex-step,Running,$(LTITLE),First Run);\
 	$(LATEX) $< $(QUIET) $(DISPLAYERROR) ; runs=1; \
@@ -296,6 +295,13 @@ define manconf
 	mandeps=`if test -r $(basename $@).cnf ; then cat $(basename $@).cnf |tr -d '\n\r' ; fi`
 endef
 
+define dvips-ps2pdf
+	if [ ! $(XELATEXTEST) ]; then \
+		$(DVIPS) $(@:.pdf=.dvi); \
+		$(PS2PDF) $(@:.pdf=.ps); \
+	fi
+endef
+
 default: $(PDF)
 
 push: $(PDF)
@@ -319,13 +325,10 @@ $(PSZ) : %.ps.gz : %.ps
 	@$(call echo-do,Compressing,$@)
 	@$(GZIP) -c $< > $@
 
-$(PDF)	: LTITLE = $$([ $(LATEX) == "latex" ] && echo "LaTeX" || echo "XeTeX")
+$(PDF)	: LTITLE = $$([ $(XELATEXTEST) ] && echo "LaTeX" || echo "XeTeX")
 $(PDF)	: %.pdf : %.tex %.d
 	@$(run-latex)
-	if [ $(LATEX) == "latex" ]; then \
-		$(DVIPS) $(@:.pdf=.dvi); \
-		$(PS2PDF) $(@:.pdf=.ps); \
-	fi
+	@$(dvips-pdf2ps)
 	@$(call echo-do,Optimizing,$@)
 	@(pdfopt $@ $@.pdf)
 	@mv $@.pdf $@ 
