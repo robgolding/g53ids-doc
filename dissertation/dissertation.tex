@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt,twoside,titlepage]{book}
+\documentclass[a4paper,11pt,oneside,titlepage]{book}
 
 \usepackage{url}
 \usepackage{graphicx}
@@ -12,6 +12,7 @@
 \usepackage[subsectionbib]{bibunits}
 \usepackage{fancyhdr}
 \usepackage{emptypage}
+\usepackage{setspace}
 \usepackage[T1]{fontenc}
 
 \IfFileExists{fontspec.sty}
@@ -34,6 +35,8 @@
     \begin{titlepage}
         \input{title}
     \end{titlepage}
+
+    \doublespacing
 
     \include{abstract}
 
