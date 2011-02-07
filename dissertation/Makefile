@@ -325,10 +325,10 @@ $(PSZ) : %.ps.gz : %.ps
 	@$(call echo-do,Compressing,$@)
 	@$(GZIP) -c $< > $@
 
-$(PDF)	: LTITLE = $$([ $(XELATEXTEST) ] && echo "LaTeX" || echo "XeTeX")
+$(PDF)	: LTITLE = $$([ $(XELATEXTEST) ] && echo "XeTeX" || echo "LaTeX")
 $(PDF)	: %.pdf : %.tex %.d
 	@$(run-latex)
-	@$(dvips-pdf2ps)
+	@$(dvips-ps2pdf)
 	@$(call echo-do,Optimizing,$@)
 	@(pdfopt $@ $@.pdf)
 	@mv $@.pdf $@ 
