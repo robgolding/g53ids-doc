@@ -29,11 +29,11 @@ clients.
 
 The system will have only minimal interaction with other systems, and all
 aspects of the system itself will be self-contained. A dedicated database of
-user authentication information will be stored, meaning that external factors
-do not affect the ability of the administrator(s) to access backups.
+user authentication information will be maintained, meaning that external
+factors do not affect the ability of the administrator(s) to access backups.
 
 It is envisaged that the backup server will run on a dedicated hardware
-machine, with plentiful storage (ideally in a RAID configuration, to guard
+machine, with plentiful storage (ideally in a RAID configuration to guard
 against disk failures).
 
 \section{User Requirements}
@@ -43,6 +43,50 @@ against disk failures).
  - Some user scenarios would be nice. Include *far* too much detail. -
 
 \section{System Architecture}
+
+The system will be composed of three major parts, which operate independently
+of one another:
+
+\begin{itemize}
+    \item The backup server daemon
+    \item The backup client daemon
+    \item The backup server web interface
+\end{itemize}
+
+\subsection{Server Daemon}
+
+The backup server daemon is the program which will accept incoming connections
+from backup clients, and store the archived files on the server's hard disk(s).
+It will also keep an up-to-date catalog of all protected files, which can be
+accessed by an administrator via the web interface.
+
+\subsubsection{Meta Data}
+
+The server daemon will allow clients to check whether a local file has been
+modified, by comparing the file's meta-data to that stored in the catalog. This
+meta-data may consists of any or all of the following attributes:
+
+\begin{itemize}
+    \item File size
+    \item File modification time
+    \item Inode number
+    \item A hash or checksum of the file's contents
+\end{itemize}
+
+This information may then be used to determine whether the file needs to be
+archived on the server, or if the current version of the archive is up-to-date.
+
+\subsubsection{Current State}
+
+To allow the client to compare the current filesystem's contents with that of
+the most up-to-date backup, the server will also allow clients to retrieve the
+state of the catalog at the present moment in time. This ``state'' need not
+include the meta-data of the archived files, but only their path names---as the
+previously mentioned check may be performed to determine whether a backup is
+required given that a file exists. The main purpose of this operation is to
+notify the server of any files which have been deleted on the client
+filesystem, but still remain in the catalog. This may be as a result of the
+client daemon being stopped for some period of time.
 
 \section{System Requirements}
 
