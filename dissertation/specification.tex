@@ -78,19 +78,44 @@ archived on the server, or if the current version of the archive is up-to-date.
 
 \subsubsection{Current State}
 
-To allow the client to compare the current filesystem's contents with that of
-the most up-to-date backup, the server will also allow clients to retrieve the
+To allow the client to compare the current file system state with that of the
+most up-to-date backup, the server will also allow clients to retrieve the
 state of the catalog at the present moment in time. This ``state'' need not
 include the meta-data of the archived files, but only their path names---as the
 previously mentioned check may be performed to determine whether a backup is
 required given that a file exists. The main purpose of this operation is to
-notify the server of any files which have been deleted on the client
-filesystem, but still remain in the catalog. This may be as a result of the
-client daemon being stopped for some period of time.
+notify the server of any files which have been deleted on the client file
+system, but still remain in the catalog. This may be as a result of the client
+daemon being stopped for some period of time.
+
+\subsection{Client Daemon}
+
+The client daemon will communicate solely with
+the server daemon, and will be unable to access the other parts of the system
+directly. This will provide not only security, but should also encourage
+abstraction when the implementation is developed to meet this specification.
+
+\subsubsection{Startup Protocol}
+
+When the client program is initially started, it should perform a full scan of
+the directories which are configured to backup. Each file should be checked
+against the archive, to see if a backup is required. Also, the current state of
+the file system should be checked, so as to notify the server of any deletions
+that have occurred whilst the daemon was stopped.
+
+\subsubsection{Continuous Backup}
+
+The client daemon should provide continuous protection for files that are
+changed within protected directories on client computers.
 
 \section{System Requirements}
 
 \section{System Models}
+
+\subsection{Architecture}
+
+Figure (ref) shows how the separate system components will be organised, and
+the interactions between them.
 
 \section{System Evolution}
 
