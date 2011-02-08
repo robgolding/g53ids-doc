@@ -64,14 +64,21 @@ accessed by an administrator via the web interface.
 
 The server daemon will allow clients to check whether a local file has been
 modified, by comparing the file's meta-data to that stored in the catalog. This
-meta-data may consists of any or all of the following attributes:
+meta-data may consists of any or all of the attributes defined in table
+\ref{tab:meta-data}.
 
-\begin{itemize}
-    \item File size
-    \item File modification time
-    \item Inode number
-    \item A hash or checksum of the file's contents
-\end{itemize}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{| l | l |} \hline
+        Field       & Meaning                                       \\ \hline
+        size        & File size in bytes                            \\ \hline
+        mtime       & File modification time stamp                  \\ \hline
+        inode       & The inode number of the file                  \\ \hline
+        hash        & A hash (or checksum) of the file's contents   \\ \hline
+    \end{tabular}
+    \caption{File meta-data}
+    \label{tab:meta-data}
+\end{table}
 
 This information may then be used to determine whether the file needs to be
 archived on the server, or if the current version of the archive is up-to-date.
@@ -88,34 +95,53 @@ notify the server of any files which have been deleted on the client file
 system, but still remain in the catalog. This may be as a result of the client
 daemon being stopped for some period of time.
 
+\subsubsection{File Transfer}
+
+Once it has been determined that a file must be re-archived (i.e. the file
+system contains a more up-to-date version than the backup archive), it will be
+transferred from the client to the server daemon. The server will then store
+this file in the archive, and record the meta-data in the catalog.
+
 \subsection{Client Daemon}
 
-The client daemon will communicate solely with
-the server daemon, and will be unable to access the other parts of the system
-directly. This will provide not only security, but should also encourage
-abstraction when the implementation is developed to meet this specification.
+The client daemon will communicate solely with the server daemon, and will be
+unable to access the other parts of the system directly. This will provide not
+only security, but should also encourage abstraction when the implementation is
+developed to meet this specification.
+
+\subsubsection{Meta Data}
+
+To determine whether or not a given file needs to be archived, the client may
+query the server for this information. This query may contain any or all of the
+attributes in table \ref{tab:meta-data}.
 
 \subsubsection{Startup Protocol}
 
-When the client program is initially started, it should perform a full scan of
-the directories which are configured to backup. Each file should be checked
+When the client program is initially started, it will perform a full scan of
+the directories which are configured to backup. Each file will be checked
 against the archive, to see if a backup is required. Also, the current state of
-the file system should be checked, so as to notify the server of any deletions
+the file system will be checked, so as to notify the server of any deletions
 that have occurred whilst the daemon was stopped.
 
 \subsubsection{Continuous Backup}
 
-The client daemon should provide continuous protection for files that are
-changed within protected directories on client computers.
+Once started, the client daemon will provide continuous protection for files
+that are changed within protected directories on the client computer. If a file
+changes on disk, it will be archived within a reasonable amount of time of that
+change (i.e. less than one minute).
+
+\subsubsection{File Transfer}
+
+If a server query indicates that a file is in need of archiving, the file
+will be transferred to the server and archived.
 
 \section{System Requirements}
 
+\subsection{Functional Requirements}
+
+\subsection{Non-Functional Requirements}
+
 \section{System Models}
-
-\subsection{Architecture}
-
-Figure (ref) shows how the separate system components will be organised, and
-the interactions between them.
 
 \section{System Evolution}
 
