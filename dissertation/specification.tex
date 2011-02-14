@@ -140,15 +140,70 @@ will be transferred to the server and archived.
 The purpose of the web interface is to give the administrator(s) access to the
 data stored in the catalog, and to configure the system.
 
+\subsubsection{Authentication}
+
+The web interface will be accessible via an authenticated username and
+password, provided by the system administrator. No screen will be available to
+a user unless they are logged in with these credentials. Instead, the login
+screen will be presented to an unauthenticated user, before they may proceed.
+
 \subsubsection{Dashboard}
 
-The ``home'' screen of the web interface will present the user with a dashboard
-interface, showing important system statistics, and recently occurring events.
+The ``home'' screen of the web interface will present the user with
+a dashboard, showing important system statistics and recently occurred events.
+
+The dashboard will give the administrator an instant overview of the backup
+system, including the following information:
+
+\begin{itemize}
+    \item Disk usage on the backup server
+    \item Backup catalog size
+    \item Catalog size history (i.e. a graph showing size over time)
+    \item Recent events throughout the system
+\end{itemize}
 
 \subsubsection{Clients}
 
 The backup clients will be configured by the administrator via the web
-interface.
+interface. There are a number of different options that will be configurable
+for each client, which include (but are not limited to):
+
+\begin{itemize}
+    \item Hostname
+    \item Secret authentication key (required for the client to connect)
+    \item Paths to be protected
+    \item Excluded files/folders
+\end{itemize}
+
+\subsubsection{Catalog}
+
+To provide access to data in the data in the catalog, the web interface will
+present the administrator with a list of clients that are present. Once
+a client has been selected, the files and folders that are present on the root
+of that client will be displayed. The administrator will then be able to
+``drill-down'' into each successive directory, to reach the desired location.
+
+Deleted files will not be shown by default, but an option to show them will be
+available so that accidental deletions can be recovered quickly.
+
+\subsubsection{Events}
+
+The system will record the events which occur on each backup client, and
+display these events in the web interface. Each event will have an associated
+``time of occurrence'', and will be linked with the file to which it relates in
+the catalog. An event may be representative of one of the following actions:
+
+\begin{itemize}
+    \item File created
+    \item File modified
+    \item File deleted
+\end{itemize}
+
+\subsubsection{Configuration}
+
+The web interface will also provide the main configuration for the system. This
+includes options such as globally excluded files (i.e. temporary files that
+occur on all clients) and other system-wide preferences.
 
 \section{System Requirements}
 
