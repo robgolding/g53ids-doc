@@ -209,6 +209,51 @@ occur on all clients) and other system-wide preferences.
 
 \subsection{Functional Requirements}
 
+\begin{enumerate}
+    \item Architecture
+        \begin{enumerate}
+            \item The system shall be composed of three main components.
+                Namely the server, client and web interface.
+            \item There shall be only one server (and accompanying web
+                interface) per system installation.
+            \item There may be more than one client per installation, with no
+                set maximum number.
+        \end{enumerate}
+    \item Server
+        \begin{enumerate}
+            \item The server application shall provide a networked daemon,
+                listening for connections from multiple clients.
+            \item The server shall maintain a catalog, containing the file
+                system meta-data for each file in the backup archive, and every
+                version thereof
+            \item The server shall store archived files from all clients in
+                a pre-defined location on the file system, in an organised
+                manner to allow any past version of a file to be retrieved
+            \item The server shall allow clients to perform the following
+                operations:
+                \begin{enumerate}
+                    \item Query a file's meta-data in the catalog
+                    \item Create an item in the catalog (i.e. an empty file or
+                        directory)
+                    \item Transfer a file to the archive
+                    \item Restore a file from the archive
+                    \item Signify that a file has been deleted
+                \end{enumerate}
+        \end{enumerate}
+    \item Client
+        \begin{enumerate}
+            \item The client application shall replicate files in protected
+                directories to an archive on the server.
+            \item The client shall perform a scan of the file system on
+                startup, archiving any files which are not up-to-date and
+                signifying the deletion any files which are no longer present
+            \item The client shall provide ``continuous'' file system
+                protection whilst is it running, backing up files as soon as
+                they are created or modified.
+        \end{enumerate}
+    \item Web Interface
+\end{enumerate}
+
 \subsection{Non-Functional Requirements}
 
 \section{System Models}
