@@ -212,20 +212,21 @@ occur on all clients) and other system-wide preferences.
 \begin{enumerate}
     \item Architecture
         \begin{enumerate}
-            \item The system shall be composed of three main components.
-                Namely the server, client and web interface.
-            \item There shall be only one server (and accompanying web
-                interface) per system installation.
-            \item There may be more than one client per installation, with no
-                set maximum number.
+            \item \emph{There shall be only one server (and accompanying web
+                interface) per system installation.}
+            \item \emph{There may be more than one client per installation,
+                with no set maximum number.}
+            \item The web interface shall be ``loosely coupled'' from the rest
+                of the system, and it's state shall not affect the efficacy of
+                the server or client(s) at all.
         \end{enumerate}
     \item Server
         \begin{enumerate}
-            \item The server application shall provide a networked daemon,
-                listening for connections from multiple clients.
-            \item The server shall maintain a catalog, containing the file
-                system meta-data for each file in the backup archive, and every
-                version thereof
+            \item \emph{The server application shall provide a networked
+                daemon, listening for connections from multiple clients.}
+            \item \emph{The server shall maintain a catalog, containing the
+                file system meta-data for each file in the backup archive, and
+                every version thereof.}
             \item The server shall store archived files from all clients in
                 a pre-defined location on the file system, in an organised
                 manner to allow any past version of a file to be retrieved
@@ -242,8 +243,8 @@ occur on all clients) and other system-wide preferences.
         \end{enumerate}
     \item Client
         \begin{enumerate}
-            \item The client application shall replicate files in protected
-                directories to an archive on the server.
+            \item \emph{The client application shall replicate files in
+                protected directories to an archive on the server.}
             \item The client shall perform a scan of the file system on
                 startup, archiving any files which are not up-to-date and
                 signifying the deletion any files which are no longer present
