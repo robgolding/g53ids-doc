@@ -13,17 +13,32 @@
 \usepackage{fancyhdr}
 \usepackage{emptypage}
 \usepackage{setspace}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{caption}
 \usepackage[T1]{fontenc}
-
-\IfFileExists{fontspec.sty}
-    {
-        \usepackage{fontspec}
-        %\setromanfont[Mapping=tex-text,Ligatures={Common},Numbers={Lining}]{Calluna}
-    }
-
 
 \pagestyle{fancy}
 \headheight=14pt
+
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{codeborder}{rgb}{0.9,0.9,0.9}
+\definecolor{codestring}{rgb}{0.2,0.6,0.2}
+
+\DeclareCaptionFont{black}{\color{black}}
+\DeclareCaptionFont{gray}{\color{gray}}
+\DeclareCaptionFormat{listing}{
+        \parbox{\textwidth}{\hspace{-2pt}#1#2#3\vspace{8pt}}
+}
+\captionsetup[lstlisting]{
+    format=listing,
+    labelfont=black,
+    textfont=gray,
+    singlelinecheck=false,
+    margin=0pt,
+    font={bf,footnotesize}
+}
 
 \title{G53IDS Individual Dissertation Single Honours}
 \author{Robert J. Golding (rjg08u)} \date{\today}
@@ -35,6 +50,33 @@
     \begin{titlepage}
         \input{title}
     \end{titlepage}
+
+    \lstset{
+        language=Python,
+        tabsize=4,
+        basicstyle=\footnotesize\ttfamily,
+        numbers=left,
+        numberstyle=\tiny,
+        backgroundcolor=\color{codebg},
+        fillcolor=\color{codebg},
+        rulesepcolor=\color{codebg},
+        framexleftmargin=2in,
+        framexrightmargin=2in,
+        framextopmargin=0.2cm,
+        framexbottommargin=0.2cm,
+        columns=fixed,
+        extendedchars=true,
+        numbersep=10pt,
+        keywordstyle=\color{red},
+        rulecolor=\color{codeborder},
+        frame=lines,
+        showspaces=false,
+        showstringspaces=false,
+        showtabs=false,
+        breaklines=true,
+        stringstyle=\color{codestring}\ttfamily,
+        commentstyle=\color{gray},
+    }
 
     \doublespacing
 
