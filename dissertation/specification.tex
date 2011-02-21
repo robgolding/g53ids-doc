@@ -155,7 +155,9 @@ will be transferred to the server and archived.
 \subsection{Web Interface}
 
 The purpose of the web interface is to give the administrator(s) access to the
-data stored in the catalog, and to configure the system.
+data stored in the catalog, and to configure the system. The web interface
+shall run atop a dedicated web server, and will therefore not be dependent on
+any pre-installed web server software (Apache, nginx, etc.)
 
 \subsubsection{Authentication}
 
@@ -236,6 +238,11 @@ occur on all clients) and other system-wide preferences.
             \item The web interface shall be ``loosely coupled'' from the rest
                 of the system, and it's state shall not affect the efficacy of
                 the server or client(s) at all.
+            \item The client shall communicate only with the server, and not
+                with the web interface in any way.
+            \item The server application and web interface shall both access
+                a shared database, containing the catalog and system
+                configuration.
         \end{enumerate}
     \item Server
         \begin{enumerate}
@@ -286,6 +293,10 @@ occur on all clients) and other system-wide preferences.
             \item \emph{The web interface shall allow the administrator to
                 browse the catalog, and download or restore a file from the
                 archive.}
+            \item The web interface shall run independently of any other
+                software, including the server daemon. It shall therefore not
+                require any web server software to be installed (such as
+                Apache, nginx, lighttpd, etc.)
             \item The web interface shall provide an ``events'' view, which
                 shall allow the administrator to see which files have changed
                 and when.
