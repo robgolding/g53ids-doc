@@ -53,6 +53,23 @@ of one another:
     \item The backup server web interface
 \end{itemize}
 
+Figure \ref{fig:spec-architecture} shows how these components interact.
+
+\begin{figure}[h]
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \begin{picture}(32,13)
+        \put(2,5){\framebox(10,3){Server Daemon}}
+        \put(18,10){\framebox(10,3){Client Daemon}}
+        \put(18,0){\framebox(10,3){Web Interface}}
+
+        \put(12,6.5){\line(6,5){6}}
+        \put(12,6.5){\line(6,-5){6}}
+    \end{picture}
+    \caption{System architecture}
+    \label{fig:spec-architecture}
+\end{figure}
+
 \subsection{Server Daemon}
 
 The backup server daemon is the program which will accept incoming connections
