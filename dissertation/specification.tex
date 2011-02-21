@@ -228,93 +228,98 @@ occur on all clients) and other system-wide preferences.
 
 \subsection{Functional Requirements}
 
+\subsubsection{Architecture}
+
 \begin{enumerate}
-    \item Architecture
+    \item \emph{There shall be only one server (and accompanying web
+        interface) per system installation.}
+    \item \emph{There may be more than one client per installation,
+        with no set maximum number.}
+    \item The web interface shall be ``loosely coupled'' from the rest
+        of the system, and it's state shall not affect the efficacy of
+        the server or client(s) at all.
+    \item The client shall communicate only with the server, and not
+        with the web interface in any way.
+    \item The server application and web interface shall both access
+        a shared database, containing the catalog and system
+        configuration.
+\end{enumerate}
+
+\subsubsection{Server}
+
+\begin{enumerate}
+    \item \emph{The server application shall provide a networked
+        daemon, listening for connections from multiple clients.}
+    \item \emph{The server shall maintain a catalog, containing the
+        file system meta-data for each file in the backup archive, and
+        every version thereof.}
+    \item The server shall store archived files from all clients in
+        a pre-defined location on the file system, in an organised
+        manner to allow any past version of a file to be retrieved.
+    \item The server shall allow clients to perform the following
+        operations:
         \begin{enumerate}
-            \item \emph{There shall be only one server (and accompanying web
-                interface) per system installation.}
-            \item \emph{There may be more than one client per installation,
-                with no set maximum number.}
-            \item The web interface shall be ``loosely coupled'' from the rest
-                of the system, and it's state shall not affect the efficacy of
-                the server or client(s) at all.
-            \item The client shall communicate only with the server, and not
-                with the web interface in any way.
-            \item The server application and web interface shall both access
-                a shared database, containing the catalog and system
-                configuration.
+            \item Query a file's meta-data in the catalog
+            \item Create an item in the catalog (i.e. an empty file or
+                directory)
+            \item Transfer a file to the archive
+            \item Restore a file from the archive
+            \item Signify that a file has been deleted
         \end{enumerate}
-    \item Server
+    \item When a client archives a newly created file to the server,
+        it's meta data shall be recorded in the catalog, and an initial
+        version of that file shall be created in the catalog.
+    \item When an existing file is re-archived (due to a modification
+        on the client, for example), a new version shall be created and
+        associated with that file. The updated meta-data shall be
+        recorded and linked to the new version in the catalog.
+    \item When a file is deleted, this action shall be recorded in the
+        catalog. The file shall not be deleted from the archive.
+\end{enumerate}
+
+\subsubsection{Client}
+
+\begin{enumerate}
+    \item \emph{The client application shall replicate files in
+        protected directories to the server.}
+    \item \emph{The client shall perform a scan of the file system on
+        startup, archiving any files which are not up-to-date and
+        signifying the deletion any files which are no longer present.}
+    \item The client application shall not store any meta-data
+        information on the protected host. The server shall hold the
+        only copy of the catalog.
+    \item The client shall query the server to check if a file
+        requires re-archiving whenever this may be the case (i.e. on
+        startup, and on file modification). The file shall only be
+        re-archived if the meta-data differs from the latest version in
+        the catalog.
+    \item The client shall provide ``continuous'' file system
+        protection whilst is it running, backing up files as soon as
+        they are created or modified, and signifying the deletion of
+        files immediately after they are removed.
+\end{enumerate}
+
+\subsubsection{Web Interface}
+
+\begin{enumerate}
+    \item \emph{The web interface shall allow the administrator to add
+        and remove backup clients from the system.}
+    \item \emph{The web interface shall allow the administrator to
+        browse the catalog, and download or restore a file from the
+        archive.}
+    \item The web interface shall run independently of any other
+        software, including the server daemon. It shall therefore not
+        require any web server software to be installed (such as
+        Apache, nginx, lighttpd, etc.)
+    \item The web interface shall provide an ``events'' view, which
+        shall allow the administrator to see which files have changed
+        and when.
+    \item The web interface shall provide a ``dashboard'' overview of
+        the backup system, which shall include:
         \begin{enumerate}
-            \item \emph{The server application shall provide a networked
-                daemon, listening for connections from multiple clients.}
-            \item \emph{The server shall maintain a catalog, containing the
-                file system meta-data for each file in the backup archive, and
-                every version thereof.}
-            \item The server shall store archived files from all clients in
-                a pre-defined location on the file system, in an organised
-                manner to allow any past version of a file to be retrieved.
-            \item The server shall allow clients to perform the following
-                operations:
-                \begin{enumerate}
-                    \item Query a file's meta-data in the catalog
-                    \item Create an item in the catalog (i.e. an empty file or
-                        directory)
-                    \item Transfer a file to the archive
-                    \item Restore a file from the archive
-                    \item Signify that a file has been deleted
-                \end{enumerate}
-            \item When a client archives a newly created file to the server,
-                it's meta data shall be recorded in the catalog, and an initial
-                version of that file shall be created in the catalog.
-            \item When an existing file is re-archived (due to a modification
-                on the client, for example), a new version shall be created and
-                associated with that file. The updated meta-data shall be
-                recorded and linked to the new version in the catalog.
-            \item When a file is deleted, this action shall be recorded in the
-                catalog. The file shall not be deleted from the archive.
-        \end{enumerate}
-    \item Client
-        \begin{enumerate}
-            \item \emph{The client application shall replicate files in
-                protected directories to the server.}
-            \item \emph{The client shall perform a scan of the file system on
-                startup, archiving any files which are not up-to-date and
-                signifying the deletion any files which are no longer present.}
-            \item The client application shall not store any meta-data
-                information on the protected host. The server shall hold the
-                only copy of the catalog.
-            \item The client shall query the server to check if a file
-                requires re-archiving whenever this may be the case (i.e. on
-                startup, and on file modification). The file shall only be
-                re-archived if the meta-data differs from the latest version in
-                the catalog.
-            \item The client shall provide ``continuous'' file system
-                protection whilst is it running, backing up files as soon as
-                they are created or modified, and signifying the deletion of
-                files immediately after they are removed.
-        \end{enumerate}
-    \item Web Interface
-        \begin{enumerate}
-            \item \emph{The web interface shall allow the administrator to add
-                and remove backup clients from the system.}
-            \item \emph{The web interface shall allow the administrator to
-                browse the catalog, and download or restore a file from the
-                archive.}
-            \item The web interface shall run independently of any other
-                software, including the server daemon. It shall therefore not
-                require any web server software to be installed (such as
-                Apache, nginx, lighttpd, etc.)
-            \item The web interface shall provide an ``events'' view, which
-                shall allow the administrator to see which files have changed
-                and when.
-            \item The web interface shall provide a ``dashboard'' overview of
-                the backup system, which shall include:
-                \begin{enumerate}
-                    \item A graph showing the size of the archive over time.
-                    \item A meter showing disk utilization on the file system
-                        containing the archive.
-                \end{enumerate}
+            \item A graph showing the size of the archive over time.
+            \item A meter showing disk utilization on the file system
+                containing the archive.
         \end{enumerate}
 \end{enumerate}
 
