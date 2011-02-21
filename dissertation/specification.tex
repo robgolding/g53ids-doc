@@ -229,7 +229,7 @@ occur on all clients) and other system-wide preferences.
                 every version thereof.}
             \item The server shall store archived files from all clients in
                 a pre-defined location on the file system, in an organised
-                manner to allow any past version of a file to be retrieved
+                manner to allow any past version of a file to be retrieved.
             \item The server shall allow clients to perform the following
                 operations:
                 \begin{enumerate}
@@ -247,12 +247,29 @@ occur on all clients) and other system-wide preferences.
                 protected directories to an archive on the server.}
             \item The client shall perform a scan of the file system on
                 startup, archiving any files which are not up-to-date and
-                signifying the deletion any files which are no longer present
+                signifying the deletion any files which are no longer present.
             \item The client shall provide ``continuous'' file system
                 protection whilst is it running, backing up files as soon as
                 they are created or modified.
         \end{enumerate}
     \item Web Interface
+        \begin{enumerate}
+            \item \emph{The web interface shall allow the administrator to add
+                and remove backup clients from the system.}
+            \item \emph{The web interface shall allow the administrator to
+                browse the catalog, and download or restore a file from the
+                archive.}
+            \item The web interface shall provide an ``events'' view, which
+                shall allow the administrator to see which files have changed
+                and when.
+            \item The web interface shall provide a ``dashboard'' overview of
+                the backup system, which shall include:
+                \begin{enumerate}
+                    \item A graph showing the size of the archive over time.
+                    \item A meter showing disk utilization on the file system
+                        containing the archive.
+                \end{enumerate}
+        \end{enumerate}
 \end{enumerate}
 
 \subsection{Non-Functional Requirements}
