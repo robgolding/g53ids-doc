@@ -266,21 +266,29 @@ occur on all clients) and other system-wide preferences.
                 \end{enumerate}
             \item When a client archives a newly created file to the server,
                 it's meta data shall be recorded in the catalog, and an initial
-                version of that file shall be created.
+                version of that file shall be created in the catalog.
             \item When an existing file is re-archived (due to a modification
                 on the client, for example), a new version shall be created and
                 associated with that file. The updated meta-data shall be
-                recorded and linked to the new version.
+                recorded and linked to the new version in the catalog.
             \item When a file is deleted, this action shall be recorded in the
                 catalog. The file shall not be deleted from the archive.
         \end{enumerate}
     \item Client
         \begin{enumerate}
             \item \emph{The client application shall replicate files in
-                protected directories to an archive on the server.}
+                protected directories to the server.}
             \item \emph{The client shall perform a scan of the file system on
                 startup, archiving any files which are not up-to-date and
                 signifying the deletion any files which are no longer present.}
+            \item The client application shall not store any meta-data
+                information on the protected host. The server shall hold the
+                only copy of the catalog.
+            \item The client shall query the server to check if a file
+                requires re-archiving whenever this may be the case (i.e. on
+                startup, and on file modification). The file shall only be
+                re-archived if the meta-data differs from the latest version in
+                the catalog.
             \item The client shall provide ``continuous'' file system
                 protection whilst is it running, backing up files as soon as
                 they are created or modified, and signifying the deletion of
