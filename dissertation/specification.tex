@@ -257,17 +257,27 @@ occur on all clients) and other system-wide preferences.
                     \item Restore a file from the archive
                     \item Signify that a file has been deleted
                 \end{enumerate}
+            \item When a client archives a newly created file to the server,
+                it's meta data shall be recorded in the catalog, and an initial
+                version of that file shall be created.
+            \item When an existing file is re-archived (due to a modification
+                on the client, for example), a new version shall be created and
+                associated with that file. The updated meta-data shall be
+                recorded and linked to the new version.
+            \item When a file is deleted, this action shall be recorded in the
+                catalog. The file shall not be deleted from the archive.
         \end{enumerate}
     \item Client
         \begin{enumerate}
             \item \emph{The client application shall replicate files in
                 protected directories to an archive on the server.}
-            \item The client shall perform a scan of the file system on
+            \item \emph{The client shall perform a scan of the file system on
                 startup, archiving any files which are not up-to-date and
-                signifying the deletion any files which are no longer present.
+                signifying the deletion any files which are no longer present.}
             \item The client shall provide ``continuous'' file system
                 protection whilst is it running, backing up files as soon as
-                they are created or modified.
+                they are created or modified, and signifying the deletion of
+                files immediately after they are removed.
         \end{enumerate}
     \item Web Interface
         \begin{enumerate}
