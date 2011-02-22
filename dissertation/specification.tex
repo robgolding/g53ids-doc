@@ -358,6 +358,16 @@ future evolution, and should be seen as likely areas for expansion. The chosen
 design should therefore be produced in an open and extensible manner,
 especially in the mentioned areas.
 
+\subsection{Cloud Storage/Replication}
+
+It is conceivable that the backup system may replicate to another server, to
+ensure that data is not lost in the event of a hardware failure. This
+replication may be performed to a host on the same network, or to a cloud
+service (such as Amazon S3, for example).
+
+This relates to the archival system in particular, which should be designed in
+a such a way that replication is achievable without too much effort.
+
 \section{Non Goals}
 
 The system (at least this particular version) will \emph{not} provide the
