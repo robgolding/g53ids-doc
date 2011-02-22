@@ -13,13 +13,13 @@ project.
 
 \emph{Backtrac Backup System} is an open-source backup system for small to
 medium-sized installations, which focuses on version control for individual
-files. The system is comprised of two main components: the \emph{server} (of
-which there is one per installation), and the \emph{client} (of which there
-may be many).
+files. The system is comprised of three main components: the \emph{server} (of
+which there is one per installation), the \emph{client} (of which there may be
+many) and the \emph{web interface} (accompanying the server).
 
-The clients are the computers which contain important data, to be
-protected by the system. This data is transferred over the network, and stored
-on the server.
+The clients are the computers which contain important data, to be protected by
+the system. This data is transferred over the network, and stored on the
+server.
 
 The administrator can access the backups via a web interface, which allows
 him or her to browse the files that have been archived for all protected
@@ -30,11 +30,11 @@ clients.
 The system will have only minimal interaction with other systems, and all
 aspects of the system itself will be self-contained. A dedicated database of
 user authentication information will be maintained, meaning that external
-factors do not affect the ability of the administrator(s) to access backups.
+factors will not affect the ability of the administrator(s) to access backups.
 
-It is envisaged that the backup server will run on a dedicated hardware
-machine, with plentiful storage (ideally in a RAID configuration to guard
-against disk failures).
+It is envisaged that the backup server will run on a dedicated computer, with
+plentiful storage (ideally in a RAID configuration to guard against disk
+failures).
 
 \section{User Requirements}
 
@@ -48,8 +48,8 @@ The system will be composed of three major parts, which operate independently
 of one another:
 
 \begin{itemize}
-    \item The backup server daemon
-    \item The backup client daemon
+    \item The backup server
+    \item The backup client
     \item The backup server web interface
 \end{itemize}
 
@@ -59,8 +59,8 @@ Figure \ref{fig:spec-architecture} shows how these components interact.
     \setlength{\unitlength}{0.14in}
     \centering
     \begin{picture}(28,15)
-        \put(2,5){\framebox(10,3){Server Daemon}}
-        \put(18,10){\framebox(10,3){Client Daemon}}
+        \put(2,5){\framebox(10,3){Server}}
+        \put(18,10){\framebox(10,3){Client}}
         \put(18,0){\framebox(10,3){Web Interface}}
 
         \put(12,6.5){\line(6,5){6}}
@@ -70,18 +70,18 @@ Figure \ref{fig:spec-architecture} shows how these components interact.
     \label{fig:spec-architecture}
 \end{figure}
 
-\subsection{Server Daemon}
+\subsection{Server}
 
-The backup server daemon is the program which will accept incoming connections
-from backup clients, and store the archived files on the server's hard disk(s).
-It will also keep an up-to-date catalog of all protected files, which can be
+The backup server is the program which will accept incoming connections from
+backup clients, and store the archived files on the server's hard disk(s).  It
+will also maintain an up-to-date catalog of all protected files, which can be
 accessed by an administrator via the web interface.
 
 \subsubsection{Meta Data}
 
-The server daemon will allow clients to check whether a local file has been
-modified, by comparing the file's meta-data to that stored in the catalog. This
-meta-data may consists of any or all of the attributes defined in table
+The server will allow clients to check whether a local file has been modified,
+by comparing the file's meta-data to that stored in the catalog. This meta-data
+may consists of any or all of the attributes defined in table
 \ref{tab:meta-data}.
 
 \begin{table}[h]
@@ -106,51 +106,61 @@ To allow the client to compare the current file system state with that of the
 most up-to-date backup, the server will also allow clients to retrieve the
 state of the catalog at the present moment in time. This ``state'' need not
 include the meta-data of the archived files, but only their path names---as the
-previously mentioned check may be performed to determine whether a backup is
+previously mentioned check will be performed to determine whether a backup is
 required given that a file exists. The main purpose of this operation is to
 notify the server of any files which have been deleted on the client file
 system, but still remain in the catalog. This may be as a result of the client
-daemon being stopped for some period of time.
+program being stopped for some period of time.
 
 \subsubsection{File Transfer}
 
 Once it has been determined that a file must be re-archived (i.e. the file
 system contains a more up-to-date version than the backup archive), it will be
-transferred from the client to the server daemon. The server will then store
-this file in the archive, and record the meta-data in the catalog.
+transferred from the client to the server. The server will then store this file
+in the archive, and record the meta-data in the catalog.
 
-\subsection{Client Daemon}
+\subsection{Client}
 
-The client daemon will communicate solely with the server daemon, and will be
-unable to access the other parts of the system directly. This will provide not
-only security, but should also encourage abstraction when the implementation is
+The client will communicate solely with the server, and will be unable to
+access the other parts of the system directly. This will provide not only
+security, but should also encourage abstraction when the implementation is
 developed to meet this specification.
+
+The client will attempt to connect to the server which is specified in
+a configuration file, and authenticate to it with a given secret key. Before
+the client can connect, it must be added to the server by an administrator and
+configured with said key.
 
 \subsubsection{Meta Data}
 
-To determine whether or not a given file needs to be archived, the client may
+To determine whether or not a given file needs to be archived, the client will
 query the server for this information. This query may contain any or all of the
 attributes in table \ref{tab:meta-data}.
 
 \subsubsection{Startup Protocol}
 
 When the client program is initially started, it will perform a full scan of
-the directories which are configured to backup. Each file will be checked
-against the archive, to see if a backup is required. Also, the current state of
-the file system will be checked, so as to notify the server of any deletions
-that have occurred whilst the daemon was stopped.
+the directories which are configured to be backed up. This configuration
+information will be stored on the server, and must be retrieved before the
+client can begin backing up files.
+
+Each file will be checked against the archive, to see if a backup is required.
+Also, the current state of the file system will be checked, so as to notify the
+server of any deletions that have occurred whilst the client was stopped.
 
 \subsubsection{Continuous Backup}
 
-Once started, the client daemon will provide continuous protection for files
-that are changed within protected directories on the client computer. If a file
-changes on disk, it will be archived within a reasonable amount of time of that
-change (i.e. less than one minute).
+Once started, the client will provide continuous protection for files that are
+changed within protected directories on the client computer. If a file changes
+on disk, it will be archived within a reasonable amount of time of that change
+(i.e. less than one minute). The client program will not scan the protected
+directories repeatedly to determine whether a file has changed, as this is
+extremely inefficient (especially for large file systems).
 
 \subsubsection{File Transfer}
 
-If a server query indicates that a file is in need of archiving, the file
-will be transferred to the server and archived.
+If a server query indicates that a file is in need of archiving, the file will
+be transferred to the server and archived.
 
 \subsection{Web Interface}
 
@@ -170,6 +180,10 @@ screen will be presented to an unauthenticated user, before they may proceed.
 
 The ``home'' screen of the web interface will present the user with
 a dashboard, showing important system statistics and recently occurred events.
+
+\begin{quote}
+    Note: events are explained in more detail later on in this section.
+\end{quote}
 
 The dashboard will give the administrator an instant overview of the backup
 system, including the following information:
@@ -194,6 +208,9 @@ for each client, which include (but are not limited to):
     \item Excluded files/folders
 \end{itemize}
 
+The client program on a given protected host will not be able to connect to the
+server until it has been added to the system by an administrator.
+
 \subsubsection{Catalog}
 
 To provide access to data in the data in the catalog, the web interface will
@@ -203,7 +220,7 @@ of that client will be displayed. The administrator will then be able to
 ``drill-down'' into each successive directory, to reach the desired location.
 
 Deleted files will not be shown by default, but an option to show them will be
-available so that accidental deletions can be recovered quickly.
+available so that accidentally deleted files can be recovered.
 
 \subsubsection{Events}
 
@@ -220,9 +237,10 @@ the catalog. An event may be representative of one of the following actions:
 
 \subsubsection{Configuration}
 
-The web interface will also provide the main configuration for the system. This
-includes options such as globally excluded files (i.e. temporary files that
-occur on all clients) and other system-wide preferences.
+The web interface will also provide access to the main configuration for the
+system. This includes options such as globally excluded files (i.e. temporary
+files that occur on all clients) which should never be archived, and other
+system-wide preferences.
 
 \section{System Requirements}
 
@@ -326,9 +344,9 @@ occur on all clients) and other system-wide preferences.
 \subsection{Non-Functional Requirements}
 
 \begin{enumerate}
-	\item The system shall be modular and extensible in design.
-	\item The system shall be responsive when reacting to user input.
-	\item The system shall be intuitive and easy-to-use.
+    \item The system shall be modular and extensible in design.
+    \item The system shall be responsive when reacting to user input.
+    \item The system shall be intuitive and easy-to-use.
 \end{enumerate}
 
 \section{System Models}
