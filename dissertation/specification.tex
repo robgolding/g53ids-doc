@@ -345,6 +345,41 @@ system-wide preferences.
             \item A meter showing disk utilization on the file system
                 containing the archive.
         \end{enumerate}
+    \item The web interface shall allow the administrator to add a new client
+        to the system, defining the following attributes:
+        \begin{enumerate}
+            \item Hostname, which is used to uniquely identify the client
+            \item Secret key, which is used to authenticate the client when it
+                connects to the server
+            \item Protected directories, which will be backed up by the client
+                application
+            \item Ignored files/directories (in ``glob'' format) which should
+                not be archived by the client
+        \end{enumerate}
+    \item The web interface shall allow the administrator to modify an existing
+        client, updating any or all of the attributes on that client
+    \item The web interface shall allow the administrator to delete a client,
+        along with all related catalog entries and archived data
+    \item The web interface shall allow the administrator to browse the catalog
+        for any client in the system, and perform the following operations:
+        \begin{enumerate}
+            \item Drill-down through the directory structure to reach a given
+                file
+            \item View deleted files/folders in the selected directory
+            \item Download an archived file to the local computer
+            \item Restore an archived file to it's original location on the
+                client
+        \end{enumerate}
+    \item The web interface shall allow the administrator to view detailed
+        information about a selected file in the catalog, including:
+        \begin{enumerate}
+            \item The client on which the file resides (or resided), and it's
+                full path
+            \item The file's version history
+            \item The file's size (at present, and for each version in it's
+                history)
+            \item When the file was last modified
+        \end{enumerate}
 \end{enumerate}
 
 \subsection{Non-Functional Requirements}
