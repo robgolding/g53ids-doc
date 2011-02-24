@@ -392,6 +392,48 @@ system-wide preferences.
 
 \section{System Models}
 
+\subsection{Server}
+
+\subsubsection{Receiving a file}
+
+\begin{figure}[H]
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \footnotesize
+    \begin{picture}(28,15)
+        \put(1,14){\circle*{1}}
+        \put(5,14){\umlDiamond}
+        \put(1,14){\vector(1,0){4}}
+        \put(6,13){\vector(0,-1){4}}
+        \put(8,14.5){[exists in catalog]}
+        \put(7,14){\line(1,0){5}}
+        \put(0,11){[doesn't exist]}
+        \put(6,7.5){\oval(8,3)}
+        \put(3.9,7.2){Create item}
+        \put(6,6){\vector(0,-1){2}}
+        \put(6,2.5){\oval(8,3)}
+        \put(2.2,2.2){Create new version}
+        \put(12,14){\line(0,-1){11.5}}
+        \put(12,2.5){\vector(-1,0){2}}
+        \put(6,1){\line(0,-1){1}}
+        \put(6,0){\line(1,0){14}}
+        \put(20,0){\vector(0,1){1}}
+        \put(20,2.5){\oval(8,3)}
+        \put(17.5,2.2){Archive file}
+        \put(20,4){\vector(0,1){2}}
+        \put(20,7.5){\oval(8,3)}
+        \put(17.1,7.2){Store location}
+        \put(20,9){\vector(0,1){2}}
+        \put(20,12.5){\oval(8,3)}
+        \put(17.5,12.2){Create event}
+        \put(24,12.5){\vector(1,0){2}}
+        \put(27,12.5){\circle*{1}}
+        \put(27,12.5){\circle{2}}
+    \end{picture}
+    \caption{Receiving a file}
+    \label{fig:receive-file}
+\end{figure}
+
 \section{System Evolution}
 
 The following items are points for consideration with regards to the system's
