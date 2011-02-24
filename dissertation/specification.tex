@@ -441,6 +441,40 @@ to record the operation. Figure \ref{fig:receive-file} depicts this process.
     \label{fig:receive-file}
 \end{figure}
 
+\subsubsection{Deleting a file}
+
+When a client signifies that a file has been deleted, the server should again
+check to see if the file exists in the catalog. If so, the file should be
+marked as deleted and an event created to record the operation. Otherwise, no
+action should be taken. Figure \ref{fig:delete-file} depicts this process.
+
+\begin{figure}[H]
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \footnotesize
+    \begin{picture}(28,17)
+        \put(1,14){\circle*{1}}
+        \put(5,14){\umlDiamond}
+        \put(1,14){\vector(1,0){4}}
+        \put(6,13){\line(0,-1){10.5}}
+        \put(6,2.5){\vector(1,0){14}}
+        \put(0,11){[doesn't exist]}
+        \put(7,14){\line(1,0){10}}
+        \put(8,14.5){[exists in catalog]}
+        \put(21,14){\oval(8,3)}
+        \put(18.3,13.7){Mark deleted}
+        \put(21,12.5){\vector(0,-1){4}}
+        \put(21,7){\oval(8,3)}
+        \put(18.3,6.7){Create event}
+        \put(21,5.5){\vector(0,-1){2}}
+        \put(21,2.5){\circle*{1}}
+        \put(21,2.5){\circle{2}}
+    \end{picture}
+    \caption{Deleting a file}
+    \label{fig:delete-file}
+\end{figure}
+
+
 \section{System Evolution}
 
 The following items are points for consideration with regards to the system's
