@@ -396,11 +396,18 @@ system-wide preferences.
 
 \subsubsection{Receiving a file}
 
+When the server receives a file from a client, it should first check to see if
+that file exists in the catalog. If it does not, then it should be created.
+A new version should then be created to store the meta-data of the incoming
+file. The file should then be archived to the disk, and it's location stored in
+the catalog with the newly created version. Finally, an event should be created
+to record the operation. Figure \ref{fig:receive-file} depicts this process.
+
 \begin{figure}[H]
     \setlength{\unitlength}{0.14in}
     \centering
     \footnotesize
-    \begin{picture}(28,15)
+    \begin{picture}(28,17)
         \put(1,14){\circle*{1}}
         \put(5,14){\umlDiamond}
         \put(1,14){\vector(1,0){4}}
