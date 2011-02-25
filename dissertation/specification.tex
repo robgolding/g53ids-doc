@@ -474,6 +474,40 @@ action should be taken. Figure \ref{fig:delete-file} depicts this process.
     \label{fig:delete-file}
 \end{figure}
 
+\subsection{Client}
+
+\subsubsection{File Updated}
+
+When a file is updated, the client should first query the server with the
+file's meta-data to determine whether a backup is required. If so, the client
+should transfer the file to the server. Otherwise, no action should be taken.
+Figure \ref{fig:file-updated} depicts this process.
+
+\begin{figure}[H]
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \footnotesize
+    \begin{picture}(28,10)
+        \put(1,7){\circle*{1}}
+        \put(1,7){\vector(1,0){3}}
+        \put(8,7){\oval(8,3)}
+        \put(5.3,6.7){Query Server}
+        \put(12,7){\vector(1,0){2}}
+        \put(14,7){\umlDiamond}
+        \put(16,7){\vector(1,0){10}}
+        \put(16.5,7.5){[backup not required]}
+        \put(15,6){\vector(0,-1){3}}
+        \put(15.5,4.5){[backup required]}
+        \put(15,1.5){\oval(8,3)}
+        \put(12.3,1.2){Transfer File}
+        \put(19,1.5){\line(1,0){8}}
+        \put(27,1.5){\vector(0,1){4.5}}
+        \put(27,7){\circle*{1}}
+        \put(27,7){\circle{2}}
+    \end{picture}
+    \caption{File updated}
+    \label{fig:file-updated}
+\end{figure}
 
 \section{System Evolution}
 
