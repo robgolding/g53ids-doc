@@ -555,6 +555,50 @@ Figure \ref{fig:file-updated} depicts this process.
     \label{fig:file-updated}
 \end{figure}
 
+\subsubsection{Startup Protocol}
+
+On startup, the client application should scan each protected directory. Every
+file encountered should be queried to determine if a backup is required, and if
+so, it should be transferred to the server. Figure \ref{fig:startup-protocol}
+depicts this process.
+
+\begin{figure}[H]
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \footnotesize
+    \begin{picture}(28,17)
+        \put(1,11){\circle*{1}}
+        \put(1,11){\vector(1,0){4}}
+        \put(5,11){\umlDiamond}
+        \put(6,12){\vector(0,1){3}}
+        \put(6.5,13.2){[no files remaining]}
+        \put(6,16){\circle*{1}}
+        \put(6,16){\circle{2}}
+        \put(7,11){\vector(1,0){10}}
+        \put(9,11.5){[files remaining]}
+        \put(21,11){\oval(8,3)}
+        \put(18.1,10.7){Scan Next File}
+        \put(21,9.5){\vector(0,-1){2}}
+        \put(21,6){\oval(8,3)}
+        \put(18.3,5.7){Query Server}
+        \put(21,4.5){\vector(0,-1){2}}
+        \put(20,1.5){\umlDiamond}
+        \put(21,0.5){\line(0,-1){0.5}}
+        \put(21,0){\line(-1,0){15}}
+        \put(11,0.5){[backup required]}
+        \put(6,0){\vector(0,1){4.5}}
+        \put(6,6){\oval(8,3)}
+        \put(3.3,5.7){Transfer File}
+        \put(6,7.5){\vector(0,1){2.5}}
+        \put(20,1.5){\line(-1,0){9}}
+        \put(11.5,2){[no backup required]}
+        \put(11,1.5){\line(0,1){9}}
+        \put(11,10.5){\vector(-1,0){4.5}}
+    \end{picture}
+    \caption{Startup protocol}
+    \label{fig:startup-protocol}
+\end{figure}
+
 \section{System Evolution}
 
 The following items are points for consideration with regards to the system's
