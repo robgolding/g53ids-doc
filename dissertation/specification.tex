@@ -476,6 +476,29 @@ action should be taken. Figure \ref{fig:delete-file} depicts this process.
 
 \subsection{Client}
 
+\subsubsection{Directory Created}
+
+When a new directory is created within a currently protected directory, the
+client application should simply notify the server. Figure
+\ref{fig:directory-created} depicts this process.
+
+\begin{figure}[H]
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \footnotesize
+    \begin{picture}(20,8)
+        \put(1,4){\circle*{1}}
+        \put(1,4){\vector(1,0){4}}
+        \put(9,4){\oval(8,3)}
+        \put(6.3,3.7){Notify Server}
+        \put(13,4){\vector(1,0){4}}
+        \put(18,4){\circle*{1}}
+        \put(18,4){\circle{2}}
+    \end{picture}
+    \caption{Directory created}
+    \label{fig:directory-created}
+\end{figure}
+
 \subsubsection{File Updated}
 
 When a file is updated, the client should first query the server with the
