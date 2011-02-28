@@ -39,7 +39,36 @@ failures).
 
 \subsection{Scenarios}
 
- - Some user scenarios would be nice. Include *far* too much detail. -
+David is a 39-year-old IT manager for a small construction company based in
+Nottingham. The company employs a total of 13 administration staff, whose jobs
+mostly involve scheduling work and managing plans for projects. David is the
+only person managing the network.
+
+The plans are stored in digital format on a file server in the company's office
+building. The server is also used for storing user documents, and runs on
+Ubuntu Server 10.04 LTS (Long-Term Support).
+
+David backs up the server to a tape drive every weekend, and has to remember to
+take the previous week's tape home for security. Being the only IT person at
+the company, David is very busy and does not have time to test the backup very
+often, so this has not been done for over a year.
+
+Clients can either email plans to the company, or send them via fax. They are
+then transferred to the server, so that all employees can access them in
+a central location. Updated plans are sent in frequently, and it is normal for
+a project to undergo 5 revisions before work starts. Because the backup only
+runs once a week, however, previous versions are often left out of the
+backup---as employees tend to overwrite the file instead of keeping both
+versions. This means that it is often impossible to access earlier revisions of
+a project's plan, and data is at risk of being lost before a backup is
+completed at the weekend.
+
+David realises this issue, and installs \emph{Backtrac Backup System} on
+a spare computer, adding a 1TB hard drive for backups. He installs the client
+application on the file server, and configures it to backup the main shared
+directory. The first time the client is started, it performs a full backup of
+the share. After this, files are kept up-to-date so that new versions are
+backed up immediately.
 
 \section{System Architecture}
 
