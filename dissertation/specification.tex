@@ -277,9 +277,13 @@ system-wide preferences.
 
 \subsection{Functional Requirements}
 
+\begin{enumerate}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\textsc{FuncReq}$\theenumi$.}
+
 \subsubsection{Architecture}
 
-\begin{enumerate}
     \item \emph{There shall be only one server (and accompanying web interface)
         per system installation.}
     \item \emph{There may be more than one client per installation, with no set
@@ -291,11 +295,9 @@ system-wide preferences.
         web interface in any way.
     \item The server application and web interface shall both access a shared
         database, containing the catalog and system configuration.
-\end{enumerate}
 
 \subsubsection{Server}
 
-\begin{enumerate}
     \item \emph{The server application shall provide a networked daemon,
         listening for connections from multiple clients.}
     \item \emph{The server shall maintain a catalog, containing the
@@ -326,11 +328,9 @@ system-wide preferences.
     \item When a file is deleted, this action shall be recorded in the catalog.
         The file shall not be deleted from the archive, so that it may be
         restored later.
-\end{enumerate}
 
 \subsubsection{Client}
 
-\begin{enumerate}
     \item \emph{The client application shall connect to the server via it's
         address as specified in a configuration file. It shall authenticate
         itself to the server using a secret key, also specified in
@@ -356,11 +356,9 @@ system-wide preferences.
         modified, and signifying the deletion of files immediately after they
         are removed. This shall not be achieved by ``polling'' the file system
         periodically to detect changes, as this is inefficient.
-\end{enumerate}
 
 \subsubsection{Web Interface}
 
-\begin{enumerate}
     \item \emph{The web interface shall allow the administrator to add and
         remove backup clients from the system.}
     \item \emph{The web interface shall allow the administrator to browse the
@@ -416,45 +414,45 @@ system-wide preferences.
                 history)
             \item When the file was last modified
         \end{enumerate}
+
 \end{enumerate}
 
 \subsection{Non-Functional Requirements}
 
+\begin{enumerate}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\textsc{NFuncReq}$\theenumi$.}
+
 \subsubsection{Performance Requirements}
 
-\begin{enumerate}
     \item The system shall be able to backup large directory structures,
         containing 10,000 or more files/folders.
     \item The system shall return search results within 2 seconds.
-\end{enumerate}
 
 \subsubsection{Safety Requirements}
 
-\begin{enumerate}
     \item The system shall require user confirmation for delete operations.
     \item The system shall perform automatic backups of the catalog to protect
         against hardware/software failure.
-\end{enumerate}
 
 \subsubsection{Security Requirements}
 
-\begin{enumerate}
     \item User passwords shall be stored by the system using a cryptographic
         hash.
     \item The web interface shall be accessible only via HTTPS, to ensure that
         sensitive user data cannot be intercepted.
     \item The client shall communicate with the server using an encrypted
         connection, to protect sensitive data in transit.
-\end{enumerate}
 
 \subsubsection{Usability Requirements}
 
-\begin{enumerate}
     \item The system shall provide a clear and well-structure help system.
     \item The system shall provide ``tool tips'' when hovering over elements
         wherever appropriate.
     \item The system shall provide informative error messages where necessary.
     \item The system shall be intuitive and easy-to-use.
+
 \end{enumerate}
 
 \section{System Models}
