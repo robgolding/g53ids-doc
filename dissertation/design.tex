@@ -36,15 +36,15 @@ to represent the flow of data.
     \label{fig:architecture}
 \end{figure}
 
-At the centre of the system is the server d{\ae}mon, \emph{backtracserverd}.
-It is this program that maintains a connection to the client d{\ae}mon,
+At the centre of the system is the server daemon, \emph{backtracserverd}.  It
+is this program that maintains a connection to the client daemon,
 \emph{backtracd}, which is installed and running on each protected client.
 
-The server d{\ae}mon also has access to a database, which is used to store not
+The server daemon also has access to a database, which is used to store not
 only the meta-data relating to files protected by the system, but also to the
 hosts that it protects. This database is called the \emph{catalog}.
 
-The \emph{storage} subsystem provides an interface for the server d{\ae}mon to
+The \emph{storage} subsystem provides an interface for the server daemon to
 read and write files to the physical disk, whilst not explicitly choosing their
 location or name. This level of abstraction provides extensibility, should
 a future implementation change be desired (for example, cloud storage).
@@ -55,26 +55,17 @@ aspects of the backup system. The application has read and write access to the
 database so clients can be added or altered, and existing clients can be
 inspected. Also, read-only access to the storage interface is permitted,
 allowing the administrator to download files from the archive through the web
-browser.
+interface.
+
+The server daemon and the web interface, though separate programs in their own
+right, are intended to run on the same host (the \emph{backup server}).
+
+The database, provided by an RDBMS such as MySQL or PostgreSQL (or SQLite for
+smaller installations), can reside on host that is separate to the backup
+server. For example, if an existing database server is installed, that may be
+used for storing the catalog.
 
 \section{Catalog}
-
-The catalog provides the facility to store meta-data regarding the files that
-are backed up. This meta-data includes the size of the file, when it was backed
-up, and the last modified time of the file itself.
-
-The structure of the relational model allows a tree structure to be
-constructed, representing the filesystem on the client. An \verb!Item! is
-a file or folder, which has a name and an optional parent attribute. If no
-parent is present, then the item must be at the top-level.
-
-A number of \verb!Version!s can be associated with each filesystem item. Each
-of these represents a version of the related item on the client, which has been
-protected and is stored in the archive. A version has a unique identifier,
-which can be used to retrieve the associated file from the storage subsystem.
-
-Figure \ref{fig:erd} shows the entity-relationship diagram for the catalog
-database.
 
 \begin{figure}
     \begin{center}
@@ -84,39 +75,132 @@ database.
     \label{fig:erd}
 \end{figure}
 
-The database also has the facility for storing information regarding the hosts
-that are protected by the system. Each \verb!Client! is attributed with an
-encryption key, which can be used to encrypt the archived files for that host
-(and indeed the network communication with it). Two flags are also available,
-for signifying whether the client is \emph{authorized}, and whether it is
-\emph{active} (i.e. should be protecting changed files).
+The catalog provides the facility to store meta-data regarding the files that
+are backed up. This meta-data includes the size of the file, when it was backed
+up, and the last modified time of the file itself.
 
-As the system is designed to be fully configured from the web interface, the
-database also provides the ability to store the directories that should be
-protected on a given client. This is represented by the \verb!File Path!
-entity, which has only one attribute (the path to be protected), and a link to
-the client with which it is associated.
+The structure of the relational model allows a tree structure to be
+constructed, representing the filesystem on the client. An \verb!Item! is
+a file or folder, which has a name and an optional parent attribute. If no
+parent is present, then the item is at the top-level.
 
-Finally, to record the status of each client---including current connection
-status and a timestamp recording the last connection to the server---the
-catalog includes a \verb!Status! entity. The relationship between \verb!Client!
-and \verb!Status! is a one-to-one relationship, preventing a status-update from
-overwriting configuration changes that are in progress.
+A number of \verb!Version!s can be associated with each \verb!Item!. Each of
+these represents a version of the related file system item on the client, which
+has been protected and is stored in the archive. A version has a unique
+identifier, which can be used to retrieve the associated file from the storage
+subsystem.
+
+Information relating to the clients themselves is stored in the same database
+as the catalog, though it is strictly not considered part of the catalog
+itself. A \verb!Client! represents a backup client, which has a hostname and
+a secret key with which it authenticates itself to the server.
+
+A separate \verb!Status! object is used to record whether the client is
+connected or not, to avoid the user overwriting a status-update whilst
+modifying a client through the web interface (as status updates happen whenever
+the client connects or disconnects from the server). Each client has one (and
+only one) status, so a one-to-one relationship is used here.
+
+The administrator specifies which directories should be backed up when creating
+a client, and these are stored as \verb!FilePath! objects in the database. Each
+object represents a separate path to be protected on the client to which it is
+related. In the same way, exclusion patterns are stored as \verb!Exclusion!
+objects.
+
+A \verb!RestoreJob! represents the restoration of a particular version, to
+a particular client. It also has attributes to record when the restore was
+created, started, and completed.
+
+Finally, a \verb!GlobalExclusion! represents a global exclusion pattern, which
+applies to all clients in the system. It is therefore not related to any other
+entities in the database.
+
+Figure \ref{fig:erd} shows the entity-relationship diagram for the catalog
+database.
 
 \section{Storage}
 
-The storage subsystem provides a purposefully restrictive interface for the
-server to archive and retrieve files on the filesystem. To archive a file,
-a \emph{path} must be specified. A \emph{version ID} is then generated by the
-storage subsystem, which allows the server to identify that particular version
-of the given file---and then retrieve it when necessary.
+The storage subsystem provides a purposefully restricted interface for the
+server to archive and retrieve files on the filesystem. A file in the storage
+subsystem is identified by three attributes:
 
-To retrieve a file from the archive, both the \emph{path} and the \emph{version
-ID} must be specified. The requested version of the given file will then be
-accessible, in a read-only manner.
+\begin{itemize}
+    \item Bucket name
+    \item File name
+    \item Version ID
+\end{itemize}
+
+To archive a file, only the bucket name and file name must be specified. The
+storage subsystem will then generate a unique version ID for the incoming file.
+The file will then be written to the archive, in a location which allows it to
+be accessed later given these three attributes.
+
+To retrieve a file, the bucket name, file name \emph{and} the version ID must
+be specified. The storage subsystem will then retrieve the file, and allow
+access to it in a \emph{read-only} manner---as files which have already been
+archived should not be modified under any circumstances.
 
 The storage subsystem gives the server code a way of storing files and their
 associated versions, without needing to decide (or indeed, record) where on the
-filesystem they are located. The server simply needs to record the unique
-version identifier which is used to retrieve a particular version of a given
-file.
+filesystem they are located. The server simply needs to record the three
+attributes which are used to retrieve a particular file from the archive.
+
+This approach has been chosen as it not only simplifies and abstracts access to
+the file system, but also provides a way of structuring the archive, and
+keeping that structure intact.
+
+\begin{figure}[H]
+    \begin{itemize}
+        \setlength{\parskip}{0ex}
+        \item \verb!<Client-1>!
+            \begin{itemize}
+                \item \verb!<File-A>!
+                    \begin{itemize}
+                        \item \verb!<Version-1>!
+                        \item \verb!<Version-2>!
+                    \end{itemize}
+                \item \verb!<File-B>!
+                    \begin{itemize}
+                        \item \verb!<Version-1>!
+                    \end{itemize}
+                \item \verb!<File-C>!
+                    \begin{itemize}
+                        \item \verb!<Version-1>!
+                        \item \verb!<Version-2>!
+                    \end{itemize}
+            \end{itemize}
+        \item \verb!<Client-2>!
+            \begin{itemize}
+                \item \verb!<File-A>!
+                    \begin{itemize}
+                        \item \verb!<Version-1>!
+                        \item \verb!<Version-2>!
+                    \end{itemize}
+            \end{itemize}
+        \item \verb!<Client-3>!
+            \begin{itemize}
+                \item \verb!<File-A>!
+                    \begin{itemize}
+                        \item \verb!<Version-1>!
+                        \item \verb!<Version-2>!
+                    \end{itemize}
+                \item \verb!<File-B>!
+                    \begin{itemize}
+                        \item \verb!<Version-1>!
+                    \end{itemize}
+            \end{itemize}
+    \end{itemize}
+    \caption{Storage subsystem archive structure}
+    \label{fig:archive-structure}
+\end{figure}
+
+The three attributes (bucket name, file name, and version ID) have been chosen
+to fit the three pieces of information that are required to identify a file on
+a given client in the system---the client's hostname, the file path, and the
+version of the file. Figure \ref{fig:archive-structure} shows the structure of
+the archive on the file system.
+
+As the figure shows, differing clients provide a top level of separation
+between the buckets. Within each bucket, a directory is used to hold each
+version of a particular file. Finally, the versions are stored as files
+themselves, which can be retrieved at will given the three attributes.
