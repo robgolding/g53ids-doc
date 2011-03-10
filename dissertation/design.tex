@@ -265,3 +265,29 @@ the database need not affect the server, simplifying future development.
 
 Figure \ref{fig:server} shows the structure of the server, and how it interacts
 with the rest of the system.
+
+\subsection{Client}
+
+As with the server---to provide maximum extensibility---the client is designed
+to be modular in nature.
+
+\begin{figure}[h]
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \footnotesize
+    \begin{picture}(28,14)
+        \put(10,0){\framebox(8,4){Backup Queue}}
+        \put(22,2){\vector(-2,0){4}}
+        \put(22,0){\framebox(8,4){FS Notifier}}
+        \put(14,4){\vector(0,1){4}}
+        \put(10,8){\framebox(8,4){Core Daemon}}
+        \put(18,10.5){\vector(1,0){4}}
+        \put(22,9.5){\vector(-1,0){4}}
+        \put(0,8){\framebox(6,4){Server}}
+        \put(6,10.5){\vector(1,0){4}}
+        \put(10,9.5){\vector(-1,0){4}}
+        \put(22,8){\framebox(8,4){Transfer Queue}}
+    \end{picture}
+    \caption{Client application structure}
+    \label{fig:client}
+\end{figure}
