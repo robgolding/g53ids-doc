@@ -49,21 +49,21 @@ read and write files to the physical disk, whilst not explicitly choosing their
 location or name. This level of abstraction provides extensibility, should
 a future implementation change be desired (for example, cloud storage).
 
-The web interface (denoted as \emph{backtracweb} in figure
+The web interface (denoted as \emph{backtracweb} in Figure
 \ref{fig:architecture}) allows the administrator to manage and monitor all
 aspects of the backup system. The application has read and write access to the
 database so clients can be added or altered, and existing clients can be
-inspected. Also, read-only access to the storage interface is permitted,
+inspected. Also, read-only access to the storage subsystem is permitted,
 allowing the administrator to download files from the archive through the web
 interface.
 
 The server daemon and the web interface, though separate programs in their own
-right, are intended to run on the same host (the \emph{backup server}).
+right, are intended to run on the same host---the \emph{backup server}.
 
 The database, provided by an RDBMS such as MySQL or PostgreSQL (or SQLite for
 smaller installations), can reside on host that is separate to the backup
-server. For example, if an existing database server is installed, that may be
-used for storing the catalog.
+server. For example, if an existing database server is already installed and
+running at a particular site, that server may be used for storing the catalog.
 
 \section{Catalog}
 
@@ -78,20 +78,26 @@ used for storing the catalog.
     \label{fig:erd}
 \end{figure}
 
+\subsection{File System Data}
+
 The catalog provides the facility to store meta-data regarding the files that
 are backed up. This meta-data includes the size of the file, when it was backed
-up, and the last modified time of the file itself.
+up, the last modified time of the file, and a hash of the file's contents.
 
-The structure of the relational model allows a tree structure to be
-constructed, representing the filesystem on the client. An \verb!Item! is
-a file or folder, which has a name and an optional parent attribute. If no
-parent is present, then the item is at the top-level.
+The relational model, depicted in Figure \ref{fig:erd}, allows a tree structure
+to be constructed, mirroring the structure of the filesystem on each client.
+
+An \verb!Item! is a file or folder, which has a name and an optional parent
+attribute. The parent attribute links an item to it's container (i.e. the
+directory it is contained within). If no parent is present, then the item is
+located in the root directory of the client
 
 A number of \verb!Version!s can be associated with each \verb!Item!. Each of
-these represents a version of the related file system item on the client, which
-has been protected and is stored in the archive. A version has a unique
-identifier, which can be used to retrieve the associated file from the storage
-subsystem.
+these represents a version of the related file on the client, which has been
+protected and is stored in the archive. A version has a unique identifier,
+which can be used to retrieve the associated file from the storage subsystem.
+
+\subsection{Other Data}
 
 Information relating to the clients themselves is stored in the same database
 as the catalog, though it is strictly not considered part of the catalog
@@ -104,15 +110,25 @@ modifying a client through the web interface (as status updates happen whenever
 the client connects or disconnects from the server). Each client has one (and
 only one) status, so a one-to-one relationship is used here.
 
-The administrator specifies which directories should be backed up when creating
-a client, and these are stored as \verb!FilePath! objects in the database. Each
-object represents a separate path to be protected on the client to which it is
-related. In the same way, exclusion patterns are stored as \verb!Exclusion!
-objects.
+Each directory that is to be protected on a client is stored separately in the
+database represented by a \verb!FilePath! object. Though it may seem
+unnecessary to use an entire object for storing a single attribute, this
+ensures that the database is properly normalized.
 
-A \verb!RestoreJob! represents the restoration of a particular version, to
-a particular client. It also has attributes to record when the restore was
-created, started, and completed.
+In the same way, patterns which define files that are to be excluded from the
+backup on a given client are stored using \verb!Exclusion! objects.
+
+A \verb!RestoreJob! represents the restoration of a specific version of a file,
+to a particular client. It also has attributes to record when the restore was
+created, started, and completed. Using these attributes, we can determine
+whether the restore is pending, in progress, or completed.
+
+Events relating to the backup file system are also stored in the database,
+which are related to a particular \verb!Item!. The \verb!Event! object has
+attributes to store when the event occurred, and the type of event
+(\verb!created!, \verb!updated!, \verb!deleted! or \verb!restored!). These
+event types represent the four distinct operations that can occur on a file
+system item.
 
 Finally, a \verb!GlobalExclusion! represents a global exclusion pattern, which
 applies to all clients in the system. It is therefore not related to any other
@@ -153,46 +169,50 @@ the file system, but also provides a way of structuring the archive, and
 keeping that structure intact.
 
 \begin{figure}[H]
-    \begin{itemize}
-        \setlength{\parskip}{0ex}
-        \item \verb!<Client-1>!
-            \begin{itemize}
-                \item \verb!<File-A>!
-                    \begin{itemize}
-                        \item \verb!<Version-1>!
-                        \item \verb!<Version-2>!
-                    \end{itemize}
-                \item \verb!<File-B>!
-                    \begin{itemize}
-                        \item \verb!<Version-1>!
-                    \end{itemize}
-                \item \verb!<File-C>!
-                    \begin{itemize}
-                        \item \verb!<Version-1>!
-                        \item \verb!<Version-2>!
-                    \end{itemize}
-            \end{itemize}
-        \item \verb!<Client-2>!
-            \begin{itemize}
-                \item \verb!<File-A>!
-                    \begin{itemize}
-                        \item \verb!<Version-1>!
-                        \item \verb!<Version-2>!
-                    \end{itemize}
-            \end{itemize}
-        \item \verb!<Client-3>!
-            \begin{itemize}
-                \item \verb!<File-A>!
-                    \begin{itemize}
-                        \item \verb!<Version-1>!
-                        \item \verb!<Version-2>!
-                    \end{itemize}
-                \item \verb!<File-B>!
-                    \begin{itemize}
-                        \item \verb!<Version-1>!
-                    \end{itemize}
-            \end{itemize}
-    \end{itemize}
+    \fbox{\begin{minipage}{\textwidth}
+        \vspace{0.5cm}
+        \begin{itemize}
+                \setlength{\parskip}{0ex}
+            \item <Client-1>
+                \begin{itemize}
+                    \item <File-A>
+                        \begin{itemize}
+                            \item <Version-1>
+                            \item <Version-2>
+                        \end{itemize}
+                    \item <File-B>
+                        \begin{itemize}
+                            \item <Version-1>
+                        \end{itemize}
+                    \item <File-C>
+                        \begin{itemize}
+                            \item <Version-1>
+                            \item <Version-2>
+                        \end{itemize}
+                \end{itemize}
+            \item <Client-2>
+                \begin{itemize}
+                    \item <File-A>
+                        \begin{itemize}
+                            \item <Version-1>
+                            \item <Version-2>
+                        \end{itemize}
+                \end{itemize}
+            \item <Client-3>
+                \begin{itemize}
+                    \item <File-A>
+                        \begin{itemize}
+                            \item <Version-1>
+                            \item <Version-2>
+                        \end{itemize}
+                    \item <File-B>
+                        \begin{itemize}
+                            \item <Version-1>
+                        \end{itemize}
+                \end{itemize}
+        \end{itemize}
+        \vspace{0.1cm}
+    \end{minipage}}
     \caption{Storage subsystem archive structure}
     \label{fig:archive-structure}
 \end{figure}
@@ -203,7 +223,8 @@ a given client in the system---the client's hostname, the file path, and the
 version of the file. Figure \ref{fig:archive-structure} shows the structure of
 the archive on the file system.
 
-As the figure shows, differing clients provide a top level of separation
-between the buckets. Within each bucket, a directory is used to hold each
-version of a particular file. Finally, the versions are stored as files
-themselves, which can be retrieved at will given the three attributes.
+As the figure shows, the top-level directories (buckets) contain all files for
+a particular client. Within each bucket, a folder is created for each file on
+that client. This folder holds every version of that file, named according to
+it's unique ID. This allows a particular version of a file on a specified
+client to be retrieved quickly and easily.
