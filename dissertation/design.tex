@@ -228,3 +228,40 @@ a particular client. Within each bucket, a folder is created for each file on
 that client. This folder holds every version of that file, named according to
 it's unique ID. This allows a particular version of a file on a specified
 client to be retrieved quickly and easily.
+
+\section{Server}
+
+\begin{figure}[h]
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \footnotesize
+    \begin{picture}(28,21)
+        \put(10,8){\framebox(8,4){API}}
+        \put(13.5,8){\vector(0,-1){3.5}}
+        \put(14.5,4.5){\vector(0,1){3.5}}
+        \put(12,0){\umlDatabaseLbl{Catalog}}
+        \put(13.5,16){\vector(0,-1){4}}
+        \put(14.5,12){\vector(0,1){4}}
+        \put(10,16){\framebox(8,4){Core Daemon}}
+        \put(18,18.5){\vector(1,0){4}}
+        \put(22,17.5){\vector(-1,0){4}}
+        \put(0,16){\framebox(6,4){Storage}}
+        \put(6,18.5){\vector(1,0){4}}
+        \put(10,17.5){\vector(-1,0){4}}
+        \put(22,16){\framebox(6,4){Client}}
+    \end{picture}
+    \caption{Server application structure}
+    \label{fig:server}
+\end{figure}
+
+With a focus on extensibility, the server---like the system itself---is
+designed to be modular. The core daemon handles the network communication to
+and from the client application, archiving files to the file system using the
+aforementioned storage subsystem.
+
+Also, the server does not have direct access to the catalog database. Instead,
+access is provided through an API. This means that changes in the structure of
+the database need not affect the server, simplifying future development.
+
+Figure \ref{fig:server} shows the structure of the server, and how it interacts
+with the rest of the system.
