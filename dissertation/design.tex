@@ -231,11 +231,14 @@ client to be retrieved quickly and easily.
 
 \section{Server}
 
+With a focus on extensibility, the server---like the system itself---is
+designed to be modular.
+
 \begin{figure}[h]
     \setlength{\unitlength}{0.14in}
     \centering
     \footnotesize
-    \begin{picture}(28,21)
+    \begin{picture}(28,22)
         \put(10,8){\framebox(8,4){API}}
         \put(13.5,8){\vector(0,-1){3.5}}
         \put(14.5,4.5){\vector(0,1){3.5}}
@@ -254,8 +257,7 @@ client to be retrieved quickly and easily.
     \label{fig:server}
 \end{figure}
 
-With a focus on extensibility, the server---like the system itself---is
-designed to be modular. The core daemon handles the network communication to
+The core daemon handles the network communication to
 and from the client application, archiving files to the file system using the
 aforementioned storage subsystem.
 
@@ -275,11 +277,12 @@ to be modular in nature.
     \setlength{\unitlength}{0.14in}
     \centering
     \footnotesize
-    \begin{picture}(28,14)
+    \begin{picture}(28,15)
         \put(10,0){\framebox(8,4){Backup Queue}}
         \put(22,2){\vector(-2,0){4}}
-        \put(22,0){\framebox(8,4){FS Notifier}}
-        \put(14,4){\vector(0,1){4}}
+        \put(22,0){\framebox(8,4){FS Monitor}}
+        \put(13.5,4){\vector(0,1){4}}
+        \put(14.5,8){\vector(0,-1){4}}
         \put(10,8){\framebox(8,4){Core Daemon}}
         \put(18,10.5){\vector(1,0){4}}
         \put(22,9.5){\vector(-1,0){4}}
@@ -291,3 +294,33 @@ to be modular in nature.
     \caption{Client application structure}
     \label{fig:client}
 \end{figure}
+
+Again, the core daemon handles the network communication to and from the server
+application. This communication, however, is governed by two queues: the
+\emph{backup queue} and the \emph{transfer queue}. The queues are required
+because of the nature of the client application---providing a bridge between
+the (very fast) file system, and the (relatively slow) network.
+
+The backup queue is a queue of items to be queried with the server (to
+determine if a backup of that item is required or not). If a backup is
+required, the item is moved to the transfer queue. If not, then no action is
+taken.
+
+The transfer queue is a queue of items waiting to be archived to the server.
+
+Items can be added to the backup queue in a two ways: the startup scan, and via
+the file system monitor.
+
+\subsubsection{Startup Scan}
+
+When the client application is first started, it contacts the server to
+retrieve the list of directories it should protect. These are ``scanned'' by
+adding every file within each protected directory to the backup queue. The
+server will then be queried as to whether a backup of each file is required,
+and if so it will be added to the transfer queue.
+
+\subsubsection{File System Monitor}
+
+Once the startup scan is complete, the file system monitor takes over. Watching
+for events occurring within protected directories, it places items on the queue
+when a file is created, modified or deleted.
