@@ -32,3 +32,60 @@ overwriting.
 
 This project concerns the development of a backup system to address this type
 of request (``stupidity recovery'') in a new way.
+
+\section{A Brief History}
+
+When magnetic tapes replaced punch cards as the primary digital storage medium
+in the 1960s, their reliability, scalability, and low cost meant that people
+could afford to keep backup copies of their data. Even today, magnetic tapes
+are used as a viable method of storing backups.
+
+In the mid 1980s, hard drives started to become a feasible alternative to
+magnetic tapes for archiving data. Until this point, they had simply been too
+expensive, and too small to be suitable.
+
+During this time, floppy disks also made a contribution to the backup
+ecosystem. Though not as ubiquitous as magnetic tapes, the trend towards
+smaller disks with larger capacities made them ideal for small-scale backup
+operations, beginning in the mid 1970s.
+
+With the introduction of the recordable compact disc in 1990---offering
+much more capacity in a similar sized medium---the floppy disk fell into
+decline. By the beginning of the new millennium they had all but disappeared,
+replaced by rewritable CDs and DVDs.
+
+The latter part of the century also saw the introduction of internet-based
+backup providers, offering a hosted service whereby customers' data is
+replicated over the internet, and stored---usually on a Storage Area Network
+(SAN)---at the provider's data facility. This led to an explosion in the amount
+of data being archived on hard disk drives, driven by the ever-growing storage
+capacity and falling cost of such disks. These providers are termed ``cloud''
+backup providers.
+
+\section{Motivation}
+
+Tradition Version Control Systems (VCS) can be used as a method for backing up
+a collection of files, and storing a copy of each and every version as the
+files change over time. In practice, however, this is very impractical. Every
+time a file changes, the user must ``commit'' the working directory to the
+revision control system, which then calculates the changes since the last
+commit. Most (if not all) systems use a text-based diffing process, as they are
+designed for tracking changes in \emph{source code}. This means that they are
+inefficient when used with binary files, such as those that are typically found
+in an organisation's file server tree.
+
+This project aims to combine the features of traditional backup solutions with
+those of Version Control Systems. The desired result is therefore a system
+which keeps a historical archive of every version of every file in a given
+directory tree on a remote system. This is something that, combined with an
+intuitive interface, is not available in any open-source offerings.
+
+The core feature-set of the system includes:
+
+\begin{itemize}
+    \item Version-based file recovery;
+    \item Web interface for central management;
+    \item Detailed reports regarding backed up data;
+    \item Ability to recover files with standard Unix tools (tar, cp, etc.);
+    \item Instant file recovery through web interface.
+\end{itemize}
