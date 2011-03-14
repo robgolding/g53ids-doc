@@ -137,7 +137,7 @@ To allow the client to compare the current file system state with that of the
 most up-to-date backup, the server will also allow clients to retrieve the
 state of the catalog at the present moment in time. This ``state'' need not
 include the meta-data of the archived files, but only their path names---as the
-previously mentioned check will be performed to determine whether a backup is
+previously mentioned check may be performed to determine whether a backup is
 required given that a file exists. The main purpose of this operation is to
 notify the server of any files which have been deleted on the client file
 system, but still remain in the catalog. This may be as a result of the client
@@ -148,19 +148,19 @@ program being stopped for some period of time.
 Once it has been determined that a file must be re-archived (i.e. the file
 system contains a more up-to-date version than the backup archive), it will be
 transferred from the client to the server. The server will then store this file
-in the archive, and record the meta-data in the catalog.
+in the archive, and record its meta-data in the catalog.
 
 \subsection{Client}
 
 The client will communicate solely with the server, and will be unable to
 access the other parts of the system directly. This will provide not only
-security, but should also encourage abstraction when the implementation is
+security, but will also encourage abstraction when the implementation is
 developed to meet this specification.
 
-The client will attempt to connect to the server which is specified in
-a configuration file, and authenticate to it with a given secret key. Before
-the client can connect, it must be added to the server by an administrator and
-configured with said key.
+The client will attempt to connect to the server using an address/hostname
+which is specified in a configuration file, and authenticate to it with
+a secret key specified also. Before the client can connect, it must be added to
+the server by an administrator and configured with said key.
 
 \subsubsection{Meta Data}
 
@@ -186,7 +186,7 @@ changed within protected directories on the client computer. If a file changes
 on disk, it will be archived within a reasonable amount of time of that change
 (i.e. less than one minute). The client program will not scan the protected
 directories repeatedly to determine whether a file has changed, as this is
-extremely inefficient (especially for large file systems).
+extremely inefficient---especially for large file systems.
 
 \subsubsection{File Transfer}
 
@@ -264,6 +264,7 @@ the catalog. An event may be representative of one of the following actions:
     \item File created
     \item File modified
     \item File deleted
+    \item File restored
 \end{itemize}
 
 \subsubsection{Configuration}
@@ -316,7 +317,7 @@ system-wide preferences.
             \item Transfer a file to the archive (storing a new version along
                 with it's meta-data in the catalog)
             \item Restore any given version of a file from the archive
-            \item Signify that a file has been deleted
+            \item Notify the server that a file has been deleted
         \end{enumerate}
     \item When a client archives a newly created file to the server, it's meta
         data shall be recorded in the catalog, and an initial version of that
@@ -328,6 +329,8 @@ system-wide preferences.
     \item When a file is deleted, this action shall be recorded in the catalog.
         The file shall not be deleted from the archive, so that it may be
         restored later.
+    \item Clients shall not be able to connect to the server unless they
+        successfully authenticate with their secret key.
 
 \subsubsection{Client}
 
@@ -338,10 +341,11 @@ system-wide preferences.
     \item \emph{The client application shall replicate files in protected
         directories to the server.}
     \item \emph{The client shall perform a scan of the file system on startup,
-        archiving any files which are not up-to-date and signifying the
-        deletion any files which are no longer present. To do this, the client
-        shall query the server for a list of files that are present according
-        to the catalog, comparing this to the actual state of the file system.}
+        archiving any files which are not up-to-date and notifying the server
+        of the deletion of any files which are no longer present. To do this,
+        the client shall query the server for a list of files that are present
+        according to the catalog, comparing this to the actual state of the
+        file system.}
     \item The client application shall not store any meta-data information on
         the protected host. The server shall hold the only copy of the catalog.
     \item The client shall query the server to check if a file requires
@@ -353,9 +357,9 @@ system-wide preferences.
         \ref{tab:meta-data}.
     \item The client shall provide ``continuous'' file system protection whilst
         is it running, backing up files as soon as they are created or
-        modified, and signifying the deletion of files immediately after they
-        are removed. This shall not be achieved by ``polling'' the file system
-        periodically to detect changes, as this is inefficient.
+        modified, and notifying the server of the deletion of files immediately
+        after they are removed. This shall not be achieved by ``polling'' the
+        file system periodically to detect changes, as this is inefficient.
 
 \subsubsection{Web Interface}
 
@@ -414,6 +418,8 @@ system-wide preferences.
                 history)
             \item When the file was last modified
         \end{enumerate}
+    \item The web interface shall require that the administrator authenticates
+        themself with a valid username/password before accessing any screen.
 
 \end{enumerate}
 
@@ -444,6 +450,10 @@ system-wide preferences.
         sensitive user data cannot be intercepted.
     \item The client shall communicate with the server using an encrypted
         connection, to protect sensitive data in transit.
+    \item The server shall be secure, and not allow connections from
+        unauthorised clients.
+    \item The web interface shall be secure, and not allow access to
+        unauthorised users.
 
 \subsubsection{Usability Requirements}
 
