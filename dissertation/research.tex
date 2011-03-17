@@ -2,8 +2,13 @@
 
 \section{Related Works}
 
-Related works fit into one of three main categories: Traditional backup
-systems, on-line (cloud based) backup solutions, and file synchronisation
+Due to the long history of backup systems, there exists a vast array of related
+works which could be considered relevant to this project. For the purpose of
+highlighting the contrast between traditional and contemporary systems,
+however, only a small number have been included in this section.
+
+The researched works fit into one of three main categories: Traditional backup
+systems, online (cloud based) backup solutions, and file synchronisation
 services. Ideally, this project will combine the positive elements of each of
 these systems.
 
@@ -16,10 +21,12 @@ multi-platform network backup solution\cite{AMANDA-about}. The software is
 released under the Amanda Copyright and License (a BSD-style license) and is
 supported by Zmanda\cite{AMANDA-license}.
 
-Amanda uses native Unix tools to archive files (such as tar or dump) to disk or
+Amanda uses native UNIX tools to archive files (such as tar or dump) to disk or
 tape on a central backup server. This means that an administrator can restore
 the archived data, even if the software on the backup server is malfunctioning
-(or indeed has failed altogether).
+(or indeed has failed altogether). This does, however, mean that the software
+is restricted in what it can achieve---as it is essentially a complex wrapper
+around the standard UNIX tool set.
 
 The client agent runs on almost all Linux or Unix-based systems, while the
 server software only support Linux. Due the to fact that it only uses native
