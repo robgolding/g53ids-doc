@@ -16,6 +16,9 @@ any type of application.
 Django is based around a Model-View-Controller (MVC) architecture, separating
 the business logic and data functions from the user interface.
 
+In this project, Django is used to provide access to the database (the
+\emph{models}) and for the web interface itself.
+
 \subsubsection{Models}
 
 The models define the persistent data that will be available to the
@@ -65,6 +68,16 @@ occurred on the \verb!Item! with ID 4, of type ``updated''.
     Item.objects.filter(item__id=4, type='updated')
 \end{lstlisting}
 \end{singlespacing}
+
+\subsubsection{Project Structure}
+
+A Django project is separated into multiple ``applications'', each defining its
+own models, views, and templates. The idea here is that applications should be
+loosely coupled, allowing developers to simply ``plug in'' the desired
+functionality, by enabling the relevant third-party applications.
+
+This project is separated into three applications: \verb!core!, \verb!clients!,
+and \verb!catalog!.
 
 \subsection{Twisted}
 
