@@ -4,14 +4,67 @@
 
 \subsection{Django}
 
-The core system implementation was based on the Django framework which, though
+The core system implementation is based on the Django framework which, though
 primarily designed for creating web applications, can be used as the basis for
-any type of project.
+any type of application.
 
 \begin{quote}
     \emph{Django is a high-level Python Web framework that encourages rapid
     development and clean, pragmatic design.}\footnote{www.djangoproject.com}
 \end{quote}
+
+Django is based around a Model-View-Controller (MVC) architecture, separating
+the business logic and data functions from the user interface.
+
+\subsubsection{Models}
+
+The models define the persistent data that will be available to the
+application, and how that data should be accessed. In Django, this consists of
+a series of Python classes, one for each data ``entity'' (see Figure
+\ref{fig:erd}).
+
+\begin{singlespacing}
+\begin{lstlisting}[caption=The `Event' model, label=lst:event-model]
+    class Event(models.Model):
+        item = models.ForeignKey(Item, db_index=True)
+        occurred_at = models.DateTimeField(auto_now_add=True,
+                                           db_index=True)
+        type = models.CharField(max_length=20,
+                                choices=EVENT_TYPE_CHOICES,
+                                db_index=True)
+
+        def __unicode__(self):
+            return '%s %s' % (self.get_type_display(),
+                              self.item.name)
+
+        class Meta:
+            ordering = ['-occurred_at']
+            get_latest_by = 'occurred_at'
+\end{lstlisting}
+\end{singlespacing}
+
+Listing \ref{lst:event-model} shows the definition of the \verb!Event! model,
+which has only three attributes: \verb!item! (a foreign key to the \verb!Item!
+model), \verb!occured_at! (the date/time at which the event occurred) and
+\verb!type! (the type of the event).
+
+The model definition also specifies how an instance of the model should be
+displayed if it is printed on screen (the \verb!__unicode__()! method) and how
+queries should be ordered (the \verb!Meta! class, defining \verb!ordering!
+and \verb!get_latest_by!).
+
+Django provides access to this data through its Object-Relational Mapper (ORM).
+This provides a high-level API for querying the database, saving time and
+reducing mistakes in the application code. Listing \ref{lst:orm-example} shows
+an example of how one might query the database for all \verb!Event!s which
+occurred on the \verb!Item! with ID 4, of type ``updated''.
+
+\begin{singlespacing}
+\begin{lstlisting}[caption=Querying for all ``updated'' Events on Item 4,
+    label=lst:orm-example]
+    Item.objects.filter(item__id=4, type='updated')
+\end{lstlisting}
+\end{singlespacing}
 
 \subsection{Twisted}
 
