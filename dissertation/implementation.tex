@@ -1,8 +1,6 @@
 \chapter{Implementation}
 
-\section{Technologies}
-
-\subsection{Django}
+\section{Django}
 
 The core system implementation is based on the Django framework which, though
 primarily designed for creating web applications, can be used as the basis for
@@ -19,7 +17,7 @@ the business logic and data functions from the user interface.
 In this project, Django is used to provide access to the database (the
 \emph{models}) and for the web interface itself.
 
-\subsubsection{Models}
+\subsection{Models}
 
 The models define the persistent data that will be available to the
 application, and how that data should be accessed. In Django, this consists of
@@ -69,7 +67,7 @@ occurred on the \verb!Item! with ID 4, of type ``updated''.
 \end{lstlisting}
 \end{singlespacing}
 
-\subsubsection{Project Structure}
+\subsection{Project Structure}
 
 A Django project is separated into multiple ``applications'', each defining its
 own models, views, and templates. The idea here is that applications should be
@@ -78,6 +76,40 @@ functionality, by enabling the relevant third-party applications.
 
 This project is separated into three applications: \verb!core!, \verb!clients!,
 and \verb!catalog!.
+
+\subsubsection{Core Application}
+
+The core application exists to tie in the functionality provided by the other
+two applications, and to provide functionality which does not necessarily
+belong in them.
+
+The only model defined in the core application is the \verb!GlobalExclusion!,
+as it is not directly related to any other model (and does not relate to the
+catalog or client functionality directly).
+
+The core application contains the code for the dashboard view, which provides
+an overview of the system status and some basic statistics. Also, the system
+configuration view is contained---as this is a core system feature, and not
+related to the clients or catalog applications.
+
+\subsubsection{Clients Application}
+
+The clients application provides functionality related to the clients
+themselves, such as the \verb!Client! model (along with the related
+\verb!Status!, \verb!FilePath! and \verb!Exclusion! models) and the
+add/edit/delete client views.
+
+\subsubsection{Catalog Application}
+
+The catalog application provides the most functionality of all, and includes
+the following models:
+
+\begin{itemize}
+    \item Item
+    \item Version
+    \item Event
+    \item RestoreJob
+\end{itemize}
 
 \subsection{Twisted}
 
