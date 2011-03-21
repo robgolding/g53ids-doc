@@ -67,6 +67,28 @@ occurred on the \verb!Item! with ID 4, of type ``updated''.
 \end{lstlisting}
 \end{singlespacing}
 
+\subsection{Views}
+
+Django uses a slightly different terminology to other popular frameworks, in
+that the ``controllers'' (the pieces of code which link together the models and
+the user interface) are termed \emph{views}.
+
+The view's purpose is to parse the incoming HTTP request, extract the relevant
+data (if any) from the data models, and respond with an appropriate HTTP
+response. This is usually constructed by rendering a template.
+
+Fairly obviously, the views are only relevant to the web interface, and are not
+used for the core backup system functionality.
+
+\subsection{Templates}
+
+A template (often called a ``view'' in other frameworks) is a file which
+defines how the interface will be rendered to the end user. When dealing with
+the web, this is usually an HTML file containing variables and simple logic.
+
+Again, the templates are not relevant to the core system functionality---and
+only relate to the web interface.
+
 \subsection{Project Structure}
 
 A Django project is separated into multiple ``applications'', each defining its
@@ -81,35 +103,35 @@ and \verb!catalog!.
 
 The core application exists to tie in the functionality provided by the other
 two applications, and to provide functionality which does not necessarily
-belong in them.
+belong in either of them.
 
 The only model defined in the core application is the \verb!GlobalExclusion!,
-as it is not directly related to any other model (and does not relate to the
-catalog or client functionality directly).
+as it is not directly related to any other model (or the catalog or clients
+functionality for that matter).
 
-The core application contains the code for the dashboard view, which provides
-an overview of the system status and some basic statistics. Also, the system
-configuration view is contained---as this is a core system feature, and not
-related to the clients or catalog applications.
+The core application contains the code for the \emph{dashboard} view, which
+provides an overview of the system status and some basic statistics. Also, the
+\emph{configuration} view is implemented here---as this is a core system
+feature, and not related to the clients or catalog applications.
 
 \subsubsection{Clients Application}
 
 The clients application provides functionality related to the clients
 themselves, such as the \verb!Client! model (along with the related
-\verb!Status!, \verb!FilePath! and \verb!Exclusion! models) and the
-add/edit/delete client views.
+\verb!Status!, \verb!FilePath! and \verb!Exclusion! models) and the views which
+allow the administrator to add clients, and edit or delete existing ones.
+
+More detail as to the implementation of the web interface itself is given in
+section \ref{sec:impl-web-interface}.
 
 \subsubsection{Catalog Application}
 
-The catalog application provides the most functionality of all, and includes
-the following models:
-
-\begin{itemize}
-    \item Item
-    \item Version
-    \item Event
-    \item RestoreJob
-\end{itemize}
+The catalog application provides the main persistent data store for the backup
+application (the \emph{catalog}) which records the files and versions that have
+been archived from each client. At the core, this consists of the \verb!Item!
+and \verb!Version! models. The \verb!Event! and \verb!RestoreJob! models are
+also included in the catalog application. See Figure \ref{fig:erd} for the
+detailed Entity-Relationship Diagram.
 
 \subsection{Twisted}
 
@@ -126,3 +148,4 @@ the following models:
 \subsection{Queues}
 
 \section{Web Interface}
+\label{sec:impl-web-interface}
