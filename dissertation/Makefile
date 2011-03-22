@@ -309,7 +309,7 @@ push: $(PDF)
 
 wc		: $(PDF)
 	@for i in $(PDF) ; do \
-		echo "$$i: `$(PDF2TXT) $$i - | wc -w`"; \
+		echo "$$i: `$(PDF2TXT) $$i - | grep -v "\. \. \." | grep -v "^.$$" | wc -w`"; \
 	done
 
 # $(DEP) $(EPSPICS) $(BIBFILE)
