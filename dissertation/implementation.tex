@@ -1,8 +1,16 @@
 \chapter{Implementation}
 
+The backup system project is implemented in Python, which is a fast, powerful
+and dynamic programming language, suitable for a large variety of application
+domains.
+
+Python has a large and feature-rich standard library, and also has many
+frameworks and third-party libraries available. It's clean, concise and
+readable syntax also make it a pleasant programming language to work with.
+
 \section{Django}
 
-The core system implementation is based on the Django framework which, though
+The system implementation is based on top of the Django framework which, though
 primarily designed for creating web applications, can be used as the basis for
 any type of application.
 
@@ -135,7 +143,38 @@ detailed Entity-Relationship Diagram.
 
 \subsection{Twisted}
 
+Though the backup system is implemented on top of Django, the core
+functionality is achieved using the Twisted framework.
+
+Twisted is an open-source event-driven networking engine written in Python. It
+allows programmers to write highly asynchronous programs without resorting to
+multiple threads or processes, which add to the overall complexity of the
+application \cite{kinder2005}.
+
+Due to the asynchronous nature of the framework, programming with Twisted is
+different to most other libraries. Central to the framework is the concept of
+a \emph{deferred}, which represents an event that is yet to happen. This allows
+method calls to return without actually completing their task, and for a given
+piece of code to be executed once that task has ended.
+
+At the heart of the Twisted framework is the \emph{reactor}---the main event
+loop. This allows the entire application to be ``hooked'' into a central
+location, from which all events and callbacks are generated or called.
+
+\subsubsection{Plugins}
+
+Twisted allows developers to create application ``plugins'', which are
+networked programs that can be launched using the twisted deamon \emph{twistd}.
+This removes the need for complex daemonization routines (the classic
+``double-fork'') in the main application code, and eases the management of PID
+and log files.
+
 \subsection{pyinotify}
+
+\emph{pyinotify} is an open-source library for Python which provides
+a high-level API for the inotify subsystem. It allows the programmer to add
+watches to a directory in a recursive manner, and to automatically add watches
+to newly created directories below the parent path.
 
 \section{Server}
 
