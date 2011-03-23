@@ -1,12 +1,58 @@
 \chapter{Implementation}
 
-The backup system project is implemented in Python, which is a fast, powerful
-and dynamic programming language, suitable for a large variety of application
+This project is implemented in Python, making use of the Django web framework
+and the Twisted networking engine.
+
+\section{Python}
+
+\begin{figure}[h]
+    \begin{verbatim}
+    Beautiful is better than ugly.
+    Explicit is better than implicit.
+    Simple is better than complex.
+    Complex is better than complicated.
+    Flat is better than nested.
+    Sparse is better than dense.
+    Readability counts.
+    Special cases aren't special enough to break the rules.
+    Although practicality beats purity.
+    Errors should never pass silently.
+    Unless explicitly silenced.
+    In the face of ambiguity, refuse the temptation to guess.
+    There should be one-- and preferably only one --obvious way to do it.
+    Although that way may not be obvious at first unless you're Dutch.
+    Now is better than never.
+    Although never is often better than *right* now.
+    If the implementation is hard to explain, it's a bad idea.
+    If the implementation is easy to explain, it may be a good idea.
+    Namespaces are one honking great idea -- let's do more of those!
+    \end{verbatim}
+    \caption{The Zen of Python, by Tim Peters}
+    \label{fig:zen-of-python}
+\end{figure}
+
+The backup system is implemented in Python, which is a fast, powerful and
+dynamic programming language, suitable for a large variety of application
 domains.
 
 Python has a large and feature-rich standard library, and also has many
-frameworks and third-party libraries available. It's clean, concise and
-readable syntax also make it a pleasant programming language to work with.
+frameworks and third-party libraries available. Its clean, concise and readable
+syntax also make it a pleasant programming language to work with.
+
+Python was created by Guido van Rossum in the early 1990s. To ensure a clear,
+easy-to-use language, van Rossum only used ideas that had proven their worth
+over time in other programming languages. In particular, he wanted a language
+that would be easy to extend for use with other languages.
+\cite{lindstrom2005}.
+
+Traditionally, systems of this nature this would most likely be implemented in
+a more ``classic'' language such as C or C++. Python offers a modern
+alternative to these---not only in syntax but also in mindset.
+
+Python libraries can be written in C, providing low-level access to
+the internal Python bindings. This makes Python particluarly suitable for use
+with this project, as proof-of-concept code can be written in Python for
+ease---and then rewritten in C later if performance is an issue.
 
 \section{Django}
 
