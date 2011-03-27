@@ -117,7 +117,7 @@ occurred on the \verb!Item! with ID 4, of type ``updated''.
 \begin{singlespacing}
 \begin{lstlisting}[caption=Querying for all ``updated'' Events on Item 4,
     label=lst:orm-example]
-    Item.objects.filter(item__id=4, type='updated')
+    Event.objects.filter(item__id=4, type='updated')
 \end{lstlisting}
 \end{singlespacing}
 
