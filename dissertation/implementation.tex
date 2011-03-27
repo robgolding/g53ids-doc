@@ -187,7 +187,7 @@ and \verb!Version! models. The \verb!Event! and \verb!RestoreJob! models are
 also included in the catalog application. See Figure \ref{fig:erd} for the
 detailed Entity-Relationship Diagram.
 
-\subsection{Twisted}
+\section{Twisted}
 
 Though the backup system is implemented on top of Django, the core
 functionality is achieved using the Twisted framework.
@@ -207,7 +207,30 @@ At the heart of the Twisted framework is the \emph{reactor}---the main event
 loop. This allows the entire application to be ``hooked'' into a central
 location, from which all events and callbacks are generated or called.
 
-\subsubsection{Plugins}
+\subsection{Perspective Broker}
+
+The Twisted framework contains a library for networked inter-process
+communication called the \emph{Perspective Broker}. Essentially, it is
+a Twisted-specific protocol for Remote Procedure Call (RPC). This allows
+programs at either end of the network connection to call methods (procedures)
+on an object that exists within the remote process.
+
+The Perspective Broker is used for all inter-process communication within the
+backup system, including the actual data transfer itself.
+
+\subsubsection{Data Transfer}
+
+To effect the actual transfer of data between the client and server for backing
+up files (and vice-versa, in the case of restoring files), a custom \emph{File
+Pager} is used. This is a remotely-accessible object which ``pages'' the file
+to the destination over the network.
+
+Paging consists of reading the source file in chunks, and passing each chunk
+over the network one-by-one.
+
+continued\ldots
+
+\subsection{Plugins}
 
 Twisted allows developers to create application ``plugins'', which are
 networked programs that can be launched using the twisted deamon \emph{twistd}.
@@ -215,7 +238,7 @@ This removes the need for complex daemonization routines (the classic
 ``double-fork'') in the main application code, and eases the management of PID
 and log files.
 
-\subsection{pyinotify}
+\section{pyinotify}
 
 \emph{pyinotify} is an open-source library for Python which provides
 a high-level API for the inotify subsystem. It allows the programmer to add
