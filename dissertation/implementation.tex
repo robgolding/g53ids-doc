@@ -222,13 +222,15 @@ backup system, including the actual data transfer itself.
 
 To effect the actual transfer of data between the client and server for backing
 up files (and vice-versa, in the case of restoring files), a custom \emph{File
-Pager} is used. This is a remotely-accessible object which ``pages'' the file
-to the destination over the network.
+Pager} is used. This is an object which which leverages the Perspective Broker
+to ``page'' the file to the destination over the network.
 
 Paging consists of reading the source file in chunks, and passing each chunk
 over the network one-by-one.
 
-continued\ldots
+On the sender, the \verb!TransferPager! reads from the source file in chunks
+(of $2^{14} = 16,384$ bytes each), and places them into a \verb!PageCollector!,
+which is a remote reference to an object that exists on the destination.
 
 \subsection{Plugins}
 
