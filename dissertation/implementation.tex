@@ -240,6 +240,21 @@ This removes the need for complex daemonization routines (the classic
 ``double-fork'') in the main application code, and eases the management of PID
 and log files.
 
+Each of the three system components (the server, client, and web interface) are
+written as Twisted plugins. This means that they can be launched independently
+of one-another, and maintain their own process table (PID, log file, etc.) An
+example process invocation is shown in listing \ref{lst:twistd-example}.
+
+\begin{singlespacing}
+\begin{lstlisting}[caption=An example twistd invocation,
+    label=lst:twistd-example]
+    twistd \
+        --pidfile /var/run/backtracd.pid \
+        --logfile /var/log/backtracd.log \
+        backtracd
+\end{lstlisting}
+\end{singlespacing}
+
 \section{pyinotify}
 
 \emph{pyinotify} is an open-source library for Python which provides
