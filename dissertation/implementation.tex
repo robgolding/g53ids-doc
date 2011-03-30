@@ -379,6 +379,55 @@ On the sender, the \verb!TransferPager! reads from the source file in chunks
 which is a remote reference to an object that exists on the destination.
 
 \subsection{Storage}
+\label{sec:implementation-storage}
+
+The storage subsystem acts as an abstraction layer between the backup server
+and the file system. In essence, it allows multiple versions of many files to
+be placed in ``buckets'', with each version being assigned a unique identifier.
+These versions can be retrieved at a later time, given the three components
+that identify it (bucket name, file name, version ID). The storage subsystem's
+design is discussed in section \ref{sec:design-storage}.
+
+The storage subsystem is encapsulated into a \verb!Storage! object, which is
+initialised with the root of directory within which the subsystem should
+operate. This allows multiple data stores to be maintained if required.
+
+\subsubsection{Buckets}
+
+Buckets are essentially top-level directories which separate files into logical
+groups. In practice, each client's files are contained within a dedicated
+bucket.
+
+The directory that represents a bucket is given the same name as the bucket
+itself. For this reason, the bucket name can only contain characters which are
+valid on the file system.
+
+\subsubsection{Containers}
+
+At the next level down, containers are used to separate each file's versions
+from others. Similarly, a container is simply a sub-folder of the bucket that
+contains it.
+
+As containers represent files themselves, a simple naming scheme such as that
+used for buckets would be unsuitable. Crucially, the separators in the file's
+name would clash with the server's file system---so a different approach is
+required.
+
+The name of a container is constructed by performing a one-way hash of the
+file's name. For this, the SHA-1 hash function is used, as it has a low
+probability of collisions \textbf{[REFERENCE]} and support for it is widely
+available.
+
+\subsubsection{Versions}
+
+Within each container, every version of a file is stored. The files are named
+according to the version's unique ID, with no file extension. This enforces the
+uniqueness of the identifier, as two files with the same name cannot reside in
+the same directory.
+
+\subsubsection{put}
+
+\subsubsection{get}
 
 \section{Client}
 
