@@ -263,10 +263,16 @@ watches to a directory in a recursive manner, and to automatically add watches
 to newly created directories below the parent path.
 
 Though Twisted contains a module for this exact same purpose, it suffers from
-bugs which cause file system events to be fired multiple times in error. For
-this reason pyinotify is used to monitor the file system in this project.
+a bug which causes file system events to be fired multiple times in error. For
+this reason pyinotify is used to monitor the file system in this project
+instead, and is linked into the Twisted event loop with a custom hook.
 
 \section{Server}
+
+The server application is implemented primarily as a Perspective Broker, and
+leverages an API which serves as an abstraction between the server itself and
+the data models. This means that the code is extensible, in that the server
+need not be modified if the schema changes.
 
 \subsection{Daemon}
 
