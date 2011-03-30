@@ -218,20 +218,6 @@ on an object that exists within the remote process. \cite{lefkowitz2003}
 The Perspective Broker is used for all inter-process communication within the
 backup system, including the actual data transfer itself.
 
-\subsection{Data Transfer}
-
-To effect the actual transfer of data between the client and server for backing
-up files (and vice-versa, in the case of restoring files), a custom \emph{File
-Pager} is used. This is an object which which leverages the Perspective Broker
-to ``page'' the file to the destination over the network.
-
-Paging consists of reading the source file in chunks, and passing each chunk
-over the network one-by-one.
-
-On the sender, the \verb!TransferPager! reads from the source file in chunks
-(of $2^{14} = 16,384$ bytes each), and places them into a \verb!PageCollector!,
-which is a remote reference to an object that exists on the destination.
-
 \subsection{Plugins}
 \label{sec:twisted-plugins}
 
@@ -371,7 +357,26 @@ which can be called by the client:
     \item \verb!delete_item(path)! - notify the server that the item at
         \verb!path! has been deleted from the file system (or moved to another
         location)
+    \item \verb!put_file(path, mtime, size)! - transfer the file at \verb!path!
+        (with the given \verb!mtime! and \verb!size!) to the archive; returns
+        a remotely-referenceable \verb!PageCollector! object (see section
+        \ref{sec:data-transfer}).
 \end{itemize}
+
+\subsection{Data Transfer}
+\label{sec:data-transfer}
+
+To effect the actual transfer of data between the client and server for backing
+up files (and vice-versa, in the case of restoring files), a custom \emph{File
+Pager} is used. This is an object which which leverages the Perspective Broker
+to ``page'' the file to the destination over the network.
+
+Paging consists of reading the source file in chunks, and passing each chunk
+over the network one-by-one.
+
+On the sender, the \verb!TransferPager! reads from the source file in chunks
+(of $2^{14} = 16,384$ bytes each), and places them into a \verb!PageCollector!,
+which is a remote reference to an object that exists on the destination.
 
 \subsection{Storage}
 
