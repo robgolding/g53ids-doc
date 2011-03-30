@@ -274,6 +274,54 @@ leverages an API which serves as an abstraction between the server itself and
 the data models. This means that the code is extensible, in that the server
 need not be modified if the schema changes.
 
+\subsection{API}
+
+The API that sits between the server and the Django models works by
+encapsulating backup functionality into a \verb!Client! object, which can then
+be \emph{accessed} or \emph{mutated} as necessary.
+
+The methods that the \verb!Client! API provides are as follows:
+
+\begin{itemize}
+    \item \verb!connected()! - the client has connected to the server
+    \item \verb!disconnected()! - the client has disconnected from the server
+    \item \verb!get_hostname()! - get the hostname of the client
+    \item \verb!get_key()! - get the secret authentication key of the client
+    \item \verb!get_paths()! - get the paths which are to be protected on the
+        client
+    \item \verb!get_exclusions()! - get the exclusions which are defined for
+        the client
+    \item \verb!get_present_state(path)! - get the present state of the
+        client's file system from \verb!path! downwards, according to the
+        catalog (including each item, and it's meta-data)
+    \item \verb!is_excluded(path)! - check whether \verb!path! matches any
+        exclusions (global or local) on the client
+    \item \verb!create_item(path, type)! - create an item of type \verb!type!
+        at \verb!path! in the client's file system catalog
+    \item \verb!update_item(path, mtime, size, version_id)! - update the item
+        at \verb!path! with the given meta data, and associate the new version
+        with \verb!version_id! (for retrieving the file from the storage
+        subsystem)
+    \item \verb!delete_item(path)! - delete the item at \verb!path! in the
+        client's file system catalog (marks the item as deleted in the catalog,
+        rather than actually deleting it!)
+    \item \verb!compare_attrs(old_attrs, new_attrs)! - calculates the
+        difference between \verb!old_attrs! and \verb!new_attrs! as an integer
+        signifying the amount of difference ($0$ meaning equal, $n$ meaning $n$
+        attributes differ)
+    \item \verb!backup_required(path, attrs)! - check whether the item at
+        \verb!path! with attributes \verb!attrs! is in need of a backup (uses
+        \verb!compare_attrs! to compare the attributes with those stored in the
+        catalog)
+    \item \verb!get_pending_restore_jobs()! - get a list of pending restore
+        jobs for the client, in the format
+        \verb!(job_id, source_path, version_id, destination_path)!
+    \item \verb!restore_begin(job_id)! - notify the server that the restore job
+        with ID \verb!job_id! has begun
+    \item \verb!restore_complete(job_id)! - notify the server that the restore
+        job with ID \verb!job_id! has completed
+\end{itemize}
+
 \subsection{Daemon}
 
 \subsection{Storage}
