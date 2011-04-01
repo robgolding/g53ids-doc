@@ -413,17 +413,35 @@ used for buckets would be unsuitable. Crucially, the separators in the file's
 name would clash with the server's file system---so a different approach is
 required.
 
-The name of a container is constructed by performing a one-way hash of the
-file's name. For this, the SHA-1 hash function is used, as it has a low
-probability of collisions \textbf{[REFERENCE]} and support for it is widely
-available.
+The name of a container is constructed by performing a one-way SHA-1 (Secure
+Hash Algorithm 1) \cite{rfc3174} hash of the file's name. The SHA-1 algorithm
+is used as it has a very low probability of collision (where two inputs yield
+the same hash).
+
+This probability has been theoretically shown to be $1$ in $2^{51}$ when using
+``disturbance vectors'' in an attack on the algorithm \cite{manuelSHA}. It is
+worth noting, however, that to date no collisions whatsoever have been found.
+
+Though interesting, a hash collision would not cause an issue for the storage
+subsystem, as it would simply mean that the versions for more than one file
+would be placed within the same container. This means that the version IDs
+would \emph{also} have to clash for an issue to arise.
 
 \subsubsection{Versions}
 
-Within each container, every version of a file is stored. The files are named
-according to the version's unique ID, with no file extension. This enforces the
-uniqueness of the identifier, as two files with the same name cannot reside in
-the same directory.
+Within each container, every version of the file represented by that container
+is stored. The files are named according to the version's unique ID, with no
+file extension. This enforces the uniqueness of the identifier, as two files
+with the same name cannot reside in the same directory.
+
+Each version ID is a 128-bit Universally Unique Identifier (UUID)
+\cite{rfc4122}, which can be constructed independently, yet statistically
+guaranteed to be unique.
+
+Multiple versions of the UUID specification have been defined (versions 1 - 5).
+For the purposes of this project, UUID4 is used---consisting of 124 random
+bits. It therefore requires no additional information (such as a namespace) to
+generate a new version ID.
 
 \subsubsection{put}
 
