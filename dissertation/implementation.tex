@@ -268,9 +268,12 @@ need not be modified if the schema changes.
 
 \subsection{API}
 
-The API that sits between the server and the Django models works by
-encapsulating backup functionality into a \verb!Client! object, which can then
-be \emph{accessed} or \emph{mutated} as necessary.
+To avoid code in the Twisted server calling the Django ORM directly (and
+therefore tightly-coupling the two applications), an abstraction layer sits
+between them, providing an API which gives access to the data in the catalog.
+
+The API works by encapsulating backup functionality into a \verb!Client!
+object, which can then be \emph{accessed} or \emph{mutated} as necessary.
 
 The backup server API methods are listed in appendix
 \ref{sec:appendix-server-api}.
