@@ -445,7 +445,49 @@ generate a new version ID.
 
 \subsubsection{put}
 
+When adding a new file to the storage subsystem, the caller must provide only
+two pieces of information: the \emph{bucket}, and the name of the file.
+
+The subsystem generates a new version ID, and opens a writeable file descriptor
+in the appropriate location. This file descriptor is then returned to the
+caller, allowing the file to be written. It is the caller's responsibility to
+close the file descriptor.
+
+\begin{figure}
+    \begin{center}
+        \begin{tabular}{l l}
+            \textbf{Item}   & \textbf{Value}                                 \\
+            Storage root    & \verb!/mnt/backups/!                           \\
+            Bucket name     & \verb!armstrong!                               \\
+            File name       & \verb!/home/rob/file1.txt!                     \\
+            File name SHA-1 & \verb!a9993e364706816aba3e25717850c26c9cd0d89d!\\
+            UUID            & \verb!eff1d7b7-974c-4d55-8e8a-92796618915e!    \\
+        \end{tabular} \\
+    \end{center}
+        Final file location: \\
+        \verb!/mnt/backups/armstrong/! \\
+        \verb!              a9993e364706816aba3e25717850c26c9cd0d89d/! \\
+        \verb!                          eff1d7b7-974c-4d55-8e8a-92796618915e!
+    \caption{Example storage put operation, placing /home/rob/file1.txt in the
+    armstrong bucket. The storage root is /mnt/backups/.}
+    \label{fig:storage-put-example}
+\end{figure}
+
+Figure \ref{fig:storage-put-example} shows an example of a call to \verb!put!,
+placing a version of a file called \verb!/home/rob/file1.txt! in the
+\verb!armstrong! bucket.
+
 \subsubsection{get}
+
+To retrieve a file, the caller must provide all three pieces of information:
+the \emph{bucket}, the name of the file, and the version ID. Using this
+information, the storage subsystem can determine exactly where the desired
+version is located---constructing the path using the bucket name, the SHA-1
+hash of the file's name, and the version ID.
+
+A read-only file descriptor is then opened for the relevant file, and this is
+returned to the caller, allowing the file's contents to be read. Again, it is
+the caller's responsibility to close the file descriptor.
 
 \section{Client}
 
