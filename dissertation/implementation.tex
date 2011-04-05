@@ -176,7 +176,7 @@ themselves, such as the \verb!Client! model (along with the related
 allow the administrator to add clients, and edit or delete existing ones.
 
 More detail as to the implementation of the web interface itself is given in
-section \ref{sec:impl-web-interface}.
+section \ref{sec:implementation-web-interface}.
 
 \subsubsection{Catalog Application}
 
@@ -433,7 +433,88 @@ the caller's responsibility to close the file descriptor.
 
 \section{Client}
 
-\subsection{Queues}
+As mentioned, the client's only point of communication with the rest of the
+system is the server itself. Communication with the server is handled via the
+\emph{broker}, which calls remote methods using the Perspective Broker
+infrastructure provided by Twisted.
+
+The client is based around two queues---the Backup Queue and the Transfer
+Queue---which regulate the rate of queries and data transfers to the server.
+
+Finally, the client listens for filesystem notifications from inotify, passing
+jobs to the queue where necessary.
+
+\subsection{Broker}
+\label{sec:implementation-broker}
+
+The broker acts as the middle-man between the core client code and the remote
+server object. It handles the process of connecting and authenticating,
+disconnecting, and managing the connection in the meantime. This includes all
+data transfer, and calling the Perspective Broker methods themselves.
+
+\subsection{Consumer Queue}
+\label{sec:implementation-consumer-queue}
+
+The backup client requires a number of \emph{queues} to provide a buffer
+between the fast file system and the (relatively) slow network connection. To
+this end, a \verb!ConsumerQueue! is implemented, based around the Twisted
+\verb!DeferredQueue!.
+
+The \verb!DeferredQueue! provides a mechanism for retrieving items from the
+queue, or a \verb!Deferred! object if the queue is empty. Once an item arrives
+in the queue, the first caller's deferred is ``called back'' with the item as
+it's value.
+
+The \verb!ConsumerQueue! expands on this implementation to provide a full
+queue, designed to be inherited from. When an item is popped off the queue, the
+\verb!consume(item)! method is called. If this method returns a deferred
+itself, then the queue will not move on until that deferred has fired.
+
+The \verb!BackupQueue! and \verb!TransferQueue! both inherit from the
+\verb!ConsumerQueue!.
+
+\subsection{Backup Queue}
+\label{sec:implementation-backup-queue}
+
+The backup queue acts as a ``holding area'' for \verb!BackupJob! objects
+waiting to be executed. A \verb!BackupJob! simply consists of a file path and
+a type (\verb!CREATE!, \verb!UPDATE! or \verb!DELETE!).
+
+When a \verb!CREATE! or \verb!DELETE! job is executed, the server is notified
+of the action via the broker, though no data transfer is required.
+
+When an \verb!UPDATE! job is executed, however, the server is queried to
+determine whether the file in question needs to be re-archived. If so, the file
+path is placed on the transfer queue (see section
+\ref{sec:implementation-transfer-queue}).
+
+\subsection{Transfer Queue}
+\label{sec:implementation-transfer-queue}
+
+The transfer queue holds items which are due to be archived to the server. To
+consume an item, it first calls the \verb!put_file! method via the broker, and
+then \emph{pages} the source file into the \verb!PageCollector! which is
+returned.
+
+\subsection{Filesystem Notifications}
+\label{sec:implementation-filesystem-notifications}
+
+Firstly, the backup system uses an object called the \verb!FileSystemMonitor!
+to provide a consistent interface for watching the file system for events. The
+system is designed to use a particular implementation of the monitor depending
+on the platform it is running on (i.e. Linux, Mac or Windows). Only a Linux
+implementation, however, is provided in this version.
+
+As mentioned previously, pyinotify is used to interface with the inotify
+subsystem and to retrieve filesystem events for the protected directories.
+pyinotify passes events to an \emph{event processor}, which then handles them
+accordingly.
+
+The event processor constructs a \verb!BackupJob! object---which simply wraps
+up the file path and the type---and places this on the backup queue.
+
+Due to the architecture of the system, it would be entirely possibly to write
+an equivalent implementation for other platforms in this way.
 
 \section{Web Interface}
-\label{sec:impl-web-interface}
+\label{sec:Implementation-web-interface}
