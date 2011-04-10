@@ -1,6 +1,7 @@
 *.swp
 *.pdf
-*.ps
+proposal.ps
+dissertation.ps
 *.dvi
 *.bbl
 *.blg
