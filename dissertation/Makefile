@@ -270,11 +270,11 @@ define getbibs
 endef
 
 define getepss
-	epss=`perl -ne '@foo=/^[^%]*\\\(includegraphics|psfig|[a-zA-Z]+WallPaper\{[0-9]*\.?[0-9]*\})(\[.*?\])?\{(.*?)\}/g;if (defined($$foo[2])) { if ($$foo[2] =~ /.eps$$/) { print "$(FIGDIR)/$$foo[2]\n"; } else { print "$(FIGDIR)/$$foo[2].eps\n"; }}' $< $$deps | sort -u | sed ':begin;N;s/\n/ /;t begin'`
+	epss=`perl -ne '@foo=/^[^%]*\\\(includegraphics|psfig|[a-zA-Z]+WallPaper\{[0-9]*\.?[0-9]*\})(\[.*?\])?\{(^\.*?)\}/g;if (defined($$foo[2])) { if ($$foo[2] =~ /.eps$$/) { print "$(FIGDIR)/$$foo[2]\n"; } else { print "$(FIGDIR)/$$foo[2].eps\n"; }}' $< $$deps | sort -u | sed ':begin;N;s/\n/ /;t begin'`
 endef
 
 define getpdfs
-	pdfs=`perl -ne '@foo=/^[^%]*\\\(includegraphics|[a-zA-Z]+WallPaper\{[0-9]*\.?[0-9]*\})(\[.*?\])?\{(.*?)\}/g;if (defined($$foo[2])) { if ($$foo[2] =~ /.pdf$$/) { print "$(FIGDIR)/$$foo[2]\n"; } else { print "$(FIGDIR)/$$foo[2].pdf\n"; }}' $< $$deps | sort -u | sed ':begin;N;s/\n/ /;t begin'`
+	pdfs=`perl -ne '@foo=/^[^%]*\\\(includegraphics|[a-zA-Z]+WallPaper\{[0-9]*\.?[0-9]*\})(\[.*?\])?\{(^\.*?)\}/g;if (defined($$foo[2])) { if ($$foo[2] =~ /.pdf$$/) { print "$(FIGDIR)/$$foo[2]\n"; } else { print "$(FIGDIR)/$$foo[2].pdf\n"; }}' $< $$deps | sort -u | sed ':begin;N;s/\n/ /;t begin'`
 endef
 
 define getfigdirs
