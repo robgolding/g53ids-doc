@@ -520,4 +520,32 @@ an equivalent implementation for other platforms in this way.
 \label{sec:Implementation-web-interface}
 
 As Django is primarily a web development framework, the web interface makes
-full use of its features. 
+full use of its features. At a basic level, the web interface provides
+a ``view'' of the database for the administrator, giving a simple and
+easy-to-use way of browsing the catalog and performing system configuration
+tasks.
+
+\subsection{Dashboard}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{backtrac-dashboard}
+    \end{center}
+    \caption{A screenshot of the dashboard page}
+    \label{fig:backtrac-dashboard}
+\end{figure}
+
+The dashboard provides a high-level system overview, giving the administrator
+access to the most important information in one place. Figure
+\ref{fig:backtrac-dashboard} shows a screenshot of the dashboard page.
+
+The dashboard summarizes the following information:
+
+\begin{itemize}
+    \item The utilization of the backup filesystem (i.e. the filesystem which
+        the archive is stored on)
+    \item The total amount of data protected by the backup system
+    \item A graph showing the total amount of protected data over time
+    \item The status of the backup server itself (i.e. whether it is running)
+    \item A list of recent events
+\end{itemize}
