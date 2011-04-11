@@ -1,7 +1,28 @@
 \chapter{Testing}
 
-\begin{itemize}
-    \item Django testing framework
-    \item Twisted unit testing
-    \item TDD
-\end{itemize}
+Django provides extensive support for testing through its \emph{testing
+framework} and \emph{test client}, which were leveraged fully in this project.
+Continuous Integration was used throughout the development process to ensure
+a high level of software quality.
+
+\section{Django Testing}
+
+Django provides two main tools for thoroughly testing an application: the
+testing framework and the test client.
+
+The testing framework acts as a ``runner'', running all appropriate tests when
+it is invoked and tracking the success or failure of each.
+
+The test client is a simple HTTP client which can be used programmatically to
+test the system from a user's perspective.
+
+These two tools are used in conjunction to provide thorough testing for the
+backup system.
+
+\subsection{Testing Framework}
+
+\subsection{Test Client}
+
+\section{Continuous Integration}
+
+\subsection{Hudson CI Server}
