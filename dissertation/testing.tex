@@ -1,11 +1,13 @@
 \chapter{Testing}
+\label{sec:testing}
 
 Django provides extensive support for testing through its \emph{testing
 framework} and \emph{test client}, which were leveraged fully in this project.
-Continuous Integration was used throughout the development process to ensure
-a high level of software quality.
+Continuous Integration is used in the development process to ensure a high
+level of software quality.
 
 \section{Django Testing}
+\label{sec:testing-django}
 
 Django provides two main tools for thoroughly testing an application: the
 testing framework and the test client.
@@ -20,9 +22,70 @@ These two tools are used in conjunction to provide thorough testing for the
 backup system.
 
 \subsection{Testing Framework}
+\label{sec:testing-django-framework}
+
+The Django testing framework expands on Python's \verb!unittest! module, which
+provides four important concepts \cite{unittest}:
+
+\begin{description}
+  \item[Test Fixtures] \hfill \\
+      A fixture is the preparation and/or cleanup actions which must be
+      prepared before/after running a particular test. This might involve
+      creating test databases or files, for example.
+  \item[Test Cases] \hfill \\
+      A test case is an actual test itself, checking for a system or unit's
+      response to a given set of inputs. It is considered as the smallest unit
+      of testing, and the \verb!unittest! module provides a \verb!TestCase!
+      base class which can be used to create new test cases.
+  \item[Test Suites] \hfill \\
+      A test suite is an aggregation of tests that should be executed together.
+      It can consist of test cases, other test suites, or both.
+  \item[Test Runner] \hfill \\
+      A test runner is a program which orchestrates the running of the tests
+      themselves, and reports the outcome to the user.
+\end{description}
+
+The Django testing framework works by providing a subclass of the built-in
+Python \verb!TestCase!, adding some Django-specific functionality (such as
+checking that a particular template was rendered, or that the HTTP response
+contained a specific header).
+
+Because the Django testing framework extends on the functionality provided by
+the Python \verb!unittest! module, it can be used to test much more than just
+the web interface. In fact, the only code that cannot be effectively tested is
+the asynchronous Twisted code.
 
 \subsection{Test Client}
+\label{sec:testing-django-client}
+
+The Django test client is a Python class which acts as a dummy web browser,
+allowing the interaction with the web application to be tested
+programmatically.
+
+This allows the actual functionality of the web interface to be tested---such
+as adding, editing and deleting clients---and checking that the database is
+left in the correct state afterwards.
 
 \section{Continuous Integration}
+\label{sec:testing-ci}
 
-\subsection{Hudson CI Server}
+Continuous Integration is an agile software practice which refers to the
+continuous process of applying software quality control \cite{duvall2007}. The
+building, testing and deployment phases of the project are automated so that
+they can be performed quickly and (usually) automatically.
+
+In this project, the building and testing phases are automated, and are run
+every time a new version is pushed to the version control server. If a test
+fails, an email is sent to notify the developer responsible for the failing
+code.
+
+\subsection{Hudson Continuous Integration Server}
+\label{sec:testing-ci-hudson}
+
+Hudson Continuous Integration Server is a Continuous Integration tool written
+in Java. It is designed to integrate with existing version control systems such
+as Git or Subversion.
+
+Throughout the development process to ensure that the quality of the software
+produced is high, a Hudson CI Server was used to build and test each new
+version of the backup system, as it was pushed to central Git repository.

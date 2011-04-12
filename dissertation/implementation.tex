@@ -1,9 +1,11 @@
 \chapter{Implementation}
+\label{sec:implementation}
 
 This project is implemented in Python, making use of the Django web framework
 and the Twisted networking engine.
 
 \section{Python}
+\label{sec:implementation-python}
 
 \begin{figure}[h]
     \begin{verbatim}
@@ -55,6 +57,7 @@ with this project, as proof-of-concept code can be written in Python for
 ease---and then rewritten in C later if performance is found to be an issue.
 
 \section{Django}
+\label{sec:implementation-django}
 
 The system implementation is based on top of the Django framework which, though
 primarily designed for creating web applications, can be used as the basis for
@@ -72,6 +75,7 @@ In this project, Django is used to provide access to the database (the
 \emph{models}) and for the web interface itself.
 
 \subsection{Models}
+\label{sec:implementation-django-models}
 
 The models define the persistent data that will be available to the
 application, and how that data should be accessed. In Django, this consists of
@@ -122,6 +126,7 @@ occurred on the \verb!Item! with ID 4, of type ``updated''.
 \end{singlespacing}
 
 \subsection{Views}
+\label{sec:implementation-django-views}
 
 Django uses a slightly different terminology to other popular frameworks, in
 that the ``controllers'' (the pieces of code which link together the models and
@@ -135,6 +140,7 @@ Fairly obviously, the views are only relevant to the web interface, and are not
 used for the core backup system functionality.
 
 \subsection{Templates}
+\label{sec:implementation-django-templates}
 
 A template (often called a ``view'' in other frameworks) is a file which
 defines how the interface will be rendered to the end user. When dealing with
@@ -144,6 +150,7 @@ Again, the templates are not relevant to the core system functionality---and
 only relate to the web interface.
 
 \subsection{Project Structure}
+\label{sec:implementation-django-structure}
 
 A Django project is separated into multiple ``applications'', each defining its
 own models, views, and templates. The idea here is that applications should be
@@ -154,6 +161,7 @@ This project is separated into three applications: \verb!core!, \verb!clients!,
 and \verb!catalog!.
 
 \subsubsection{Core Application}
+\label{sec:implementation-django-structure-core}
 
 The core application exists to tie in the functionality provided by the other
 two applications, and to provide functionality which does not necessarily
@@ -169,6 +177,7 @@ provides an overview of the system status and some basic statistics. Also, the
 feature, and not related to the clients or catalog applications.
 
 \subsubsection{Clients Application}
+\label{sec:implementation-django-structure-clients}
 
 The clients application provides functionality related to the clients
 themselves, such as the \verb!Client! model (along with the related
@@ -176,9 +185,10 @@ themselves, such as the \verb!Client! model (along with the related
 allow the administrator to add clients, and edit or delete existing ones.
 
 More detail as to the implementation of the web interface itself is given in
-section \ref{sec:implementation-web-interface}.
+section \ref{sec:implementation-web}.
 
 \subsubsection{Catalog Application}
+\label{sec:implementation-django-structure-catalog}
 
 The catalog application provides the main persistent data store for the backup
 application (the \emph{catalog}) which records the files and versions that have
@@ -188,6 +198,7 @@ also included in the catalog application. See Figure \ref{fig:erd} for the
 detailed Entity-Relationship Diagram.
 
 \section{Twisted}
+\label{sec:implementation-twisted}
 
 Though the backup system is implemented on top of Django, the core
 functionality is achieved using the Twisted framework.
@@ -208,6 +219,7 @@ loop. This allows the entire application to be ``hooked'' into a central
 location, from which all events and callbacks are generated or called.
 
 \subsection{Perspective Broker}
+\label{sec:implementation-twisted-pb}
 
 The Twisted framework contains a library for networked inter-process
 communication called the \emph{Perspective Broker}. Essentially, it is
@@ -219,7 +231,7 @@ The Perspective Broker is used for all inter-process communication within the
 backup system, including the actual data transfer itself.
 
 \subsection{Plugins}
-\label{sec:twisted-plugins}
+\label{sec:implementation-twisted-plugins}
 
 Twisted allows developers to create application ``plugins'', which are
 networked programs that can be launched using the twisted daemon \emph{twistd}.
@@ -243,6 +255,7 @@ example process invocation is shown in listing \ref{lst:twistd-example}.
 \end{singlespacing}
 
 \section{pyinotify}
+\label{sec:implementation-pyinotify}
 
 \emph{pyinotify} is an open-source library for Python which provides
 a high-level API for the inotify subsystem. It allows the programmer to add
@@ -255,6 +268,7 @@ this reason pyinotify is used to monitor the file system in this project
 instead, and is linked into the Twisted event loop with a custom hook.
 
 \section{Server}
+\label{sec:implementation-server}
 
 The server provides the sole point of contact for the client application,
 including all data transfer operations. The system is designed such that all
@@ -267,6 +281,7 @@ the data models. This means that the code is extensible, in that the server
 need not be modified if the schema changes.
 
 \subsection{API}
+\label{sec:implementation-server-api}
 
 To avoid code in the Twisted server calling the Django ORM directly (and
 therefore tightly-coupling the two applications), an abstraction layer sits
@@ -279,14 +294,15 @@ The backup server API methods are listed in appendix
 \ref{sec:appendix-server-api}.
 
 \subsection{Daemon}
+\label{sec:implementation-server-daemon}
 
 As mentioned, the server daemon provides the sole point of contact for the
 client application, and is implemented as a Twisted \emph{Perspective Broker}.
 
 The server is encapsulated within a \verb!Server! object, which provides a hook
 into Twisted's \emph{service} architecture. This allows the plugin (see section
-\ref{sec:twisted-plugins}) to start the server when the application is run, and
-begin listening on the desired port.
+\ref{sec:implementation-twisted-plugins}) to start the server when the
+application is run, and begin listening on the desired port.
 
 The server also handles all authentication automatically, by ensuring that
 an incoming client connection matches a record in the database with the correct
@@ -296,6 +312,7 @@ Finally, the server periodically checks for pending restore jobs for each
 connected client - executing them if necessary.
 
 \subsection{Perspective Broker}
+\label{sec:implementation-server-pb}
 
 The server represents each connected client with a \verb!BackupClient! object.
 This object maintains a reference to the previously mentioned \verb!Server!,
@@ -306,7 +323,7 @@ The backup server's remotely-accessible perspective broker are listed in
 appendix \ref{sec:appendix-server-pb-methods}.
 
 \subsection{Data Transfer}
-\label{sec:data-transfer}
+\label{sec:implementation-server-transfer}
 
 To effect the actual transfer of data between the client and server for backing
 up files (and vice-versa, in the case of restoring files), a custom \emph{File
@@ -321,7 +338,7 @@ On the sender, the \verb!TransferPager! reads from the source file in chunks
 which is a remote reference to an object that exists on the destination.
 
 \subsection{Storage}
-\label{sec:implementation-storage}
+\label{sec:implementation-server-storage}
 
 The storage subsystem acts as an abstraction layer between the backup server
 and the file system. In essence, it allows multiple versions of many files to
@@ -335,6 +352,7 @@ initialised with the root of directory within which the subsystem should
 operate. This allows multiple data stores to be maintained if required.
 
 \subsubsection{Buckets}
+\label{sec:implementation-server-storage-buckets}
 
 Buckets are essentially top-level directories which separate files into logical
 groups. In practice, each client's files are contained within a dedicated
@@ -345,6 +363,7 @@ itself. For this reason, the bucket name can only contain characters which are
 valid on the file system.
 
 \subsubsection{Containers}
+\label{sec:implementation-server-storage-containers}
 
 At the next level down, containers are used to separate each file's versions
 from others. Similarly, a container is simply a sub-folder of the bucket that
@@ -370,6 +389,7 @@ would be placed within the same container. This means that the version IDs
 would \emph{also} have to clash for an issue to arise.
 
 \subsubsection{Versions}
+\label{sec:implementation-server-storage-versions}
 
 Within each container, every version of the file represented by that container
 is stored. The files are named according to the version's unique ID, with no
@@ -386,6 +406,7 @@ bits. It therefore requires no additional information (such as a namespace) to
 generate a new version ID.
 
 \subsubsection{put}
+\label{sec:implementation-server-storage-put}
 
 When adding a new file to the storage subsystem, the caller must provide only
 two pieces of information: the \emph{bucket}, and the name of the file.
@@ -420,6 +441,7 @@ placing a version of a file called \verb!/home/rob/file1.txt! in the
 \verb!armstrong! bucket.
 
 \subsubsection{get}
+\label{sec:implementation-server-storage-get}
 
 To retrieve a file, the caller must provide all three pieces of information:
 the \emph{bucket}, the name of the file, and the version ID. Using this
@@ -432,6 +454,7 @@ returned to the caller, allowing the file's contents to be read. Again, it is
 the caller's responsibility to close the file descriptor.
 
 \section{Client}
+\label{sec:implementation-client}
 
 As mentioned, the client's only point of communication with the rest of the
 system is the server itself. Communication with the server is handled via the
@@ -445,7 +468,7 @@ Finally, the client listens for filesystem notifications from inotify, passing
 jobs to the queue where necessary.
 
 \subsection{Broker}
-\label{sec:implementation-broker}
+\label{sec:implementation-client-broker}
 
 The broker acts as the middle-man between the core client code and the remote
 server object. It handles the process of connecting and authenticating,
@@ -453,7 +476,7 @@ disconnecting, and managing the connection in the meantime. This includes all
 data transfer, and calling the Perspective Broker methods themselves.
 
 \subsection{Consumer Queue}
-\label{sec:implementation-consumer-queue}
+\label{sec:implementation-client-consumerqueue}
 
 The backup client requires a number of \emph{queues} to provide a buffer
 between the fast file system and the (relatively) slow network connection. To
@@ -474,7 +497,7 @@ The \verb!BackupQueue! and \verb!TransferQueue! both inherit from the
 \verb!ConsumerQueue!.
 
 \subsection{Backup Queue}
-\label{sec:implementation-backup-queue}
+\label{sec:implementation-client-backupqueue}
 
 The backup queue acts as a ``holding area'' for \verb!BackupJob! objects
 waiting to be executed. A \verb!BackupJob! simply consists of a file path and
@@ -486,10 +509,10 @@ of the action via the broker, though no data transfer is required.
 When an \verb!UPDATE! job is executed, however, the server is queried to
 determine whether the file in question needs to be re-archived. If so, the file
 path is placed on the transfer queue (see section
-\ref{sec:implementation-transfer-queue}).
+\ref{sec:implementation-client-transferqueue}).
 
 \subsection{Transfer Queue}
-\label{sec:implementation-transfer-queue}
+\label{sec:implementation-client-transferqueue}
 
 The transfer queue holds items which are due to be archived to the server. To
 consume an item, it first calls the \verb!put_file! method via the broker, and
@@ -497,7 +520,7 @@ then \emph{pages} the source file into the \verb!PageCollector! which is
 returned.
 
 \subsection{Filesystem Notifications}
-\label{sec:implementation-filesystem-notifications}
+\label{sec:implementation-client-fsnotify}
 
 Firstly, the backup system uses an object called the \verb!FileSystemMonitor!
 to provide a consistent interface for watching the file system for events. The
@@ -517,7 +540,7 @@ Due to the architecture of the system, it would be entirely possibly to write
 an equivalent implementation for other platforms in this way.
 
 \section{Web Interface}
-\label{sec:Implementation-web-interface}
+\label{sec:implementation-web}
 
 As Django is primarily a web development framework, the web interface makes
 full use of its features. At a basic level, the web interface provides
@@ -526,6 +549,7 @@ easy-to-use way of browsing the catalog and performing system configuration
 tasks.
 
 \subsection{Dashboard}
+\label{sec:implementation-web-dashboard}
 
 The dashboard provides a high-level system overview, giving the administrator
 access to the most important information in one place. Figure
@@ -551,6 +575,7 @@ The dashboard summarizes the following information:
 \end{figure}
 
 \subsection{Clients}
+\label{sec:implementation-web-clients}
 
 The clients interface allows the administrator to add, edit or delete backup
 clients. When a client is added, it is configured with a secret key and a list
@@ -566,6 +591,7 @@ the form used when adding a client.
 \end{figure}
 
 \subsection{Browse}
+\label{sec:implementation-web-browse}
 
 The administrator can browse the catalog of protected items through the web
 interface, using the ``browse'' tab. The ``drill-down'' method is used to
@@ -605,3 +631,7 @@ how the file has evolved since it was first created.
     \label{fig:backtrac-file-detail}
 \end{figure}
 
+\section{Version Control}
+\label{sec:implementation-versioncontrol}
+
+Talk about: Git, GitHub?, CI intro (see next section)
