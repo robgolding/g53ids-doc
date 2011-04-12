@@ -66,6 +66,25 @@ This allows the actual functionality of the web interface to be tested---such
 as adding, editing and deleting clients---and checking that the database is
 left in the correct state afterwards.
 
+\section{Twisted Testing}
+\label{sec:testing-twisted}
+
+Similarly to Django, Twisted offers a testing framework which allows unit
+testing of the asynchronous networking code. These tests can be run using the
+Django test runner, described in section \ref{sec:testing-django-framework}.
+Twisted's testing framework is called \emph{Trial}.
+
+\subsection{Trial}
+\label{sec:testing-twisted-trial}
+
+Twisted also contains a testing framework which, similarly to Django, leverages
+the Python \verb!unittest! module. In the same way, it subclasses the built-in
+\verb!TestCase! class, adding functionality specific to the framework.
+
+Namely, Twisted's testing framework---\emph{Trial}---adds the ability for tests
+to pass or fail depending on the value returned after a deferred result has
+fired. This allows asynchronous code to be tested like any other.
+
 \section{Continuous Integration}
 \label{sec:testing-ci}
 
