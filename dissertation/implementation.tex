@@ -634,4 +634,40 @@ how the file has evolved since it was first created.
 \section{Version Control}
 \label{sec:implementation-versioncontrol}
 
-Talk about: Git, GitHub?, CI intro (see next section)
+Version control is an important aspect of any project, not only for retaining
+the historical versioning information but also for centralising development in
+one location. This also allows for up-to-date backups to be kept easily, and
+prevents changes from being lost when developing on multiple workstations.
+
+For this project, Git is used for version control with a central repository
+stored on the GitHub web service.
+
+\subsection{Distributed Version Control}
+
+Distributed Version Control Systems (DVCS) are different to traditional Source
+Code Management (SCM) systems in that there is no centralised ``authoritative''
+repository \cite{robert2006}. Instead, the developer ``clones'' the entire
+repository's history onto their local development machine, and commits changes
+back to that local clone.
+
+To share their changes, developers synchronise their repositories with each
+user using a ``push'' and ``pull'' methodology. Using this method, the
+repositories are compared to find a common point in their history and then
+merged together.
+
+When using a DVCS, a central server can be used to store a repository which
+everyone has access to, so that changes can be shared between all developers
+effectively. There is, however, no tangible difference between the repository
+stored on the server and those stored on the local machines. In effect, all
+repositories are created equal.
+
+Though it may appear more complex than the traditional method of source
+control (i.e. CVS or Subversion), it is fast becoming a very popular way of
+developing software \cite{takhteyev2010}. It allows developers to participate
+in open-source projects by ``forking'' the repository and applying their own
+ideas. Github is the most popular hosting system for Git, claiming to host over
+one million repositories in 2010 \cite{takhteyev2010}.
+
+This project's repository is hosted on GitHub, providing a centrally accessible
+location for development. The project itself is released under the open-source
+GNU General Public Licence version 3 (GPLv3) \cite{stallman1991}.
