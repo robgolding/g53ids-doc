@@ -644,14 +644,14 @@ stored on the GitHub web service.
 
 \subsection{Distributed Version Control}
 
-Distributed Version Control Systems (DVCS) are different to traditional Source
-Code Management (SCM) systems in that there is no centralised ``authoritative''
-repository \cite{robert2006}. Instead, the developer ``clones'' the entire
-repository's history onto their local development machine, and commits changes
-back to that local clone.
+Distributed Version Control Systems (DVCS) are different to traditional Version
+Control Systems in that there is no central ``authoritative'' repository
+\cite{robert2006}. Instead, each developer ``clones'' the entire repository's
+history onto their local development machine, and commits their changes back to
+that local clone.
 
 To share their changes, developers synchronise their repositories with each
-user using a ``push'' and ``pull'' methodology. Using this method, the
+user using a ``push'' and ``pull'' technique. With this approach, the
 repositories are compared to find a common point in their history and then
 merged together.
 
@@ -659,14 +659,19 @@ When using a DVCS, a central server can be used to store a repository which
 everyone has access to, so that changes can be shared between all developers
 effectively. There is, however, no tangible difference between the repository
 stored on the server and those stored on the local machines. In effect, all
-repositories are created equal.
+repositories are created equal. The only difference is that the server
+containing the ``central'' repository is accessible reliably from the internet,
+whereas a developer's machine may not be.
 
-Though it may appear more complex than the traditional method of source
-control (i.e. CVS or Subversion), it is fast becoming a very popular way of
-developing software \cite{takhteyev2010}. It allows developers to participate
-in open-source projects by ``forking'' the repository and applying their own
-ideas. Github is the most popular hosting system for Git, claiming to host over
-one million repositories in 2010 \cite{takhteyev2010}.
+Though it may appear more complex than the traditional method of source control
+(i.e. CVS or Subversion), it is fast becoming a very popular way of developing
+software \cite{takhteyev2010}. It allows developers to participate in
+open-source projects by ``forking'' the repository and applying their own
+ideas, and then notifying the original author of their fork. The author may
+then choose to merge the changes into the mainstream repository, directly
+involving the developer in the project. Github \cite{Github} is the most
+popular hosting system for Git, claiming to host over one million repositories
+in 2010 \cite{takhteyev2010}.
 
 This project's repository is hosted on GitHub, providing a centrally accessible
 location for development. The project itself is released under the open-source
