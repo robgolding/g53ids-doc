@@ -1,7 +1,8 @@
 \chapter{Specification}
 
 This Software Requirements Specification (SRS) was produced with the backing of
-\textbf{Servat Ltd.}, of Nottingham.
+\textbf{Servat Ltd.} of Nottingham, and conforms with \emph{IEEE Standard
+830-1998} (1998).
 
 Servat is primarily an accounting system provider, installing and maintaining
 software such as DataFile, Aqilla and SAP for their clients. They also resell
@@ -295,7 +296,7 @@ system-wide preferences.
     \item The client shall communicate only with the server, and not with the
         web interface in any way.
     \item The server application and web interface shall both access a shared
-        database, containing the catalog and system configuration.
+        database (i.e. the catalog).
 
 \subsubsection{Server}
 
@@ -303,11 +304,13 @@ system-wide preferences.
         listening for connections from multiple clients.}
     \item \emph{The server shall maintain a catalog, containing the
         file system meta-data for each file in the backup archive, and every
-        version thereof. The meta-data may contain any or all of the fields
-        specified in Table \ref{tab:meta-data}.}
+        version thereof.
+    \item File system meta-data may contain any or all of the fields specified
+        in Table \ref{tab:meta-data}.}
     \item The server shall store archived files from all clients in
-        a pre-defined location on the file system, in an organised manner
-        to allow any past version of a file to be retrieved.
+        a pre-defined location on the file system.
+    \item Archived files shall be stored in an organised manner to allow any
+        past version of a file to be retrieved.
     \item The server shall allow clients to perform the following operations:
         \begin{enumerate}
             \item Query a file's meta-data in the catalog (to determine if
@@ -319,27 +322,30 @@ system-wide preferences.
             \item Restore any given version of a file from the archive
             \item Notify the server that a file has been deleted
         \end{enumerate}
-    \item When a client archives a newly created file to the server, it's meta
-        data shall be recorded in the catalog, and an initial version of that
-        file shall be created in the catalog.
+    \item When a client archives a newly created file to the server, the
+        following actions shall take place:
+        \begin{enumerate}
+            \item Its meta data shall be recorded in the catalog
+            \item An initial version of the file shall be created
+        \end{enumerate}
     \item When an existing file is re-archived (due to a modification on the
         client, for example), a new version shall be created and associated
-        with that file. The updated meta-data shall be recorded and linked to
-        the new version in the catalog.
-    \item When a file is deleted, this action shall be recorded in the catalog.
-        The file shall not be deleted from the archive, so that it may be
-        restored later.
+        with that file, containing the new file's meta-data.
+    \item When a file is deleted from a client, this action shall be recorded
+        in the catalog.
+    \item When a file is deleted from a client, it shall not be deleted from
+        the archive. This is so that it may be restored later.
     \item Clients shall not be able to connect to the server unless they
         successfully authenticate with their secret key.
 
 \subsubsection{Client}
 
     \item \emph{The client application shall connect to the server via it's
-        address as specified in a configuration file. It shall authenticate
-        itself to the server using a secret key, also specified in
-        a configuration file.}
-    \item \emph{The client application shall replicate files in protected
-        directories to the server.}
+        address as specified in a configuration file.}
+    \item \emph{The client shall authenticate itself to the server using a
+        secret key, also specified in a configuration file.}
+    \item \emph{The client application shall archive files in specified
+        protected directories to the server.}
     \item \emph{The client shall perform a scan of the file system on startup,
         archiving any files which are not up-to-date and notifying the server
         of the deletion of any files which are no longer present. To do this,
@@ -350,16 +356,19 @@ system-wide preferences.
         the protected host. The server shall hold the only copy of the catalog.
     \item The client shall query the server to check if a file requires
         re-archiving whenever this may be the case (i.e. on startup, and on
-        file modification). The file shall only be re-archived if the meta-data
-        differs from the latest version in the catalog (i.e. the file on the
-        client is more up-to-date than that in the backup archive). The query
-        may contain any or all of the fields specified in Table
-        \ref{tab:meta-data}.
+        file modification).
+    \item Files shall only be re-archived if the meta-data differs from the
+        latest version in the catalog (i.e. the file on the client is more
+        up-to-date than that in the backup archive). This is determined by
+        querying the server, where the query may contain any or all of the
+        fields specified in Table \ref{tab:meta-data}.
     \item The client shall provide ``continuous'' file system protection whilst
         is it running, backing up files as soon as they are created or
         modified, and notifying the server of the deletion of files immediately
-        after they are removed. This shall not be achieved by ``polling'' the
-        file system periodically to detect changes, as this is inefficient.
+        after they are removed.
+    \item Continuous file system protection shall \emph{not} be achieved by
+        ``polling'' the file system periodically to detect changes, as this is
+        inefficient.
 
 \subsubsection{Web Interface}
 
