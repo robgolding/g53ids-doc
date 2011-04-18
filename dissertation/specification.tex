@@ -550,10 +550,11 @@ to record the operation. Figure \ref{fig:receive-file} depicts this process.
 
 \subsubsection{Deleting a file}
 
-When a client signifies that a file has been deleted, the server should again
-check to see if the file exists in the catalog. If so, the file should be
-marked as deleted and an event created to record the operation. Otherwise, no
-action should be taken. Figure \ref{fig:delete-file} depicts this process.
+When a client notifies the server that a file has been deleted, the server
+should again check to see if the file exists in the catalog. If so, the file
+should be marked as deleted and an event created to record the operation.
+Otherwise, no action should be taken. Figure \ref{fig:delete-file} depicts this
+process.
 
 \begin{figure}[H]
     \setlength{\unitlength}{0.14in}
