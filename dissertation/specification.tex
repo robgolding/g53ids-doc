@@ -707,6 +707,44 @@ depicts this process.
     \label{fig:startup-protocol}
 \end{figure}
 
+\section{Scenarios}
+
+\subsection{Adding a Client and Starting it for the First Time}
+
+\emph{The administrator has just installed a new file server, and wishes to
+install the backup system before any data is added to it.}
+
+The administrator first adds the new client to the backup system using the web
+interface---specifying the secret key using a long, random string. She adds the
+file server's shared directory (\verb!/media/Share/!) to the list of protected
+directories for the new client.
+
+The administrator then installs the backup client on the new server, typing
+the hostname of the server and the secret key into the configuration file
+before starting the client for the first time. On startup, the client connects
+to the server and performs an initial backup of the protected directory.
+
+\subsection{Restoring an Accidentally Deleted File}
+
+\emph{The user requests for a file that has been accidentally deleted from
+their computer to be restored by the administrator.}
+
+The administrator navigates to the backup system web interface, and browses to
+the file in question using the catalog. Once the file has been located (using
+the option to ``show deleted files''), she restores the latest version to the
+user's computer.
+
+\subsection{Retrieving a Lost File onto a Data Stick}
+
+\emph{The user requests for a file that has been lost for an unknown period of
+time to be recovered onto a data stick. All that is known is that the file is
+called} \verb!Finance Ledger - 2011.xlsx!.
+
+The administrator uses the search function to find the file, using the search
+query ``\verb!Finance Ledger - 2011.xlsx!'', and finds the file in question.
+She then chooses to download the latest version of the file, and saves it to
+the user's data stick.
+
 \section{System Evolution}
 
 The following items are points for consideration with regards to the system's
