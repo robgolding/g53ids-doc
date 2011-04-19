@@ -19,7 +19,7 @@ these systems.
 Amanda (Advanced Maryland Automatic Network Disk Archiver) is an open-source,
 multi-platform network backup solution\cite{AMANDA-about}. The software is
 released under the Amanda Copyright and License (a BSD-style license) and is
-supported by Zmanda\cite{AMANDA-license}.
+supported by Zmanda \cite{AMANDA-license}.
 
 Amanda uses native UNIX tools to archive files (such as tar or dump) to disk or
 tape on a central backup server. This means that an administrator can restore
@@ -33,30 +33,30 @@ server software only support Linux. Due the to fact that it only uses native
 tools, no special drivers are required for interfacing with devices such as
 tape libraries. Therefore, if the operating system is able to communicate with
 the device (via commands such as \emph{mt}) then Amanda can use
-it\cite{AMANDA-about}.
+it \cite{AMANDA-about}.
 
 The software lends itself heavily to the use of tape devices for backing up
 data, and has some advanced features that facilitate this use. As such, it does
 not support a version-centric backup model or
-instant-recovery\cite{AMANDA-about}.
+instant-recovery \cite{AMANDA-about}.
 
 An ``enterprise'' version is also available---supported by Zmanda---which
 offers a GUI management tool and enterprise-class support (SLA).  This version
-is based on an annual subscription model\cite{AMANDA-ent}.
+is based on an annual subscription model \cite{AMANDA-ent}.
 
 \subsubsection{Symantec Backup Exec}
 
 Symantec Backup Exec (formerly VERITAS Backup Exec) is a proprietary network
 backup solution. It allows an administrator to backup multiple hosts to
 a single tape unit or disk. The software has a long history starting with
-Maynard Electronics\cite{Symantec-history}, and has recently added support for
-continuous backup\cite{Symantec-about}.
+Maynard Electronics \cite{Symantec-history}, and has recently added support for
+continuous backup \cite{Symantec-about}.
 
 Though it is primarily a Windows-based application, agents are available for
 Linux/Unix, Solaris, Mac and Novel NetWare. A ``media agent'' is allow
 available for Linux, allowing Linux servers to be used as a storage medium for
 the archived files. The central management platform, however, runs only on
-Microsoft Windows\cite{Symantec-about}.
+Microsoft Windows \cite{Symantec-about}.
 
 A unique and proprietary storage format is used for the archives, which limits
 recovery operations to proprietary Symantec tools. This also means that if the
@@ -64,14 +64,14 @@ backup server itself were to fail, the data would not be recoverable unless
 a copy of the catalog were available.
 
 Each Symantec agent must be separately licensed, which buys support from
-Symantec for the software\cite{Symantec-about}.
+Symantec for the software \cite{Symantec-about}.
 
 \subsubsection{Bacula}
 
 Bacula is an open-source network backup solution, based around a modular
 architecture comprising the \emph{Director}, the \emph{Storage Server}, the
 \emph{File Server}, the \emph{Monitor} and the
-\emph{Console}\cite{Bacula-about}.
+\emph{Console} \cite{Bacula-about}.
 
 Similarly to Symantec, the project uses a unique storage format for archived
 files that is not compatible with tools such as \emph{tar} or \emph{dump}
@@ -80,52 +80,52 @@ the storage server is not tied to a particular operating system, though backups
 cannot be restored without the use of specially written Bacula restoration
 tools. This is not considered a limitation by the developers, due to the
 extensibility and superior capabilities of the format when compared with the
-aforementioned standard formats\cite{Bacula-about}. Recovery, however, is made
+aforementioned standard formats \cite{Bacula-about}. Recovery, however, is made
 more difficult if the Bacula software---or the software running the Bacula
 server---were to fail, because the catalog is required to make sense of the
 archive. Data can be restored without the catalog, but it requires a separate
 ``bootstrapping'' process, which adds to the complexity of the restoration.
 
 The Bacula client agent (or \emph{File Server}) is available for multiple platforms,
-including Linux, Solaris, Windows and Mac\cite{Bacula-features}.
+including Linux, Solaris, Windows and Mac \cite{Bacula-features}.
 
 Bacula lends itself to archiving files to a tape device in the same way as
 Amanda.  For this reason, it does not support a version-centric backup model or
 instant recovery. A web interface is, however, available---though it is
 a separate project requiring independent installation and configuration---and
 does not facilitate instant access to archived files through the
-browser\cite{Bacula-about}.
+browser \cite{Bacula-about}.
 
 \subsection{Cloud-based Backup Solutions}
 
 \subsubsection{Mozy}
 
 Mozy is an online backup service that allows users to backup their files to
-``the cloud'' (meaning the Mozy servers on the internet)\cite{Mozy}. This is
+``the cloud'' (meaning the Mozy servers on the internet) \cite{Mozy}. This is
 a shift in paradigm from the traditional backup systems, which backup files to
 a host on the local network, controlled by the user/administrator. 
 
 Mozy provides client agent versions for both Windows and Mac, which support
 continuous, scheduled or manual backups. A Linux client, however, is not
-available\cite{Mozy}.
+available \cite{Mozy}.
 
 Once a file has been backed up, all changes in that file are reflected in the
 archives. Users can restore previous versions of a file up to 30 days
-old\cite{Mozy}.
+old \cite{Mozy}.
 
 Originally, Mozy was only available for home users. At present, however, Mozy
 offers a ``pro'' versions for businesses also---which offers more features and
-an administrative console\cite{Mozy-crunchbase}.
+an administrative console \cite{Mozy-crunchbase}.
 
 The pricing model for Mozy's products was originally based on a charge per
 Gigabyte of data stored, on a monthly subscription
-basis\cite{Carbonite-report}. This has now changed to a fixed monthly
+basis \cite{Carbonite-report}. This has now changed to a fixed monthly
 subscription for unlimited data storage. A free version is also available, with
-2GB of storage from up to 2 computers\cite{Mozy}.
+2GB of storage from up to 2 computers \cite{Mozy}.
 
 Mozy offers a web interface for users to access their data, and download the
 archived files for restoration. This can be done from any computer with access
-to the internet\cite{Mozy}.
+to the internet \cite{Mozy}.
 
 The shift to cloud-based storage, however, means that the transfer speed is
 limited to the upload speed of the user's internet connection. This limit might
@@ -144,21 +144,21 @@ major issues for an administrator with even a modest amount of data.
 Carbonite is an online backup service similar to Mozy. The user's files are
 stored on servers in Carbonite's datacenter, and the client agent support
 Windows and Mac operating systems. Again, a Linux client agent is not
-offered\cite{Carbonite}.
+offered \cite{Carbonite}.
 
 Carbonite began by offering a fixed, yearly subscription model for unlimited
 storage capacity. This led to Mozy changing their pricing model to reflect
 Carbonite's---leading to a very similar and competitive
-service\cite{Carbonite-report}. A 30-day version history is also available for
-all archived files\cite{Carbonite}.
+service \cite{Carbonite-report}. A 30-day version history is also available for
+all archived files \cite{Carbonite}.
 
 A web interface is also offered, allowing users to view and restore their files
-to any computer with access to the internet\cite{Carbonite}.
+to any computer with access to the internet \cite{Carbonite}.
 
 Because Carbonite uses the same storage model as Mozy, the backup speed is
 again limited by the upload speed of the user's internet connection. Carbonite,
 however, imposes extra limitations on the speed that a client can upload
-data\cite{Carbonite-limits}. Continuing with the previous example, uploading
+data \cite{Carbonite-limits}. Continuing with the previous example, uploading
 500GB of data continuously over a connection with a 2Mbps upload speed would
 take approximately 10 months with Carbonite.
 
@@ -191,18 +191,18 @@ Dropbox is primarily a file synchronisation tool. It allows users to keep
 a single directory tree synchronised between multiple computers (on different
 platforms). The files are synchronised to the Dropbox servers, and then to all
 other computers running the Dropbox client that are linked to user's
-account\cite{Dropbox}.  The terms of service, however, do not disallow the use
-of Dropbox for backing up data\cite{Dropbox-terms}.
+account \cite{Dropbox}.  The terms of service, however, do not disallow the use
+of Dropbox for backing up data \cite{Dropbox-terms}.
 
 The client and server code is proprietary, but the service is free for up to
 2GB of storage. A ``freemium'' subscription model is used whereby more storage
-can be purchased for a subscription charge\cite{Dropbox}.
+can be purchased for a subscription charge \cite{Dropbox}.
 
 The files that have been synchronised to Dropbox can be accessed via a web
 interface which allows users to view the directory tree of their Dropbox folder
 and view/restore archived versions of the files therein. A 30-day revision
 history is allowed on the free plan, with unlimited versions available on the
-paid subscription plan\cite{Dropbox}.
+paid subscription plan \cite{Dropbox}.
 
 Dropbox suffers from the same limitation as Mozy and Carbonite, in that files
 can only be transferred at the speed of the user's upload rate.
@@ -211,30 +211,30 @@ can only be transferred at the speed of the user's upload rate.
 
 Ubuntu One is essentially a clone of Dropbox, solely for Ubuntu users---though
 a Windows client is currently in development---with a paid mobile service for
-Android and iPhone devices\cite{UbuntuOne}. It is created and supported by
+Android and iPhone devices \cite{UbuntuOne}. It is created and supported by
 Canonical, the company sponsoring the development of the popular Linux
-operating system Ubuntu\cite{UbuntuOne}. Again, the terms of service do not
-disallow using Ubuntu One as a backup solution\cite{UbuntuOne-terms}.
+operating system Ubuntu \cite{UbuntuOne}. Again, the terms of service do not
+disallow using Ubuntu One as a backup solution \cite{UbuntuOne-terms}.
 
 Although Ubuntu itself is open-source, Ubuntu One is a proprietary project. The
 ``agent'' that is installed on the client is open, but the server-side code is
-not\cite{UbuntuOne-servers}. This means that users cannot run their own Ubuntu
+not \cite{UbuntuOne-servers}. This means that users cannot run their own Ubuntu
 One servers, and are forced to use the service provided by Canonical. Similarly
 to Dropbox, more storage space can be purchased for a subscription
-fee\cite{UbuntuOne}.
+fee \cite{UbuntuOne}.
 
 Ubuntu One also integrates with the local ``CouchDB'' instance on the Ubuntu
 operating system, which allows it to synchronise data such as notes taken with
-Tomboy, and contact data within Evolution\cite{UbuntuOne-couchdb}. Also,
+Tomboy, and contact data within Evolution \cite{UbuntuOne-couchdb}. Also,
 a music store is available which, coupled with the paid mobile client, allows
 users to stream music to their hand-held device over the
-internet\cite{UbuntuOne}. This, however, is a feature that is unrelated to the
+internet \cite{UbuntuOne}. This, however, is a feature that is unrelated to the
 aims of this project.
 
 As with Dropbox, a web interface is available for browsing the synchronised
 files and folders and restoring prior versions of said files. The Ubuntu One
 interface also summarises the recent activity with regards to the integrated
-applications (Tomboy and Evolution)\cite{UbuntuOne}.
+applications (Tomboy and Evolution) \cite{UbuntuOne}.
 
 Finally, Ubuntu one is also limited by the upload speed of the user's internet
 connection, in the same was as the previous systems.
@@ -250,8 +250,8 @@ code within those repositories. Social networking aspects are also featured in
 such services, with users being able to ``follow'' the activity of others, or
 interesting projects hosted on the website.
 
-Examples of this type of service include GitHub\cite{Github} and
-BitBucket\cite{Bitbucket}. While both are closed-source systems, the
+Examples of this type of service include GitHub \cite{Github} and
+BitBucket \cite{Bitbucket}. While both are closed-source systems, the
 ``clients'', which are effectively the version control systems that are used to
 contain the source code---git and mercurial respectively---are open source
 projects themselves.
@@ -335,13 +335,13 @@ notifications, triggered when files are changed.
 
 inotify was released in the Linux kernel version 2.6.13 and was developed as
 a replacement for \emph{dnotify}, which had many undesirable flaws, and was
-widely considered difficult to use\cite{love2005}.
+widely considered difficult to use \cite{love2005}.
 
 There are a number of event types which can be ``listened for'' via inotify,
 summarised in Table \ref{tab:inotify-events}. The API requires that the
 programmer specify which events they wish to be notified of, under which
 directory. A separate \emph{watch} must be added for each directory that is to
-be monitored, as these are not recursive in nature\cite{love2005}.
+be monitored, as these are not recursive in nature \cite{love2005}.
 
 \begin{table}
     \centering
@@ -360,6 +360,6 @@ be monitored, as these are not recursive in nature\cite{love2005}.
         IN\_DELETE          & 0x00000200    & Subfile was deleted \\ \hline
         IN\_DELETE\_SELF    & 0x00000400    & Self was deleted \\ \hline
     \end{tabular}
-    \caption{Summary of inotify events\cite{love2005}}
+    \caption{Summary of inotify events \cite{love2005}}
     \label{tab:inotify-events}
 \end{table}
