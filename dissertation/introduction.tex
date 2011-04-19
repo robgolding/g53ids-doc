@@ -62,29 +62,81 @@ of data being archived on hard disk drives, driven by the ever-growing storage
 capacity and falling cost of such disks. These providers are termed ``cloud''
 backup providers.
 
+\subsection{The State of Backups}
+
+There are three main types of backup system in use today, covering the broad
+spectrum of usage from home user to commercial company. These are
+``traditional'' backup systems, cloud-based backup systems and file
+synchronisation services.
+
+File synchronisation services such as Dropbox, which are usually free for
+a limited amount of storage, can be used to backup files by synchronising them
+with another computer or simply by storing them in the ``cloud''. This type of
+service is most likely to be used by home users, due to the absence of any
+extra cost.
+
+Cloud-based backup systems such as Mozy, which backup files over the internet
+to the service providers data centre, require no additional hardware to be
+installed at the client's premises. They often offer a small amount of space
+for free, but require a recurring fee to be paid for more realistic storage
+requirements. Due to the low maintenance requirements, this type of service is
+often used by small to medium-sized businesses.
+
+``Traditional'' backup systems such as Symantec Backup Exec, which usually
+store backups on a magnetic tape are installed ``in-house'' on the same network
+as the clients themselves. The software commonly requires a licence fee to be
+paid, which can often be expensive. For this reason, these such systems are
+usually used by larger organisations and corporations, though open-source
+alternatives are available which can be used without cost.
+
 \section{Project Aims}
 
 Tradition Version Control Systems (VCS) can be used as a method for backing up
 a collection of files, and storing a copy of each and every version as the
 files change over time. In practice, however, this is very impractical. Every
 time a file changes, the user must ``commit'' the working directory to the
-revision control system, which then calculates the changes since the last
-commit. Most (if not all) systems use a text-based diffing process, as they are
-designed for tracking changes in \emph{source code}. This means that they are
+version control system, which then calculates the changes since the last
+commit. Most (if not all) systems use a text-based \emph{diffing} process, as
+they are designed for tracking changes in source code. This means that they are
 inefficient when used with binary files, such as those that are typically found
-in an organisation's file server tree.
+on a commercial file server.
 
 This project aims to combine the features of traditional backup solutions with
-those of Version Control Systems. The desired result is therefore a system
-which keeps a historical archive of every version of every file in a given
-directory tree on a remote system. This is something that, combined with an
-intuitive interface, is not available in any open-source offerings.
+those of modern Version Control Systems. The desired result is therefore
+a system which keeps a historical archive of every version of every file in
+a given directory tree on a remote, networked system. This is something that,
+combined with an intuitive interface, is not available in any open-source
+offerings.
 
 The core feature-set of the system includes:
 
 \begin{itemize}
-    \item Version-based file recovery;
+    \item Version-based file backup and recovery;
     \item Web interface for central management;
     \item Detailed reports regarding backed up data;
     \item Instant file recovery through web interface.
 \end{itemize}
+
+\subsection{Objectives}
+
+To achieve the project aims, a number of intermediate objectives must be
+completed. These include:
+
+\begin{enumerate}
+    \item Research the technologies used in similar backup systems by
+        evaluating the implementation of a number of related works;
+    \item Gain expertise in the usage of the technologies required to implement
+        a network backup system;
+    \item Implement a prototype system which fulfils the basic backup
+        functionality;
+    \item Gain industrial support for the project by demonstrating the
+        prototype to potential project sponsors;
+    \item Specify the details system requirements in collaboration with an
+        industrial sponsor, to define the exact system functionality;
+    \item Implement the system requirements using the prototype as a base,
+        iterating through several revisions to achieve the final result;
+    \item Test that the completed system meets the specification
+        satisfactorily;
+    \item Evaluate the system, comparing it with the desired functionality
+        above;
+\end{enumerate}
