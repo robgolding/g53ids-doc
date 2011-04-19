@@ -38,7 +38,17 @@ failures).
 
 \section{User Requirements}
 
-\subsection{Scenarios}
+\subsection{User Stories}
+
+User stories help to define the market that the project aims to target. Also,
+they aid with specifying \emph{exactly} how a certain action should be
+performed from the user's perspective.
+
+In this case, the user story defines the wider context in which the system will
+be used, and how it will address the problems faced with current offerings, as
+discussed in the previous section.
+
+\subsubsection{David}
 
 David is a 39-year-old IT manager for a small construction company based in
 Nottingham. The company employs a total of 13 administration staff, whose jobs
@@ -254,6 +264,17 @@ of that client will be displayed. The administrator will then be able to
 Deleted files will not be shown by default, but an option to show them will be
 available so that accidentally deleted files can be recovered.
 
+\subsubsection{Search}
+
+To allow lost files to be quickly located, the web interface will allow the
+administrator to search for a file by name. All parts of the path will be used
+in the search query, so directories can also be located using this method.
+
+Search results will allow the administrator to view the file or directory as if
+they had browsed to it normally, by navigating to the location in the catalog
+where the item resides. In this way, the search function simply acts as
+a ``shortcut'' to finding a particular item in the catalog.
+
 \subsubsection{Events}
 
 The system will record the events which occur on each backup client, and
@@ -427,6 +448,8 @@ system-wide preferences.
                 history)
             \item When the file was last modified
         \end{enumerate}
+    \item The web interface shall allow the administrator to search for a file
+        in the catalog, using the file's name or any part of the path.
     \item The web interface shall require that the administrator authenticates
         themself with a valid username/password before accessing any screen.
 
@@ -443,7 +466,7 @@ system-wide preferences.
 
     \item The system shall be able to backup large directory structures,
         containing 10,000 or more files/folders.
-    \item The system shall return search results within 2 seconds.
+    \item The web interface shall return search results within 2 seconds.
 
 \subsubsection{Safety Requirements}
 
@@ -527,10 +550,11 @@ to record the operation. Figure \ref{fig:receive-file} depicts this process.
 
 \subsubsection{Deleting a file}
 
-When a client signifies that a file has been deleted, the server should again
-check to see if the file exists in the catalog. If so, the file should be
-marked as deleted and an event created to record the operation. Otherwise, no
-action should be taken. Figure \ref{fig:delete-file} depicts this process.
+When a client notifies the server that a file has been deleted, the server
+should again check to see if the file exists in the catalog. If so, the file
+should be marked as deleted and an event created to record the operation.
+Otherwise, no action should be taken. Figure \ref{fig:delete-file} depicts this
+process.
 
 \begin{figure}[H]
     \setlength{\unitlength}{0.14in}
@@ -682,6 +706,44 @@ depicts this process.
     \caption{Startup protocol}
     \label{fig:startup-protocol}
 \end{figure}
+
+\section{Scenarios}
+
+\subsection{Adding a Client and Starting it for the First Time}
+
+\emph{The administrator has just installed a new file server, and wishes to
+install the backup system before any data is added to it.}
+
+The administrator first adds the new client to the backup system using the web
+interface---specifying the secret key using a long, random string. She adds the
+file server's shared directory (\verb!/media/Share/!) to the list of protected
+directories for the new client.
+
+The administrator then installs the backup client on the new server, typing
+the hostname of the server and the secret key into the configuration file
+before starting the client for the first time. On startup, the client connects
+to the server and performs an initial backup of the protected directory.
+
+\subsection{Restoring an Accidentally Deleted File}
+
+\emph{The user requests for a file that has been accidentally deleted from
+their computer to be restored by the administrator.}
+
+The administrator navigates to the backup system web interface, and browses to
+the file in question using the catalog. Once the file has been located (using
+the option to ``show deleted files''), she restores the latest version to the
+user's computer.
+
+\subsection{Retrieving a Lost File onto a Data Stick}
+
+\emph{The user requests for a file that has been lost for an unknown period of
+time to be recovered onto a data stick. All that is known is that the file is
+called} \verb!Finance Ledger - 2011.xlsx!.
+
+The administrator uses the search function to find the file, using the search
+query ``\verb!Finance Ledger - 2011.xlsx!'', and finds the file in question.
+She then chooses to download the latest version of the file, and saves it to
+the user's data stick.
 
 \section{System Evolution}
 
