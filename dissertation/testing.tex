@@ -108,3 +108,119 @@ as Git or Subversion.
 Throughout the development process to ensure that the quality of the software
 produced is high, a Hudson server is used to build and test each new version
 of the backup system as it is pushed to central Git repository.
+
+\subsection{System Tests}
+
+Both \emph{unit testing} and \emph{integration testing} are performed using the
+Django testing framework.
+
+The tests are separated into categories according to which application is being
+tested. The name and purpose of each test is listed below, though the details
+are included in the appendix for brevity.
+
+\subsubsection{Catalog}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ l  p{7cm} }
+        \toprule
+        Test                        & Purpose
+        \\ \midrule
+        ItemPathTest                & Test that a newly created \verb!Item!
+                                      is given the correct \verb!path!
+                                      attribute automatically.
+        \\ \\
+        ItemLatestVersionTest       & Test that the \verb!latest_version!
+                                      attribute of the \verb!Item! is updated
+                                      automatically.
+        \\ \\
+        GetOrCreateItemTest         & Test that the \verb!get_or_create_item!
+                                      method works as expected (for retrieving
+                                      items from the catalog or creating them
+                                      if they don't already exist).
+        \\ \\
+        ItemCreatedTest             & Test that creating two items with the
+                                      same path but different types does not
+                                      cause a database error to occur.
+        \\ \\
+        ResolveOriginalVersionTest  & Test that a chain of restored versions
+                                      resolves to the original version
+                                      correctly.
+        \\ \\
+        BrowseRouteTest             & Test that the catalog browsing view
+                                      routes the request to the correct item in
+                                      the file system (i.e. browsing
+                                      a directory or viewing a file).
+        \\ \\
+        DownloadVersionTest         & Test that the version download view
+                                      retrieves the correct version from the
+                                      storage subsystem.
+        \\ \\
+        RestoreVersionTest          & Test that the restore version view
+                                      creates a \verb!RestoreJob! object in the
+                                      database with the correct parameters to
+                                      effect a particular restore.
+        \\ \bottomrule
+    \end{tabular}
+    \caption{Unit and integration tests for the \emph{catalog} application}
+    \label{tab:tests-catalog}
+\end{table}
+
+\subsubsection{Clients}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ l  p{7cm} }
+        \toprule
+        Test                        & Purpose
+        \\ \midrule
+        CreateClientTest            & Test that the create client view creates
+                                      the client correctly.
+        \\ \\
+        InitialStatusTest           & Test that the client's initial
+                                      \verb!Status! object is created
+                                      automatically.
+        \\ \\
+        CreateClientFilePathsTest   & Test that the correct \verb!FilePath!
+                                      objects are created with a client
+                                      through the web interface.
+        \\ \\
+        UpdateClientTest            & Test that updating a client's details
+                                      modifies the database correctly.
+        \\ \\
+        DeleteClientTest            & Test that deleting a client removes the
+                                      client from the database correctly.
+
+        \\ \\
+        ConnectClientTest           & Test that a client is marked as being
+                                      connected when the
+                                      \verb!client_connected! signal is
+                                      dispatched.
+        \\ \\
+        DisconnectClientTest        & Test that a client is marked as being
+                                      disconnected when the
+                                      \verb!client_disconnected! signal is
+                                      dispatched.
+        \\ \bottomrule
+    \end{tabular}
+    \caption{Unit and integration tests for the \emph{clients} application}
+    \label{tab:tests-clients}
+\end{table}
+
+\subsubsection{Core}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ l  p{7cm} }
+        \toprule
+        Test                        & Purpose
+        \\ \midrule
+        GlobalExclusionsTest        & Test that the global exclusions are
+                                      correctly added to the database when
+                                      they are configured through the web
+                                      interface.
+        \\ \bottomrule
+    \end{tabular}
+    \caption{Unit and integration tests for the \emph{core} application}
+    \label{tab:tests-core}
+\end{table}
