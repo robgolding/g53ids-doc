@@ -128,12 +128,18 @@ may consists of any or all of the attributes defined in table
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{| l | l |} \hline
-        Field       & Meaning                                       \\ \hline
-        size        & File size in bytes                            \\ \hline
-        mtime       & File modification time stamp                  \\ \hline
-        inode       & The inode number of the file                  \\ \hline
-        hash        & A hash (or checksum) of the file's contents   \\ \hline
+    \begin{tabular}{ l l }
+        \toprule
+        Field       & Meaning
+        \\ \midrule
+        size        & File size in bytes
+        \\
+        mtime       & File modification time stamp
+        \\
+        inode       & The inode number of the file
+        \\
+        hash        & A hash (or checksum) of the file's contents
+        \\ \bottomrule
     \end{tabular}
     \caption{File meta-data}
     \label{tab:meta-data}

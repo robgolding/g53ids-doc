@@ -1,4 +1,4 @@
-\chapter{Research}
+Unit \& Integrationchapter{Research}
 
 \section{Related Works}
 
@@ -284,37 +284,37 @@ their customers, charging for storage space on their own servers.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{ | l | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | }
-        \hline
+    \begin{tabular}{ l p{1.5cm} p{1.5cm} p{1.5cm} p{1.5cm} }
+        \toprule
         & Open source   & Version control   & Web interface & Local network
-            \\ \hline
+        \\ \midrule
 
         Amanda Network Backup   & $\times$  & $\cdot$   & $\cdot$   & $\times$
-            \\ \hline
+        \\
 
         Symantec Backup Exec    & $\cdot$   & $\times$  & $\cdot$   & $\times$
-            \\ \hline
+        \\
 
         Bacula                  & $\times$  & $\cdot$   & $\times$  & $\times$
-            \\ \hline
+        \\
 
         Mozy                    & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
+        \\
 
         Carbonite               & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
+        \\
 
         CrashPlan               & $\cdot$   & $\times$  & $\times$  & $\times$
-            \\ \hline
+        \\
 
         Dropbox                 & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
+        \\
 
         Ubuntu One              & $\cdot$   & $\times$  & $\times$  & $\cdot$
-            \\ \hline
+        \\
 
         Vembu StoreGrid         & $\cdot$   & $\times$  & $\times$  & $\times$
-            \\ \hline
+        \\ \bottomrule
     \end{tabular}
     \caption{A comparison of features between a number of related works}
     \label{tab:feature-comparison}
@@ -345,20 +345,33 @@ be monitored, as these are not recursive in nature \cite{love2005}.
 
 \begin{table}
     \centering
-    \begin{tabular}{ | l | l | l | }
-        \hline
-        Event               & Mask          & Description \\ \hline
-        IN\_ACCESS          & 0x00000001    & File was accessed \\ \hline
-        IN\_MODIFY          & 0x00000002    & File was modified \\ \hline
-        IN\_ATTRIB          & 0x00000004    & Metadata changed \\ \hline
-        IN\_CLOSE\_WRITE    & 0x00000008    & Writable file was closed \\ \hline
-        IN\_CLOSE\_NOWRITE  & 0x00000010    & Unwritable file closed \\ \hline
-        IN\_OPEN            & 0x00000020    & File was opened \\ \hline
-        IN\_MOVED\_FROM     & 0x00000040    & File was moved from X \\ \hline
-        IN\_MOVED\_TO       & 0x00000080    & File was moved to Y \\ \hline
-        IN\_CREATE          & 0x00000100    & Subfile was created \\ \hline
-        IN\_DELETE          & 0x00000200    & Subfile was deleted \\ \hline
-        IN\_DELETE\_SELF    & 0x00000400    & Self was deleted \\ \hline
+    \begin{tabular}{ l l l }
+        \toprule
+        Event               & Mask          & Description
+        \\ \midrule
+        IN\_ACCESS          & 0x00000001    & File was accessed
+        \\
+        IN\_MODIFY          & 0x00000002    & File was modified
+        \\
+        IN\_ATTRIB          & 0x00000004    & Metadata changed
+        \\
+        IN\_CLOSE\_WRITE    & 0x00000008    & Writable file was closed
+        \\
+        IN\_CLOSE\_NOWRITE  & 0x00000010    & Unwritable file closed
+        \\
+        IN\_OPEN            & 0x00000020    & File was opened
+        \\
+        IN\_MOVED\_FROM     & 0x00000040    & File was moved from X
+        \\
+        IN\_MOVED\_TO       & 0x00000080    & File was moved to Y
+        \\
+        IN\_CREATE          & 0x00000100    & Subfile was created
+        \\
+        IN\_DELETE          & 0x00000200    & Subfile was deleted
+        \\
+        IN\_DELETE\_SELF    & 0x00000400    & Self was deleted
+        \\
+        \bottomrule
     \end{tabular}
     \caption{Summary of inotify events \cite{love2005}}
     \label{tab:inotify-events}
