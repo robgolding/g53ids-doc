@@ -36,7 +36,7 @@ and the Twisted networking engine.
 
 The backup system is implemented in Python, which is a fast, powerful and
 dynamic programming language, suitable for a large variety of application
-domains.
+domains \cite{sanner1999}.
 
 Python has a large and feature-rich standard library, and also has many
 frameworks and third-party libraries available. Its clean, concise and readable
@@ -51,10 +51,55 @@ Traditionally, systems of this nature would most likely be implemented in
 a more ``classic'' language such as C or C++. Python offers a modern
 alternative to these---not only in syntax but also in mindset.
 
-Python libraries can be written in C, providing low-level access to
-the internal Python bindings. This makes Python particularly suitable for use
-with this project, as proof-of-concept code can be written in Python for
-ease---and then rewritten in C later if performance is found to be an issue.
+So-called Python ``extension libraries'' can be written in C or C++, providing
+low-level, fast access to the internal Python language. This makes Python
+particularly suitable for use with this project, as proof-of-concept code can
+be written in Python for ease---and then rewritten in C or C++ later if
+performance is found to be an issue.
+
+Python is modular by nature, allowing the core language kernel to be extended
+by importing any number of extension modules (or \emph{packages}). The Python
+distribution includes a diverse library of standard extensions (some written in
+Python itself, others in C or C++).
+
+\subsection{Python Packages}
+
+Python packages can be installed in myriad different ways. Firstly, a properly
+packaged Python module will always contain a file \verb!setup.py! in the root
+directory, which can be used to install the package by running it from the
+command line: \verb!python setup.py install!. This process will place the
+required files in the correct location(s) on the file system, so they can be
+imported properly by the Python interpreter. Also, if any extensions require
+compilation (i.e. C or C++ code) this will be done automatically.
+
+Python has a central repository for packages---the Python Package Index (PyPI
+for short, also known as ``The Cheese Shop'', in reference to a 1972 sketch by
+Monty Python)---which can be used to download and install extension modules
+automatically.
+
+Packages located on PyPI can be acquired using a tool called \emph{pip}, which
+takes care of downloading and installing the required package, along with all
+of its dependencies. This is by far the fastest and most convenient way of
+installing Python packages.
+
+\subsection{virtualenv and virtualenvwrapper}
+
+\emph{virtualenv} is a Python tool which allows developers to create multiple,
+isolated Python environments on the same computer. This has many advantages,
+including the ability to maintain different versions of the same package or
+framework, and to install or upgrade packages without the need for
+root/administrator access.
+
+To use a virtual environment, it must first by ``activated''. This process
+simply consists of \emph{sourcing} a script which modifies the
+\verb!$PYTHONPATH! environment variable, allowing the Python interpreter to
+import packages from the correct location.
+
+\emph{virtualenvwrapper}, as the name suggests, is a wrapper program for
+virtualenv. It augments the functionality to make creating, activating and
+deleting virtual environments easier. It also ensures that commonly used
+packages (such as \emph{pip}) are installed in new virtual environments by
+default.
 
 \section{Django}
 \label{sec:implementation-django}
