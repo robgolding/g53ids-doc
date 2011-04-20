@@ -108,7 +108,7 @@ service for the web interface.
         \put(12,6.5){\line(6,5){6}}
         \put(12,6.5){\line(6,-5){6}}
     \end{picture}
-    \caption{System architecture}
+    \caption{Diagram showing the high-level system architecture}
     \label{fig:spec-architecture}
 \end{figure}
 
@@ -141,7 +141,7 @@ may consists of any or all of the attributes defined in table
         hash        & A hash (or checksum) of the file's contents
         \\ \bottomrule
     \end{tabular}
-    \caption{File meta-data}
+    \caption{Possible meta-data fields and their purpose}
     \label{tab:meta-data}
 \end{table}
 
@@ -550,7 +550,7 @@ to record the operation. Figure \ref{fig:receive-file} depicts this process.
         \put(27,12.5){\circle*{1}}
         \put(27,12.5){\circle{2}}
     \end{picture}
-    \caption{Receiving a file}
+    \caption{Activity diagram for the server receiving a file}
     \label{fig:receive-file}
 \end{figure}
 
@@ -584,7 +584,7 @@ process.
         \put(21,2.5){\circle*{1}}
         \put(21,2.5){\circle{2}}
     \end{picture}
-    \caption{Deleting a file}
+    \caption{Activity diagram for the server marking a file as deleted}
     \label{fig:delete-file}
 \end{figure}
 
@@ -609,7 +609,8 @@ client application should simply notify the server. Figure
         \put(18,4){\circle*{1}}
         \put(18,4){\circle{2}}
     \end{picture}
-    \caption{Directory created}
+    \caption{Activity diagram for the client notifying the server of
+    a directory being created}
     \label{fig:directory-created}
 \end{figure}
 
@@ -632,7 +633,8 @@ process.
         \put(18,4){\circle*{1}}
         \put(18,4){\circle{2}}
     \end{picture}
-    \caption{File deleted}
+    \caption{Activity diagram for the client notifying the server of a file
+    being deleted}
     \label{fig:file-deleted}
 \end{figure}
 
@@ -665,7 +667,8 @@ Figure \ref{fig:file-updated} depicts this process.
         \put(27,7){\circle*{1}}
         \put(27,7){\circle{2}}
     \end{picture}
-    \caption{File updated}
+    \caption{Activity diagram for the client notifying the server of a file
+    being modified}
     \label{fig:file-updated}
 \end{figure}
 
@@ -709,7 +712,7 @@ depicts this process.
         \put(11,1.5){\line(0,1){9}}
         \put(11,10.5){\vector(-1,0){4.5}}
     \end{picture}
-    \caption{Startup protocol}
+    \caption{Activity diagram for the client startup protocol}
     \label{fig:startup-protocol}
 \end{figure}
 
