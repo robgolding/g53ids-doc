@@ -113,11 +113,42 @@ any type of application.
     development and clean, pragmatic design.}\footnote{www.djangoproject.com}
 \end{quote}
 
-Django is based around a Model-View-Controller (MVC) architecture, separating
-the business logic and data functions from the user interface.
+\subsection{MVC}
+
+Django uses the Model-View-Controller (MVC) design pattern. The key idea in the
+MVC pattern is to separate the user interface from the underlying data
+represented by that interface. In MVC, the View displays information to the
+user and, combined with the Controller which processes the user's interaction,
+comprises the application's user interface. The Model contains both the data
+represented by the View, and logic that changes this data in response to user
+interaction \cite{leff2001}.
+
+Use of the MVC pattern makes development and maintenance of applications easier
+for a number of reasons. For example, the application's appearance can be
+drastically changed without altering the underlying data structures or business
+logic. Also, the application can have different ``interfaces'', providing
+access to the same data in a multitude of ways (i.e. in different languages, or
+data formats) \cite{leff2001}.
+
+\subsection{Reusable Apps}
+
+Perhaps the most appealing aspect of Django is that of \emph{reusable apps}.
+Django's architecture not only separates the Models, Views, and Controllers
+(i.e. the MVC pattern) but also encourages developers to separate the
+functionality of the overall system into loosely-coupled \emph{apps}. An app
+defines its own Models, View and Templates (Django's terminology slightly
+differs from standard MVC frameworks by referring to Controllers as ``Views''
+and Views as ``Templates''). These apps can then be packaged up as Python
+modules, and published for the community on the Python Package Index.
+
+As an example, an app providing user registration with e-mail validation is
+available, and commonly used in systems which require this functionality.
 
 In this project, Django is used to provide access to the database (the
-\emph{models}) and for the web interface itself.
+\emph{models}) and for the web interface itself. The only 3\textsuperscript{rd}
+party app used in the backup system is called \emph{haystack}, which provides
+a simple Django-like API for searching the data models. This is discussed in
+more detail in section \ref{sec:implementation-web-search}.
 
 \subsection{Models}
 \label{sec:implementation-django-models}
@@ -675,6 +706,9 @@ how the file has evolved since it was first created.
     \caption{A screenshot of the detailed file view}
     \label{fig:backtrac-file-detail}
 \end{figure}
+
+\subsection{Search}
+\label{sec:implementation-web-search}
 
 \section{Version Control}
 \label{sec:implementation-versioncontrol}
