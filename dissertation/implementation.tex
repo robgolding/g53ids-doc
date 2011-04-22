@@ -710,6 +710,28 @@ how the file has evolved since it was first created.
 \subsection{Search}
 \label{sec:implementation-web-search}
 
+Search is widely considered to be something that is very difficult to get
+right. Implementing search such that it returns relevant results in
+a reasonable amount of time can be a time-consuming process.
+
+Python has many libraries available which offer fast, tested search indexing.
+\emph{Whoosh} is one such library, and is written in pure Python. This means
+that is requires no code compilation, and is easy to install.
+
+\begin{quote}
+    \emph{Whoosh is a fast, featureful full-text indexing and searching library
+    implemented in pure Python.}\footnote{http://www.whoosh.ca}
+\end{quote}
+
+Whoosh was used to implement the search functionality of the web interface in
+this project, along with \emph{haystack}, the 3\textsuperscript{rd} party
+search app for Django.
+
+Haystack provides a Django-like API for searching data models, and can be
+powered by a one of a number of backends. For this project, the Whoosh backend
+was chosen due to the fact that it requires no additional dependencies or
+compilation steps.
+
 \section{Version Control}
 \label{sec:implementation-versioncontrol}
 
