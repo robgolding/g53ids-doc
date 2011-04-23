@@ -225,6 +225,20 @@ the web, this is usually an HTML file containing variables and simple logic.
 Again, the templates are not relevant to the core system functionality---and
 only relate to the web interface.
 
+\subsection{Signals}
+\label{sec:implementation-django-signals}
+
+Django includes a ``signal dispatcher'' which allows developers to create more
+loosely-coupled applications by facilitating the sending and receipt of
+\emph{signals}. A signal is a message which signifies that some action has
+taken place. For example, the framework has certain signals defined by default
+which are fired before and after a model is saved or deleted, and before and
+after a web request is dealt with.
+
+Developers are also able to define---and then send or receive---custom signals.
+This allows otherwise disparate applications to be linked together by
+communicating via the signal dispatcher.
+
 \subsection{Project Structure}
 \label{sec:implementation-django-structure}
 
