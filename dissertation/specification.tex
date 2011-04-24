@@ -217,76 +217,126 @@ data stored in the catalog, and to configure the system. The web interface
 shall run atop a dedicated web server, and will therefore not be dependent on
 any pre-installed web server software (Apache, nginx, etc.)
 
-\subsubsection{Authentication}
-
 The web interface will be accessible via an authenticated username and
 password, provided by the system administrator. No screen will be available to
 a user unless they are logged in with these credentials. Instead, the login
-screen will be presented to an unauthenticated user, before they may proceed.
+screen will be presented to an unauthenticated user before they may proceed.
 
-\subsubsection{Dashboard}
+The design of the web interface is discussed in detail in the next section.
 
-The ``home'' screen of the web interface will present the user with
-a dashboard, showing important system statistics and recently occurred events.
+\section{User Interface Design}
 
-\begin{quote}
-    Note: events are explained in more detail later on in this section.
-\end{quote}
+The user interface of the system is an important part of the overall
+functionality, and its design should not be overlooked. Though this
+specification does not dictate \emph{how} the interface should look in great
+detail, it outlines some general guidelines for the interface's \emph{look \&
+feel}, and lists each screen and its purpose.
 
-The dashboard will give the administrator an instant overview of the backup
-system, including the following information:
+\subsection{Overview}
+
+The purpose of the web interface is to allow the administrator to access the
+\emph{data} in the system quickly and easily. It should therefore be designed
+with this in mind, ensuring that the interface elements do not overwhelm the
+user, detracting from the data itself.
+
+To this end, the interface should be simple and clean, with fonts that are easy
+to read. The colour scheme should be light, with high contrast between
+background and text colours to further enhance readability.
+
+The user's location in the system should always be clearly displayed, so that
+they don't feel lost. Also, a ``back'' or ``cancel'' button should be available
+when performing an action, to allow the user to back-out of a mistake easily.
+
+Finally, each page should have the same header and footer, providing
+consistency throughout the entire interface. The header should include the
+product logo and name, and the main navigation bar. Also, the status of the
+user's session should also be located at the top of the page (i.e. whether they
+are logged in, and a link to logout).
+
+\subsection{Dashboard}
+
+The dashboard is the page that the administrator will see as soon as they have
+logged in to the system. It will show a quick summary of the backup system,
+allowing them to see at a glance whether it is operating correctly. The
+dashboard should contain the following information:
 
 \begin{itemize}
-    \item Disk usage on the backup server
-    \item Backup catalog size
-    \item Catalog size history (i.e. a graph showing size over time)
-    \item Recent events throughout the system
+    \item The status of the backup server (i.e. whether it is running or not)
+    \item The disk utilization on the backup drive
+    \item The amount of data protected by the backup system overall
+    \item A graph showing the size of the catalog over time
+    \item A list of the 10 most recent events to occur in the system
 \end{itemize}
 
-\subsubsection{Clients}
+\subsection{Clients}
 
-The backup clients will be configured by the administrator via the web
-interface. There are a number of different options that will be configurable
-for each client, which include (but are not limited to):
+The clients portion of the interface is where the administrator may add, edit
+or delete clients in the backup system. The main screen should display a list
+of the clients that are currently present, and whether they are connected or
+not.
 
-\begin{itemize}
-    \item Hostname
-    \item Secret authentication key (required for the client to connect)
-    \item Paths to be protected
-    \item Excluded files/folders
-\end{itemize}
+From this page, the administrator may add a new client via a clearly visible
+``Add a Client'' button. The system shall then prompt the administrator for the
+required information, including (but not limited to) the client's hostname and
+secret key, and a list of backup paths and exclusions.
 
-The client program on a given protected host will not be able to connect to the
-server until it has been added to the system by an administrator.
+The client list page will also provide links to edit or delete existing
+clients. A confirmation dialog shall be displayed before a client is deleted.
 
-\subsubsection{Catalog}
+\subsection{Catalog}
 
-To provide access to data in the data in the catalog, the web interface will
-present the administrator with a list of clients that are present. Once
-a client has been selected, the files and folders that are present on the root
-of that client will be displayed. The administrator will then be able to
-``drill-down'' into each successive directory, to reach the desired location.
+The catalog interface is arguably the most important in this project. It allows
+the administrator to browse the contents of the catalog, and restore any
+version of a file instantly. The main page of the catalog interface shall,
+similarly to the clients page, display a list of clients which are available.
 
-Deleted files will not be shown by default, but an option to show them will be
-available so that accidentally deleted files can be recovered.
+\subsubsection{Browsing}
 
-\subsubsection{Search}
+Once the administrator chooses a client to browse, the root of the file system
+on that client shall be displayed, as recorded in the catalog. The
+administrator is then able to ``drill-down'' into directories or choose files
+to view by clicking them. The file system shall be displayed in a tabular
+format, with each item's size and age included in the data.
 
-To allow lost files to be quickly located, the web interface will allow the
-administrator to search for a file by name. All parts of the path will be used
-in the search query, so directories can also be located using this method.
+To facilitate the restoration of deleted files, the catalog interface shall
+include a button to ``Display Deleted Items''. Deleted files and folders shall
+be clearly marked as such, to differentiate them from those which are still
+present. For example, a different colour may be used for the text. By default,
+deleted items shall \emph{not} be displayed, though once the administrator has
+selected to view them it should remain enabled throughout the catalog on that
+particular client.
 
-Search results will allow the administrator to view the file or directory as if
-they had browsed to it normally, by navigating to the location in the catalog
-where the item resides. In this way, the search function simply acts as
-a ``shortcut'' to finding a particular item in the catalog.
+\subsubsection{Viewing a File}
 
-\subsubsection{Events}
+Once the administrator has chosen a file to view, she shall be presented with
+a screen showing each version of that file since it was created. The file's
+meta data shall also be displayed, including the date/time when it was last
+modified. If the file is deleted, the size field shall display the text
+``(deleted)''.
 
-The system will record the events which occur on each backup client, and
-display these events in the web interface. Each event will have an associated
-``time of occurrence'', and will be linked with the file to which it relates in
-the catalog. An event may be representative of one of the following actions:
+Again, the version history of the file in question shall be displayed in
+tabular format, with the size of each version included. Also, there should be
+buttons available to download or restore any given version of the file.
+
+\subsection{Search}
+
+The web interface shall also allow the administrator to search for a lost file
+by name. All parts of the path will be used in the search query, so directories
+can also be located. The search page should simply include the search box
+itself. Once a query has been made, the results shall be displayed below the
+search box, so the query can be adjusted immediately if necessary. Clicking
+a result shall take the user to the item's location in the catalog as if they
+had browsed to it manually.
+
+\subsection{Events}
+
+The events portion of the interface provides a detailed look at the activity
+throughout the entire backup system in one page. Events should be displayed in
+tabular format, with the most recent at the top. Each event should include
+a link to the client to which it pertains, and to the item it refers to in the
+catalog.
+
+An event may be representative of one of the following actions:
 
 \begin{itemize}
     \item File created
@@ -295,12 +345,13 @@ the catalog. An event may be representative of one of the following actions:
     \item File restored
 \end{itemize}
 
-\subsubsection{Configuration}
+\subsection{Global Exclusions}
 
-The web interface will also provide access to the main configuration for the
-system. This includes options such as globally excluded files (i.e. temporary
-files that occur on all clients) which should never be archived, and other
-system-wide preferences.
+The web interface shall also allow the administrator to configure the global
+exclusion patterns which define which files shall be excluded from backups over
+all clients. This may be through a ``configuration'' page - to allow more
+options to be added in the future.
+
 
 \section{System Requirements}
 
@@ -753,6 +804,144 @@ The administrator uses the search function to find the file, using the search
 query ``\verb!Finance Ledger - 2011.xlsx!'', and finds the file in question.
 She then chooses to download the latest version of the file, and saves it to
 the user's data stick.
+
+\section{User Interface}
+
+The user interface of the system is an important part of the overall
+functionality, and its design should not be overlooked. Though this
+specification does not dictate \emph{how} the interface should look in great
+detail, it outlines some general guidelines for the interface's \emph{look \&
+feed}, and lists each screen and its purpose.
+
+The web interface shall run atop a dedicated web server, and will therefore not
+be dependent on any pre-installed web server software (Apache, nginx, etc.)
+
+\subsection{Overview}
+
+The purpose of the web interface is to allow the administrator to access the
+\emph{data} in the system quickly and easily. It should therefore be designed
+with this in mind, ensuring that the interface elements do not overwhelm the
+user, detracting from the data itself.
+
+To this end, the interface should be simple and clean, with fonts that are easy
+to read. The colour scheme should be light, with high contrast between
+background and text colours to further enhance readability.
+
+The user's location in the system should always be clearly displayed, so that
+they don't feel lost. Also, a ``back'' or ``cancel'' button should be available
+when performing an action, to allow the user to back-out of a mistake easily.
+
+Finally, each page should have the same header and footer, providing
+consistency throughout the entire interface. The header should include the
+product logo and name, and the main navigation bar. Also, the status of the
+user's session should also be located at the top of the page (i.e. whether they
+are logged in, and a link to logout).
+
+\subsubsection{Authentication}
+
+The web interface will be accessible via an authenticated username and
+password, provided by the system administrator. No screen will be available to
+a user unless they are logged in with these credentials. Instead, the login
+screen will be presented to an unauthenticated user before they may proceed.
+
+\subsection{Dashboard}
+
+The dashboard is the page that the administrator will see as soon as they have
+logged in to the system. It will show a quick summary of the backup system,
+allowing them to see at a glance whether it is operating correctly. The
+dashboard should contain the following information:
+
+\begin{itemize}
+    \item The status of the backup server (i.e. whether it is running or not)
+    \item The disk utilization on the backup drive
+    \item The amount of data protected by the backup system overall
+    \item A graph showing the size of the catalog over time
+    \item A list of the 10 most recent events to occur in the system
+\end{itemize}
+
+\subsection{Clients}
+
+The clients portion of the interface is where the administrator may add, edit
+or delete clients in the backup system. The main screen should display a list
+of the clients that are currently present, and whether they are connected or
+not.
+
+From this page, the administrator may add a new client via a clearly visible
+``Add a Client'' button. The system shall then prompt the administrator for the
+required information, including (but not limited to) the client's hostname and
+secret key, and a list of backup paths and exclusions.
+
+The client list page will also provide links to edit or delete existing
+clients. A confirmation dialog shall be displayed before a client is deleted.
+
+\subsection{Catalog}
+
+The catalog interface is arguably the most important in this project. It allows
+the administrator to browse the contents of the catalog, and restore any
+version of a file instantly. The main page of the catalog interface shall,
+similarly to the clients page, display a list of clients which are available.
+
+\subsubsection{Browsing}
+
+Once the administrator chooses a client to browse, the root of the file system
+on that client shall be displayed, as recorded in the catalog. The
+administrator is then able to ``drill-down'' into directories or choose files
+to view by clicking them. The file system shall be displayed in a tabular
+format, with each item's size and age included in the data.
+
+To facilitate the restoration of deleted files, the catalog interface shall
+include a button to ``Display Deleted Items''. Deleted files and folders shall
+be clearly marked as such, to differentiate them from those which are still
+present. For example, a different colour may be used for the text. By default,
+deleted items shall \emph{not} be displayed, though once the administrator has
+selected to view them it should remain enabled throughout the catalog on that
+particular client.
+
+\subsubsection{Viewing a File}
+
+Once the administrator has chosen a file to view, she shall be presented with
+a screen showing each version of that file since it was created. The file's
+meta data shall also be displayed, including the date/time when it was last
+modified. If the file is deleted, the size field shall display the text
+``(deleted)''.
+
+Again, the version history of the file in question shall be displayed in
+tabular format, with the size of each version included. Also, there should be
+buttons available to download or restore any given version of the file.
+
+\subsection{Search}
+
+The web interface shall also allow the administrator to search for a lost file
+by name. All parts of the path will be used in the search query, so directories
+can also be located. The search page should simply include the search box
+itself. Once a query has been made, the results shall be displayed below the
+search box, so the query can be adjusted immediately if necessary. Clicking
+a result shall take the user to the item's location in the catalog as if they
+had browsed to it manually.
+
+\subsection{Events}
+
+The events portion of the interface provides a detailed look at the activity
+throughout the entire backup system in one page. Events should be displayed in
+tabular format, with the most recent at the top. Each event should include
+a link to the client to which it pertains, and to the item it refers to in the
+catalog.
+
+An event may be representative of one of the following actions:
+
+\begin{itemize}
+    \item File created
+    \item File modified
+    \item File deleted
+    \item File restored
+\end{itemize}
+
+\subsection{Global Exclusions}
+
+The web interface shall also allow the administrator to configure the global
+exclusion patterns which define which files shall be excluded from backups over
+all clients. This may be through a ``configuration'' page - to allow more
+options to be added in the future.
 
 \section{System Evolution}
 
