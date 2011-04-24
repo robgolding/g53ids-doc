@@ -98,6 +98,7 @@ protected and is stored in the archive. A version has a unique identifier,
 which can be used to retrieve the associated file from the storage subsystem.
 
 \subsection{Other Data}
+\label{sec:design-catalog-other}
 
 Information relating to the clients themselves is stored in the same database
 as the catalog, though it is strictly not considered part of the catalog
@@ -331,4 +332,124 @@ when a file is created, modified or deleted.
 
 \subsection{Web Interface}
 
-Some web interface mumbo jumbo\ldots
+The web interface is designed with usability in mind, and with the
+consideration that its purpose is to allow access to the data in the system
+quickly and easily. The interface elements are therefore simple and clean, and
+their meaning is clear.
+
+\subsubsection{Header}
+
+The header, which remains consistent throughout the entire interface, shows the
+product logo and name along with the user's authentication details. This also
+offers a link for the user to leave the system from any screen via the
+``logout'' button.  Figure \ref{fig:backtrac-header} shows a screenshot of the
+header.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{backtrac-header}
+    \end{center}
+    \caption{A screenshot of the header, which is shown atop every page}
+    \label{fig:backtrac-header}
+\end{figure}
+
+The main navigation system is tab-based, with the current tab highlighted to
+clearly show where the user is at any one point in time.
+
+\subsubsection{Dashboard}
+\label{sec:implementation-web-dashboard}
+
+The dashboard provides a high-level system overview, giving the administrator
+access to the most important information in one place. Figure
+\ref{fig:backtrac-dashboard} shows a screenshot of the dashboard page.
+
+The dashboard summarizes the following information:
+
+\begin{itemize}
+    \item The utilization of the backup filesystem (i.e. the filesystem which
+        the archive is stored on)
+    \item The total amount of data protected by the backup system
+    \item A graph showing the total amount of protected data over time
+    \item The status of the backup server itself (i.e. whether it is running)
+    \item A list of recent events
+\end{itemize}
+
+Much of the information is shown in a visual format (i.e. a bar showing the
+disk utilization and a graph showing historical data) so that it can be
+interpreted as quickly as possible by the user. This is important to to ensure
+that the web interface performs its purpose well---to provide quick and easy
+access to \emph{data}.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{backtrac-dashboard}
+    \end{center}
+    \caption{A screenshot of the dashboard page}
+    \label{fig:backtrac-dashboard}
+\end{figure}
+
+\subsubsection{Clients}
+\label{sec:implementation-web-clients}
+
+The clients interface allows the administrator to add, edit or delete backup
+clients. When a client is added, it is configured with a secret key and a list
+of paths to backup. Figure \ref{fig:backtrac-clients-add} shows a screenshot of
+the form used when adding a client.
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=\textwidth]{backtrac-clients-add}
+    \end{center}
+    \caption{A screenshot of the add client form}
+    \label{fig:backtrac-clients-add}
+\end{figure}
+
+Note that backup paths can be added quickly and easily, as can exclusions.
+These fields can be added or removed dynamically by clicking on the ``add
+another'' button, or the remove button next to the relevant field. All
+icon-only elements contain alternative text so that they can still be read if
+the images are unavailable, or if a screen reader is in use (for the visually
+impaired, for example).
+
+\subsubsection{Browse}
+\label{sec:implementation-web-browse}
+
+The administrator can browse the catalog of protected items through the web
+interface, using the ``browse'' tab. The ``drill-down'' method is used to
+provide a familiar way of traversing the filesystem once a client has been
+chosen.
+
+When browsing the catalog, the administrator can choose to show or hide deleted
+files. This preference is retained throughout the session whilst browsing the
+catalog for the same client---to save clicking the same button over and over.
+A screenshot of the browsing interface is shown in figure
+\ref{fig:backtrac-browse}.
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=\textwidth]{backtrac-browse}
+    \end{center}
+    \caption{A screenshot of the catalog browsing interface}
+    \label{fig:backtrac-browse}
+\end{figure}
+
+Once a file has been selected, a detailed screen shows the different versions
+of that file and their respective modification times and sizes. The
+administrator can then choose to view one of the versions in the browser (in
+the case of a plain text file, image or PDF document), download it, or restore
+it to a chosen client. The selected version can be restored to the client from
+which it originated, or any other client in the system. Also, it can either be
+restored to its original location or another chosen path.
+
+A screenshot of the detailed file view is shown in figure
+\ref{fig:backtrac-file-detail}. As shown in the figure, a graph showing the
+size of the file over time is also included on the file detail page---showing
+how the file has evolved since it was first created.
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=\textwidth]{backtrac-file-detail}
+    \end{center}
+    \caption{A screenshot of the detailed file view}
+    \label{fig:backtrac-file-detail}
+\end{figure}
