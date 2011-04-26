@@ -1,4 +1,5 @@
 \chapter{Specification}
+\label{chap:specification}
 
 This Software Requirements Specification (SRS) was produced with the backing of
 \textbf{Servat Ltd.} of Nottingham, and conforms with \emph{IEEE Standard
@@ -183,7 +184,7 @@ the server by an administrator and configured with said key.
 
 To determine whether or not a given file needs to be archived, the client will
 query the server for this information. This query may contain any or all of the
-attributes in Table \ref{tab:meta-data}.
+attributes in table \ref{tab:meta-data}.
 
 \subsubsection{Startup Protocol}
 
@@ -384,7 +385,7 @@ options to be added in the future.
         file system meta-data for each file in the backup archive, and every
         version thereof.
     \item File system meta-data may contain any or all of the fields specified
-        in Table \ref{tab:meta-data}.}
+        in table \ref{tab:meta-data}.}
     \item The server shall store archived files from all clients in
         a pre-defined location on the file system.
     \item Archived files shall be stored in an organised manner to allow any
@@ -439,7 +440,7 @@ options to be added in the future.
         latest version in the catalog (i.e. the file on the client is more
         up-to-date than that in the backup archive). This is determined by
         querying the server, where the query may contain any or all of the
-        fields specified in Table \ref{tab:meta-data}.
+        fields specified in table \ref{tab:meta-data}.
     \item The client shall provide ``continuous'' file system protection whilst
         is it running, backing up files as soon as they are created or
         modified, and notifying the server of the deletion of files immediately
@@ -546,7 +547,7 @@ options to be added in the future.
 
 \subsubsection{Usability Requirements}
 
-    \item The system shall provide a clear and well-structure help system.
+    \item The system shall provide a clear and concise help where necessary.
     \item The system shall provide ``tool tips'' when hovering over elements
         wherever appropriate.
     \item The system shall provide informative error messages where necessary.

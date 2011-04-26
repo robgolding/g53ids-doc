@@ -543,6 +543,30 @@ A read-only file descriptor is then opened for the relevant file, and this is
 returned to the caller, allowing the file's contents to be read. Again, it is
 the caller's responsibility to close the file descriptor.
 
+\subsection{Restoring Files}
+\label{sec:implementation-server-restoring}
+
+File restoration is implemented using a \verb!RestoreJob! model. This is used
+to ``queue'' restorations for execution. The server daemon checks the database
+periodically for any new restore jobs, and executes them as necessary. The
+\verb!RestoreJob! object stores the version to be restored, and the client and
+location it should be restored to.
+
+Once a restore has started, it is marked as such using a date/time flag on the
+object in the database. This allows restores that are in-progress to be
+identified. A second date/time flag is set when the restore is complete.
+
+The reason for using a separate model in this case is that the database acts as
+a middle-man between the server and the web interface. Given that restores are
+initiated by the administrator via the web interface, the database is the only
+shared medium between the two applications. This is by design, and allows the
+applications to be loosely-coupled in nature.
+
+A side-effect of this method is that every restore that is ever carried out is
+stored in the database, acting as a log of which files have been restored,
+when. Though nothing is currently done with this data, it could conceivably be
+presented as a ``restore history'' in the future.
+
 \section{Client}
 \label{sec:implementation-client}
 

@@ -72,3 +72,222 @@ remotely-accessible methods, which can be called by the client:
         a remotely-referenceable \verb!PageCollector! object (see section
         \ref{sec:implementation-server-transfer}).
 \end{itemize}
+
+\section{System Testing}
+\label{sec:appendix-system-testing}
+
+\begin{longtable}{ l l p{5cm} }
+    \toprule
+    Requirement         & Fulfilled/Not Fulfilled   & Details
+    \\ \midrule
+    FuncReq1            & Fulfilled                 & Only one server/web
+                                                      interface per
+                                                      installation
+    \\ \\
+    FuncReq2            & Fulfilled                 & Many clients per
+                                                      server allowed
+    \\ \\
+    FuncReq3            & Fulfilled                 & Web interface runs
+                                                      separately from rest
+                                                      of system
+    \\ \\
+    FuncReq4            & Fulfilled                 & Client communicates
+                                                      only with the server
+    \\ \\
+    FuncReq5            & Fulfilled                 & The catalog is shared
+                                                      between the server \&
+                                                      web interface
+    \\ \\
+    FuncReq6            & Fulfilled                 & Server provides
+                                                      a networked daemon
+    \\ \\
+    FuncReq7            & Fulfilled                 & Server maintains the
+                                                      catalog for
+                                                      versions/meta-data
+    \\ \\
+    FuncReq8            & Fulfilled                 & Meta-data contains
+                                                      \verb!size! and
+                                                      \verb!mtime! fields.
+    \\ \\
+    FuncReq9            & Fulfilled                 & Server stores
+                                                      archived files in the
+                                                      storage subsystem
+                                                      root
+    \\ \\
+    FuncReq10           & Fulfilled                 & Storage subsystem
+                                                      organises archive,
+                                                      allowing any version
+                                                      to be retrieved
+    \\ \\
+    FuncReq11           & Fulfilled                 & All operations are
+                                                      available via
+                                                      server's Perspective
+                                                      Broker
+    \\ \\
+    FuncReq12           & Fulfilled                 & Server stores
+                                                      meta-data and creates
+                                                      initial version
+    \\ \\
+    FuncReq13           & Fulfilled                 & New version is
+                                                      created for each
+                                                      modification
+    \\ \\
+    FuncReq14           & Fulfilled                 & Deleted files are
+                                                      marked in the catalog
+    \\ \\
+    FuncReq15           & Fulfilled                 & Deleted files are not
+                                                      deleted from the
+                                                      archive
+    \\ \\
+    FuncReq16           & Fulfilled                 & Clients must
+                                                      authenticate before
+                                                      connecting to the
+                                                      server
+    \\ \\
+    FuncReq17           & Fulfilled                 & Client connects to
+                                                      server specified in
+                                                      configuration file
+    \\ \\
+    FuncReq18           & Fulfilled                 & Secret key is
+                                                      specified in
+                                                      configuration file
+    \\ \\
+    FuncReq19           & Fulfilled                 & Files in protected
+                                                      directories are
+                                                      archived to server
+    \\ \\
+    FuncReq20           & Fulfilled                 & Startup protocol
+                                                      includes scan of
+                                                      file system
+    \\ \\
+    FuncReq21           & Fulfilled                 & No meta-data or index
+                                                      is stored on the
+                                                      client
+    \\ \\
+    FuncReq22           & Fulfilled                 & Server is always
+                                                      queried before a file
+                                                      is archived
+    \\ \\
+    FuncReq23           & Fulfilled                 & If meta-data does not
+                                                      differ, the file is
+                                                      not re-archived
+    \\ \\
+    FuncReq24           & Fulfilled                 & Client provides
+                                                      ``continous'' file
+                                                      system protection
+                                                      once started
+    \\ \\
+    FuncReq25           & Fulfilled                 & File system
+                                                      notifications provide
+                                                      ``continuous''
+                                                      protection
+    \\ \\
+    FuncReq26           & Fulfilled                 & Web interface allows
+                                                      adding/removing
+                                                      clients
+    \\ \\
+    FuncReq27           & Fulfilled                 & Web interface allows
+                                                      browsing catalog and
+                                                      downloading/restoring
+                                                      files
+    \\ \\
+    FuncReq28           & Fulfilled                 & Web interface does not
+                                                      depend on any other
+                                                      software
+    \\ \\
+    FuncReq29           & Fulfilled                 & Web interface provides an
+                                                      ``events'' view
+    \\ \\
+    FuncReq30           & Fulfilled                 & Dashboard shows graph of
+                                                      size over time and disk
+                                                      utilization
+    \\ \\
+    FuncReq31           & Fulfilled                 & Hostname, secret key,
+                                                      protected directories and
+                                                      exclusions are specified
+                                                      when adding a new client
+    \\ \\
+    FuncReq32           & Fulfilled                 & Existing clients can be
+                                                      modified via web
+                                                      interface
+    \\ \\
+    FuncReq33           & Fulfilled                 & Clients may be deleted
+                                                      via the web interface,
+                                                      which removes all catalog
+                                                      entries \& archived data
+    \\ \\
+    FuncReq34           & Fulfilled                 & Browsing catalog allows
+                                                      administrator to
+                                                      ``drill-down'' through
+                                                      file system, view deleted
+                                                      files, download/restore
+                                                      archived files to
+                                                      original/new client or
+                                                      location
+    \\ \\
+    FuncReq35           & Fulfilled                 & Detailed file view shows
+                                                      file's client, size, last
+                                                      modified time and version
+                                                      history
+    \\ \\
+    FuncReq36           & Fulfilled                 & Web interface allows
+                                                      administrator to search
+                                                      for files by name or any
+                                                      part of path
+    \\ \\
+    FuncReq37           & Fulfilled                 & Web interface requires
+                                                      authentication before any
+                                                      screen can be accessed
+    \\ \\
+    NFuncReq1           & Fulfilled                 & System is able to backup
+                                                      large directory
+                                                      structures containing
+                                                      over 10,000 files
+    \\ \\
+    NFuncReq2           & Fulfilled                 & Web interface returns
+                                                      search results
+                                                      immediately
+    \\ \\
+    NFuncReq3           & Fulfilled                 & Delete operations require
+                                                      confirmation from user
+    \\ \\
+    NFuncReq4           & Fulfilled                 & The catalog is
+                                                      automatically backed up
+                                                      at midnight every night
+    \\ \\
+    NFuncReq5           & Fulfilled                 & User passwords are stored
+                                                      using an SHA-1 hash with
+                                                      salt
+    \\ \\
+    NFuncReq6           & Fulfilled                 & Web interface is only
+                                                      accessible via HTTPS
+    \\ \\
+    NFuncReq7           & Fulfilled                 & Client/server
+                                                      communication is
+                                                      encrypted via SSL
+    \\ \\
+    NFuncReq8           & Fulfilled                 & Only clients with
+                                                      a correct secret key may
+                                                      connect to the server
+    \\ \\
+    NFuncReq9           & Fulfilled                 & Web interface only allows
+                                                      authorised users to login
+    \\ \\
+    NFuncReq10          & Fulfilled                 & Help is provided where
+                                                      relevant in web interface
+    \\ \\
+    NFuncReq11          & Fulfilled                 & Tool-tips are provided on
+                                                      icons where text is not
+                                                      present
+    \\ \\
+    NFuncReq12          & Fulfilled                 & Error messages are clear
+                                                      and informative (i.e.
+                                                      server not running)
+    \\ \\
+    NFuncReq13          & Fulfilled                 & The web interface and
+                                                      configuration are
+                                                      intuitive and easy-to-use
+    \\ \bottomrule
+\caption{System testing against each functional/non-functional requirement}
+\label{tab:system-testing}
+\end{longtable}
