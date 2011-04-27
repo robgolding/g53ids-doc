@@ -791,3 +791,61 @@ system for Git, claiming to host over one million repositories in 2010
 This project's repository is hosted on GitHub, providing a centrally accessible
 location for development. The project itself is released under the open-source
 GNU General Public Licence version 3 (GPLv3) \cite{stallman1991}.
+
+\section{Methodology}
+\label{sec:implementation-methodology}
+
+As discussed in previous chapters, this project evolved via the development of
+multiple prototypes, which were used to gather feedback for the specification,
+design a suitable architecture, and ultimately implement the software itself.
+
+This approach to developing software is called the evolutionary prototyping
+methodology, and is described by Alan M. Davis in a 1992 paper entitled
+\emph{Evolutionary Prototyping: A New Development Approach}.
+
+Evolutionary prototyping differs from traditional ``throwaway'' prototyping in
+almost every way. For example, in throwaway prototyping, code can often be
+sloppy and unstructured, representing the developer's poor understanding of the
+design. With evolutionary prototyping, however, the well-understood parts of
+the system are built first, in an attempt to refine the design requirements and
+evolve. Components are written in a rigorous, well-structured manner, as the
+prototype is destined to become part of the next iteration of the project
+\cite{davis1992}.
+
+In the early stages of this project, prototypes were used to refine the
+requirements and gain support from the industrial sponsor, Servat Ltd. Later on
+in the project, the system's architecture was perfected and the final system
+evolved from the next iteration. Including the final system itself, four
+prototypes were completed---representing major milestones on the way to project
+completion. These milestones, however, could not have been foreseen, and it is
+only with the benefit of hindsight that they can be listed below:
+
+\begin{enumerate}
+    \item Initial prototype, REST API provided by web interface
+        \begin{itemize}
+            \item Simple architecture (only server and client)
+            \item Slow due to HTTP overhead
+            \item Transferring large files impossible due to HTTP encoding
+        \end{itemize}
+    \item Second web-based prototype, using raw sockets for data transfer and
+        REST API for everything else
+        \begin{itemize}
+            \item Very difficult to program with raw sockets
+            \item Unstable and highly insecure
+        \end{itemize}
+    \item First prototype using Twisted, Perspective Broker for API and
+        separate TCP protocol for data transfer
+        \begin{itemize}
+            \item Perspective Broker replaced REST API but introduced a new
+                architecture element: the ``backup server''
+            \item Data transfer still difficult via separate TCP protocol
+        \end{itemize}
+    \item Final prototype, Twisted Perspective Broker used for API and data
+        transfer via ``File Pager''
+        \begin{itemize}
+            \item Architecture clearly separates backup roles from management
+            \item Perspective broker for data transfer unifies all backup
+                operations into one protocol
+            \item Code is easy to maintain and loosely-coupled
+        \end{itemize}
+\end{enumerate}

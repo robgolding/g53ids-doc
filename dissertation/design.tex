@@ -453,3 +453,29 @@ how the file has evolved since it was first created.
     \caption{A screenshot of the detailed file view}
     \label{fig:backtrac-file-detail}
 \end{figure}
+
+\section{Methodology}
+
+The design described in this section is the result of multiple prototypes,
+which eventually evolved into the final system. In the early stages of the
+project, initial prototypes were also used to produce a coherent specification
+containing the detail required to implement and test the final iteration of the
+software itself. These prototypes were used to gather feedback from the
+project's industrial sponsor, \emph{Servat, Ltd.}, and to refine the technical
+design.
+
+Initially, a fully web-based design was chosen, due to the author's experience
+with web technologies. Based on this design, a prototype was developed which
+provided a rich RESTful API via the web interface, through which the backup
+clients would interact with the server. This essentially removes the need for
+a backup server, simplifying the architecture somewhat.
+
+This simplified architecture, however, quickly proved to be unsuitable for the
+purpose in hand, due to the overhead incurred when using HTTP, and was revised.
+The next prototype used the Twisted framework for communication, which proved
+to be extremely powerful and much more suited to the job. The architecture of
+this prototype eventually evolved into the final design described by this
+document.
+
+A detailed discussion of the methodology used in this project is included in
+section \ref{sec:implementation-methodology}.
