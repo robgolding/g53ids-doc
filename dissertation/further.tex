@@ -1,6 +1,27 @@
 \chapter{Further Work}
 \label{chap:further-work}
 
+This project has great scope for expanding into multiple areas of research,
+some of which were considered for inclusion. Some of those possible areas for
+expansion are detailed in this section, with discussion as to how they might be
+realised given what has been achieved thus far.
+
+\section{Cloud Services}
+
+``The cloud'' is becoming a very hot topic, both in research and in people's
+every day lives. For further security, the backup system could potentially
+replicate the archive to a cloud storage provider---mitigating the effect of
+a complete hardware failure or even a natural disaster.
+
+From another point of view, the backup system could compete against other cloud
+providers such as Mozy and Carbonite, offering a totally online service.
+
+Both of these points are entirely possibly given the extensible architecture of
+the backup system. Firstly, an alternative storage subsystem could be written
+to leverage cloud services such as Amazon S3, providing the same interface as
+the existing one. The two subsystems could then be swapped, or even run
+simultaneously, giving the desired result.
+
 \begin{itemize}
     \item Data de-duplication
     \item Diffing
