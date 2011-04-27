@@ -944,6 +944,50 @@ exclusion patterns which define which files shall be excluded from backups over
 all clients. This may be through a ``configuration'' page - to allow more
 options to be added in the future.
 
+\section{Non-Goals}
+
+There are a certain number of requirements which have intentionally been
+omitted from the specification, though they would certainly be needed before
+a serious software offering were made. This is to allow a first version of the
+project to be completed, before these points can be reconsidered. These
+non-goals are as follows:
+
+\subsection{Multi-platform Support}
+
+In an age where personal computers and company servers can be running any one
+of many operating systems (or even \emph{multiple} operating systems in some
+cases), multiple platform support is essential to success.
+
+However, this version of the project shall only be required to support the
+\emph{Linux} operating system, due to its widespread use in commercial and
+academic networks, especially for servers. Future versions of the software
+shall support more platforms, so this should be considered when constructing
+the system.
+
+\subsection{Security}
+
+Most, if not all commercial businesses would consider their internal data
+private, and would not want it to be accessed by an unauthorised party.
+Therefore, a viable backup system should encrypt the data stored in its
+archive, to prevent this from occurring.
+
+This version of the project shall not require data in the archive to be
+encrypted, to allow for more rapid implementation of other core features.
+Future versions, however, may specify that data encryption takes place, and so
+this should also be considered when designing the software.
+
+\subsection{Verification of Backups}
+
+If data is important enough to warrant being backed up, then it can be safely
+assumed that the backups should be correct. To ensure that backup data is not
+corrupted, a verification process could be used. This might involve, for
+example, hashing the contents of both files and comparing the results.
+
+This version shall not require that backups be verified, though this is likely
+to be a requirement in future iterations. Again, this is to speed the
+development of core features, allowing the main functionality to be implemented
+first.
+
 \section{System Evolution}
 
 The following items are points for consideration with regards to the system's
@@ -970,3 +1014,18 @@ implemented.
 This would require that the catalog is designed in such a way that the state of
 a given file or directory at any point in time can be inferred, so that files
 that have since been deleted are restored correctly.
+
+\subsection{Peer-to-Peer Backups}
+
+Taking advantage of wasted CPU cycles and hard drive space available on
+personal computers and office workstations, peer-to-peer backup systems are an
+interesting proposition.
+
+If data were to be replicated across many systems, instead of stored on just
+one, a greater resiliency to failure could easily be achieved. Also, this would
+present a less expensive method for storing backups, as free space on
+workstations which would otherwise be wasted is used.
+
+Though a peer-to-peer architecture differs greatly from that described by this
+specification, future evolution into a distributed service model should be
+considered when designing a system to meet the requirements.
