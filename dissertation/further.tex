@@ -22,7 +22,59 @@ to leverage cloud services such as Amazon S3, providing the same interface as
 the existing one. The two subsystems could then be swapped, or even run
 simultaneously, giving the desired result.
 
-\begin{itemize}
-    \item Data de-duplication
-    \item Diffing
-\end{itemize}
+\section{Peer-to-Peer Backups}
+
+The increasing size of hard disks, along with the falling cost of such storage
+media has led to an interesting phenomenon: large amounts of wasted space. In
+fact, a 1999 study which analyzed 4801 Windows computers in a commercial
+environment found that, on average, file systems were only 53\% full
+\cite{douceur1999}. Bearing in mind that this study is, at the time of writing,
+over 10 years old, it is fairly safe to assume that this figure is now even less.
+
+Given the collective sum of all this wasted disk space, a backup system which
+replicated files to multiple workstations rather than a single server could
+prove to be very effective. Not only could a greater resilience to failure be
+achieved by replicating data over multiple systems rather that just one, but
+also a significant cost saving could be made by avoiding need to purchase
+a large amount of dedicated storage.
+
+The current system architecture could be augmented to implement a peer-to-peer
+system by utilising the backup server as a ``command and control'' node,
+choosing which distributed nodes to place archived files and recording their
+location in a database. Though the architecture differs greatly from that which
+is used at present, the foundations have been laid making this type of
+development possible in the future.
+
+\section{Data Deduplication}
+
+Data deduplication is a technique which identifies and eliminates redundant
+information, thereby reducing the size of a data volume \cite{geer2008}. The
+concept of data deduplication has been around since the 1960s, though recent
+advances in technology have seen modern systems developed which are far more
+sophisticated than early attempts.
+
+Usually, a hashing function is used to compare files (or parts of files, called
+\emph{blocks}), and determine whether they are identical. If so, only one copy
+of the data is stored, which may be referenced by multiple separate files or
+blocks. In this way, redundant data is eliminated, saving storage space.
+
+Given the modular nature of the system developed in this project, a file-based
+data deduplication solution could be implemented which builds on the
+functionality of the storage subsystem described in section
+\ref{sec:implementation-server-storage}. A block-level solution, however, would
+require much more effort---perhaps developing a custom file system built for
+the purpose.
+
+\section{Diffing}
+
+Diffing is a process which calculates the changes that have occurred in a file
+since the last time it was archived, and only transfers the changed data. This
+has the advantage of saving significant network bandwidth, especially when
+applied to large files which only change by small amounts.
+
+As the backup system stands, files such as system logs---which change by small
+amounts relatively often---are transferred in full every time they are
+modified. With a diffing process, however, only the changes are transferred
+each time. These changes can then be applied to the file on the server to
+recreate the modified file, achieving the same result whilst using far less
+network resources.
