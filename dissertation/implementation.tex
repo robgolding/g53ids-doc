@@ -247,8 +247,26 @@ own models, views, and templates. The idea here is that applications should be
 loosely coupled, allowing developers to simply ``plug in'' the desired
 functionality by enabling the relevant third-party applications.
 
+\begin{figure}
+    \setlength{\unitlength}{0.14in}
+    \centering
+    \footnotesize
+    \begin{picture}(16,13)
+        \put(0,5){\framebox(6,3){Core}}
+        \put(10,1){\framebox(6,3){Catalog}}
+        \put(10,9){\framebox(6,3){Clients}}
+        \put(13,4){\vector(0,1){5}}
+    \end{picture}
+    \caption{Dependency diagram for the three Django applications}
+    \label{fig:dependencies}
+\end{figure}
+
 This project is separated into three applications: \verb!core!, \verb!clients!,
-and \verb!catalog!.
+and \verb!catalog!. The dependencies therein are shown in figure
+\ref{fig:dependencies}. Clearly, the only dependency is from the \verb!catalog!
+application, to \verb!clients!. This is, logically, because each \verb!Item! in
+the catalog is assigned to a \verb!Client! (see figure \ref{fig:erd} for
+detailed entity-relationship diagram).
 
 \subsubsection{Core Application}
 \label{sec:implementation-django-structure-core}
@@ -284,7 +302,7 @@ The catalog application provides the main persistent data store for the backup
 application (the \emph{catalog}) which records the files and versions that have
 been archived from each client. At the core, this consists of the \verb!Item!
 and \verb!Version! models. The \verb!Event! and \verb!RestoreJob! models are
-also included in the catalog application. See Figure \ref{fig:erd} for the
+also included in the catalog application. See figure \ref{fig:erd} for the
 detailed Entity-Relationship Diagram.
 
 \section{Twisted}
@@ -507,20 +525,28 @@ caller, allowing the file to be written. It is the caller's responsibility to
 close the file descriptor.
 
 \begin{figure}
+    \fbox{\begin{minipage}{\textwidth}
+        \vspace{0.1cm}
     \begin{center}
         \begin{tabular}{l l}
             \textbf{Item}   & \textbf{Value}                                 \\
-            Storage root    & \verb!/mnt/backups/!                           \\
-            Bucket name     & \verb!armstrong!                               \\
-            File name       & \verb!/home/rob/file1.txt!                     \\
-            File name SHA-1 & \verb!a9993e364706816aba3e25717850c26c9cd0d89d!\\
-            UUID            & \verb!eff1d7b7-974c-4d55-8e8a-92796618915e!    \\
+            \midrule
+            Storage root    & \texttt{/mnt/backups/}                           \\
+            Bucket name     & \texttt{armstrong}                               \\
+            File name       & \texttt{/home/rob/file1.txt}                     \\
+            File name SHA-1 & \texttt{a9993e364706816aba3e25717850c26c9cd0d89d}\\
+            UUID            & \texttt{eff1d7b7-974c-4d55-8e8a-92796618915e}    \\
+            \midrule
+            Final file location: &                                             \\
         \end{tabular} \\
+        \vspace{0.1cm}
+        \begin{tabular}{ p{0.8\textwidth} }
+            \texttt{/mnt/backups/armstrong/} \\
+            \hspace{1.5cm}\texttt{a9993e364706816aba3e25717850c26c9cd0d89d/} \\
+            \hspace{3cm}\texttt{eff1d7b7-974c-4d55-8e8a-92796618915e}
+        \end{tabular}
     \end{center}
-        Final file location: \\
-        \verb!/mnt/backups/armstrong/! \\
-        \verb!              a9993e364706816aba3e25717850c26c9cd0d89d/! \\
-        \verb!                          eff1d7b7-974c-4d55-8e8a-92796618915e!
+    \end{minipage}}
     \caption{Example storage put operation, placing /home/rob/file1.txt in the
     armstrong bucket. The storage root is /mnt/backups/.}
     \label{fig:storage-put-example}
@@ -745,6 +771,44 @@ Haystack provides a Django-like API for searching data models, and can be
 powered by a one of a number of backends. For this project, the Whoosh backend
 was chosen due to the fact that it requires no additional dependencies or
 compilation steps.
+
+\section{File System Structure}
+\label{sec:implementation-structure}
+
+Listing \ref{lst:file-structure} shows the file system structure for the backup
+system project. For a more detailed look at the project structure, see appendix
+\ref{fig:detailed-file-structure}.
+
+\noindent\begin{minipage}{\textwidth}
+\begin{singlespacing}
+\begin{lstlisting}[caption=Project file system structure,
+    label=lst:file-structure]
+    backtrac/
+    |-- api/
+    |-- apps/
+    |   |-- catalog/
+    |   |-- clients/
+    |   `-- core/
+    |-- client/
+    |-- server/
+    |-- settings/
+    |-- static/
+    |-- templates/
+    |-- utils/
+    `-- twisted/
+        `-- plugins/
+\end{lstlisting}
+\end{singlespacing}
+\end{minipage}
+
+The root of the project contains top-level directories for the API (described
+in detail in section \ref{sec:implementation-server-api}), Django apps, backup
+client/server, utility functions, Twisted plugins, static media/templates and
+configuration. In Python, each folder containing a file named
+\verb!__init__.py! is a module, allowing it to be imported by other code.
+Though it is not shown here, each of the top-level directories contains a file
+named as such. This rigid project structure aids development by keeping files
+organised in a sane manner.
 
 \section{Version Control}
 \label{sec:implementation-versioncontrol}

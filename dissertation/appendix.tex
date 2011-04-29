@@ -73,6 +73,56 @@ remotely-accessible methods, which can be called by the client:
         \ref{sec:implementation-server-transfer}).
 \end{itemize}
 
+\section{Project File System Structure}
+
+\begin{figure}
+    \begin{center}
+        \begin{verbatim}
+    backtrac/
+    |-- AUTHORS
+    |-- backtrac/
+    |   |-- api/
+    |   |-- apps/
+    |   |   |-- catalog/
+    |   |   |-- clients/
+    |   |   `-- core/
+    |   |-- client/
+    |   |   |-- broker.py
+    |   |   |-- client.py
+    |   |   |-- job.py
+    |   |   |-- platform
+    |   |   |-- queue.py
+    |   |   `-- utils.py
+    |   |-- manage.py
+    |   |-- search_sites.py
+    |   |-- server/
+    |   |   |-- server.py
+    |   |   `-- storage.py
+    |   |-- settings/
+    |   |-- static/
+    |   |-- templates/
+    |   |-- urls.py
+    |   `-- utils
+    |       |-- __init__.py
+    |       `-- transfer.py
+    |-- client.conf
+    |-- LICENCE
+    |-- README.md
+    |-- requirements.txt
+    |-- server.conf
+    |-- server.crt
+    |-- server.key
+    `-- twisted/
+        `-- plugins/
+                |-- backtracd_plugin.py
+                |-- backtracserverd_plugin.py
+                `-- backtracweb_plugin.py
+        \end{verbatim}
+    \end{center}
+    \caption{Project file system structure}
+    \label{fig:detailed-file-structure}
+\end{figure}
+
 \section{System Testing}
 \label{sec:appendix-system-testing}
 
