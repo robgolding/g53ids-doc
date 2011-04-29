@@ -1,4 +1,4 @@
-\chapter{Testing}
+\chapter{Testing \& Evaluation}
 \label{sec:testing}
 
 Django provides extensive support for testing through its \emph{testing
@@ -248,7 +248,7 @@ regression occurs.
     \label{tab:tests-core}
 \end{table}
 
-\subsection{System Testing}
+\section{System Testing}
 
 To test that the system conforms to the requirements defined in the Software
 Requirements Specification (chapter \ref{chap:specification}), \emph{system
@@ -258,3 +258,94 @@ functional and non-functional, to ensure that the system performs as expected.
 All requirements in the specification were met, though certain non-functional
 requirements are more difficult to test. The detailed results of the system
 testing are included in appendix \ref{sec:appendix-system-testing}.
+
+\section{Performance Testing}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ l l l }
+        Number of Files & Initial Backup Time   & Subsequent Startup Time
+        \\ \toprule
+        1,000           & 1m 05s                & 6s
+        \\ \\
+        2,000           & 2m 08s                & 11s
+        \\ \\
+        3,000           & 3m 15s                & 17s
+        \\ \\
+        4,000           & 4m 22s                & 23s
+        \\ \\
+        5,000           & 5m 30s                & 30s
+        \\ \\
+        6,000           & 6m 31s                & 35s
+        \\ \\
+        7,000           & 7m 40s                & 42s
+        \\ \\
+        8,000           & 8m 49s                & 50s
+        \\ \\
+        9,000           & 9m 52s                & 55s
+        \\ \\
+        10,000          & 10m 05s               & 1m 01s
+        \\ \bottomrule
+    \end{tabular}
+    \caption{Time taken to backup differing directory tree sizes}
+    \label{tab:performance}
+\end{table}
+
+\section{Evaluation}
+
+The software produced in this project has met every requirement set out in the
+specification. The end result is deemed to be a significant step towards
+a viable offering by \emph{Servat, Ltd} of Nottingham, who agreed to support
+this project in the initial stages and have provided a detailed evaluation.
+
+\subsection{Servat Evaluation}
+
+\begin{quote}
+\begin{em}
+
+    At Servat, we are mainly an accounting systems provider, installing and
+    maintaining DataFile for our clients. We also resell a remote backup
+    system, however, called Vembu. This is re-branded as our own product,
+    DataSquirrel. DataSquirrel backs up customer data over the internet to
+    a server in the cloud.
+
+    The software Rob has produced is of a standard we would consider marketing
+    as an in-house alternative to our DataSquirrel product. There are, however,
+    a number of things which prevent us from doing so.
+    
+    Firstly, the backup system does not support Windows operating systems,
+    which is a definite must in our customer environments, which are almost
+    entirely Windows-based. Also, the backups themselves are not encrypted,
+    which, when dealing with sensitive accounting data, would also be required.
+    Finally, the installation process is somewhat complex, and would not be
+    suitable for distribution to customers as-is. This would need to be refined
+    before the software could be realistically used in a commercial setting.
+
+    Aside from these issues, the software is generally well produced and
+    professional. It fulfils every requirement in the specification which was
+    written at the beginning of the project, and performs well in all areas. In
+    particular, the web interface is well designed and intuitive, which would
+    allow less technical personnel to recover files without contacting us
+    unnecessarily. All-in-all, an impressive piece of work!
+
+\end{em}
+\end{quote}
+
+\subsection{Methodology}
+
+As described in section \ref{sec:implementation-methodology}, this project was
+developed using an \emph{evolutionary prototyping} methodology. Upon
+reflection, this methodology allowed for freedom in the development process,
+and was extremely valuable when refining the system architecture.
+
+Despite having only limited development experience to apply, the author
+considers this methodology to be very effective, enforcing good design
+principles at every step of the way. Though the design was drastically
+re-considered in the early stages of the project's life, the knowledge that
+each prototype fed into the next iteration encourages the developer to adhere
+to so-called ``good'' design principles, making use of reusable modules and
+abstracted code.
+
+Ultimately, this has led to a well-designed, extensible system, upon which the
+features discussed in sections \ref{sec:specification-evolution} and
+\ref{sec:summary-further} may be developed.

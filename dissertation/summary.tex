@@ -1,0 +1,133 @@
+\chapter{Summary \& Further Work}
+\label{chap:summary}
+
+\section{Summary}
+
+The ultimate goal of this project---to produce a working backup system based on
+the principles of version control and ease-of-use---was achieved. The software
+delivers in all aspects which were promised, providing:
+
+\begin{itemize}
+    \item Version-based backup and recovery,
+    \item A web interface for central management,
+    \item Detailed reports in the form of events and catalog browsing,
+    \item Instant file recovery via the web interface.
+\end{itemize}
+
+Given that the core project aims outlined in section
+\ref{sec:introduction-aims} have been achieved, the project can be deemed to
+have been a success.
+
+On the road to project completion, the intermediate objectives must also be
+considered. Expertise has been gained in the use and workings of the
+technologies involved, multiple prototypes have been produced and an industrial
+sponsor's support gained.
+
+In summary, the backup system does everything it is supposed to do, whilst
+leaving room for improvement and development upon the foundation that has been
+laid.
+
+\subsection{Personal Reflections}
+
+From the outset, this project was to be an ambitious attempt to produce
+a highly critical piece of software, upon which people depend when others fail.
+
+Having previous experience developing web applications, the author's first
+instincts to create an entirely web-based system turned out to be entirely
+incompatible. As a result, the project was re-written multiple times, finally
+achieving an acceptable result.
+
+Certainly the most challenging aspect of this project was working with the
+\emph{Twisted} framework. By all accounts, Twisted is an amazingly powerful
+piece of software. Apparently, however, the developers have little time left
+after creating such a marvel---as the documentation is severely lacking. After
+hacking workarounds for numerous bugs, guessing at API parameters, and
+unpicking countless lines of code, the author's endeavours have certainly paid
+off.
+
+Though, as always is the case with such things, a far superior and more novel
+product could have been achieved given just \emph{a little more time}, the
+author feels a sense of achievement in creating a system which punches well
+above its weight in offering that which others do not: \emph{simple},
+\emph{intuitive} and best of all \emph{free} version control for your backups!
+
+\section{Further Work}
+\label{sec:summary-further}
+
+This project has great scope for expanding into multiple areas of research,
+some of which were considered for inclusion. Some of those possible areas for
+expansion are detailed in this section, with discussion as to how they might be
+realised given what has been achieved thus far.
+
+\subsection{Cloud Services}
+
+``The cloud'' is becoming a very hot topic, both in research and in people's
+every day lives. For further security, the backup system could potentially
+replicate the archive to a cloud storage provider---mitigating the effect of
+a complete hardware failure or even a natural disaster.
+
+From another point of view, the backup system could compete against other cloud
+providers such as Mozy and Carbonite, offering a totally online service.
+
+Both of these points are entirely possibly given the extensible architecture of
+the backup system. Firstly, an alternative storage subsystem could be written
+to leverage cloud services such as Amazon S3, providing the same interface as
+the existing one. The two subsystems could then be swapped, or even run
+simultaneously, giving the desired result.
+
+\subsection{Peer-to-Peer Backups}
+
+The increasing size of hard disks, along with the falling cost of such storage
+media has led to an interesting phenomenon: large amounts of wasted space. In
+fact, a 1999 study which analyzed 4801 Windows computers in a commercial
+environment found that, on average, file systems were only 53\% full
+\cite{douceur1999}. Bearing in mind that this study is, at the time of writing,
+over 10 years old, it is fairly safe to assume that this figure is now even less.
+
+Given the collective sum of all this wasted disk space, a backup system which
+replicated files to multiple workstations rather than a single server could
+prove to be very effective. Not only could a greater resilience to failure be
+achieved by replicating data over multiple systems rather that just one, but
+also a significant cost saving could be made by avoiding need to purchase
+a large amount of dedicated storage.
+
+The current system architecture could be augmented to implement a peer-to-peer
+system by utilising the backup server as a ``command and control'' node,
+choosing which distributed nodes to place archived files and recording their
+location in a database. Though the architecture differs greatly from that which
+is used at present, the foundations have been laid making this type of
+development possible in the future.
+
+\subsection{Data Deduplication}
+
+Data deduplication is a technique which identifies and eliminates redundant
+information, thereby reducing the size of a data volume \cite{geer2008}. The
+concept of data deduplication has been around since the 1960s, though recent
+advances in technology have seen modern systems developed which are far more
+sophisticated than early attempts.
+
+Usually, a hashing function is used to compare files (or parts of files, called
+\emph{blocks}), and determine whether they are identical. If so, only one copy
+of the data is stored, which may be referenced by multiple separate files or
+blocks. In this way, redundant data is eliminated, saving storage space.
+
+Given the modular nature of the system developed in this project, a file-based
+data deduplication solution could be implemented which builds on the
+functionality of the storage subsystem described in section
+\ref{sec:implementation-server-storage}. A block-level solution, however, would
+require much more effort---perhaps developing a custom file system built for
+the purpose.
+
+\subsection{Diffing}
+
+Diffing is a process which calculates the changes that have occurred in a file
+since the last time it was archived, and only transfers the changed data. This
+has the advantage of saving significant network bandwidth, especially when
+applied to large files which only change by small amounts.
+
+As the backup system stands, files such as system logs---which change by small
+amounts relatively often---are transferred in full every time they are
+modified. With a diffing process, however, only the changes are transferred
+each time. These changes can then be applied to the file on the server to
+recreate the modified file, achieving the same result whilst using far less
+network resources.
