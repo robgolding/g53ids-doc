@@ -261,7 +261,7 @@ testing are included in appendix \ref{sec:appendix-system-testing}.
 
 \section{Performance Testing}
 
-\begin{table}[H]
+\begin{table}
     \centering
     \begin{tabular}{ l l l }
         Number of Files & Initial Backup Time   & Subsequent Startup Time
@@ -284,12 +284,41 @@ testing are included in appendix \ref{sec:appendix-system-testing}.
         \\ \\
         9,000           & 9m 52s                & 55s
         \\ \\
-        10,000          & 10m 05s               & 1m 01s
+        10,000          & 10m 55s               & 1m 01s
         \\ \bottomrule
     \end{tabular}
-    \caption{Time taken to backup differing directory tree sizes}
+    \caption{Time taken for initial backup and subsequent indexing of
+    directory trees containing different numbers of random 1KB files}
     \label{tab:performance}
 \end{table}
+
+Requirement \textsc{NFuncReq1} states that the backup system should be able to
+backup large directory structures containing 10,000 items. To test the
+performance of the system against this requirement, a differing numbers of
+randomly-generated files are placed in a directory structure and the system is
+started.
+
+The time taken to initially backup the files is recorded, as is the time taken
+for subsequent startup procedures to complete. These results are detailed in
+table \ref{tab:performance}, and graphed in figure \ref{fig:performance-graph}.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{performance}
+    \end{center}
+    \caption{Graph showing system performance with differing numbers of files}
+    \label{fig:performance-graph}
+\end{figure}
+
+Files of a small and consistent size (1KB) were intentionally used so as to
+test the performance of the indexing and initial backup code, not the file
+transfer speed itself, as this is dependant on network bandwidth.
+
+Figure \ref{fig:performance-graph} shows clearly that, when acting upon files
+of equal size, the performance of the system is linear (i.e. $O(n)$) in both
+the initial backup and subsequent startup phases. This is a very satisfactory
+result, showing that a directory tree containing 10,000 files can easily be
+backed up in under 11 minutes, and subsequent startup takes only 1 minute.
 
 \section{Evaluation}
 
