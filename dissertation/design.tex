@@ -49,7 +49,7 @@ read and write files to the physical disk, whilst not explicitly choosing their
 location or name. This level of abstraction provides extensibility, should
 a future implementation change be desired (for example, cloud storage).
 
-The web interface (denoted as \emph{backtracweb} in Figure
+The web interface (denoted as \emph{backtracweb} in figure
 \ref{fig:architecture}) allows the administrator to manage and monitor all
 aspects of the backup system. The application has read and write access to the
 database so clients can be added or altered, and existing clients can be
@@ -84,7 +84,7 @@ The catalog provides the facility to store meta-data regarding the files that
 are backed up. This meta-data includes the size of the file, when it was backed
 up, the last modified time of the file, and a hash of the file's contents.
 
-The relational model, depicted in Figure \ref{fig:erd}, allows a tree structure
+The relational model, depicted in figure \ref{fig:erd}, allows a tree structure
 to be constructed, mirroring the structure of the filesystem on each client.
 
 An \verb!Item! is a file or folder, which has a name and an optional parent
@@ -235,7 +235,7 @@ client to be retrieved quickly and easily.
 
 With a focus on extensibility, the server---like the system itself---is
 designed to be modular. The server is depicted is \emph{backtracserverd} in
-Figure \ref{fig:architecture}.
+figure \ref{fig:architecture}.
 
 \begin{figure}[h]
     \setlength{\unitlength}{0.14in}
@@ -274,7 +274,7 @@ with the rest of the system.
 \subsection{Client}
 
 As with the server---to provide maximum extensibility---the client is designed
-to be modular in nature. The client is depicted is \emph{backtracd} in Figure
+to be modular in nature. The client is depicted is \emph{backtracd} in figure
 \ref{fig:architecture}.
 
 
@@ -342,7 +342,7 @@ their meaning is clear.
 The header, which remains consistent throughout the entire interface, shows the
 product logo and name along with the user's authentication details. This also
 offers a link for the user to leave the system from any screen via the
-``logout'' button.  Figure \ref{fig:backtrac-header} shows a screenshot of the
+``logout'' button. Figure \ref{fig:backtrac-header} shows a screenshot of the
 header.
 
 \begin{figure}
