@@ -112,19 +112,37 @@ network resources.
 
 From the outset, this project was to be an ambitious attempt to produce
 a highly critical piece of software, upon which people depend when others fail.
+The idea for this system was actually born out of frustration with the state of
+backup systems available in the open-source community.
 
 Having previous experience developing web applications, the author's first
-instincts to create an entirely web-based system turned out to be entirely
-incompatible. As a result, the project was re-written multiple times, finally
+instincts were to create an entirely web-based system. This approach, however,
+turned out to be entirely infeasible for implementing such a data-centric
+application. Put simply, HTTP was not meant for transporting huge files between
+computers. As a result, the project was re-written multiple times, finally
 achieving an acceptable result.
 
-Certainly the most challenging aspect of this project was working with the
-\emph{Twisted} framework. By all accounts, Twisted is an amazingly powerful
-piece of software. Apparently, however, the developers have little time left
-after creating such a marvel---as the documentation is severely lacking. After
-hacking workarounds for numerous bugs, guessing at API parameters, and
-unpicking countless lines of code, the author's endeavours have certainly paid
-off.
+Though it meant going ``back to the drawing board'' multiple times, this
+process wasn't a \emph{bad} thing at all. In fact, it was instructive in
+shaping the author's views on how to tackle the problem at hand, and also on
+software development as a whole.
+
+Certainly, future projects, however big or small, should be approached with
+this mindset. Evolving prototypes using an iterative process has resulted in
+clean, well-structured code which will be easy to develop further. Working on
+this project, though, has not only shifted the author's views towards software
+development. It has also injected a certain amount of confidence, which was
+well-needed and well-timed. Indeed, it has taught the author to recognise his
+own abilities, which can often be quite difficult to do.
+
+The most challenging aspect of this project, and the area within which the
+author has gained most knowledge, was working with the \emph{Twisted}
+framework. By all accounts, Twisted is an amazingly powerful piece of software.
+Apparently, however, the developers have little time left after creating such
+a marvel---as the documentation is severely lacking. After countless hours of
+frustration hacking workarounds for numerous bugs, guessing at API parameters,
+and unpicking source code, the power of Twisted is just beginning to reveal
+itself. That said, though, this is clearly just the tip of the iceberg.
 
 Though, as always is the case with such things, a far superior and more novel
 product could have been achieved given just \emph{a little more time}, the
