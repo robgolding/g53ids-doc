@@ -374,12 +374,6 @@ The dashboard summarizes the following information:
     \item A list of recent events
 \end{itemize}
 
-Much of the information is shown in a visual format (i.e. a bar showing the
-disk utilization and a graph showing historical data) so that it can be
-interpreted as quickly as possible by the user. This is important to to ensure
-that the web interface performs its purpose well---to provide quick and easy
-access to \emph{data}.
-
 \begin{figure}
     \begin{center}
         \includegraphics[width=\textwidth]{backtrac-dashboard}
@@ -387,6 +381,12 @@ access to \emph{data}.
     \caption{A screenshot of the dashboard page}
     \label{fig:backtrac-dashboard}
 \end{figure}
+
+Much of the information is shown in a visual format (i.e. a bar showing the
+disk utilization and a graph showing historical data) so that it can be
+interpreted as quickly as possible by the user. This is important to to ensure
+that the web interface performs its purpose well---to provide quick and easy
+access to \emph{data}.
 
 \subsubsection{Clients}
 \label{sec:implementation-web-clients}
@@ -396,7 +396,7 @@ clients. When a client is added, it is configured with a secret key and a list
 of paths to backup. Figure \ref{fig:backtrac-clients-add} shows a screenshot of
 the form used when adding a client.
 
-\begin{figure}[h]
+\begin{figure}
     \begin{center}
         \includegraphics[width=\textwidth]{backtrac-clients-add}
     \end{center}
@@ -425,7 +425,7 @@ catalog for the same client---to save clicking the same button over and over.
 A screenshot of the browsing interface is shown in figure
 \ref{fig:backtrac-browse}.
 
-\begin{figure}[h]
+\begin{figure}
     \begin{center}
         \includegraphics[width=\textwidth]{backtrac-browse}
     \end{center}
@@ -446,7 +446,7 @@ A screenshot of the detailed file view is shown in figure
 size of the file over time is also included on the file detail page---showing
 how the file has evolved since it was first created.
 
-\begin{figure}[h]
+\begin{figure}
     \begin{center}
         \includegraphics[width=\textwidth]{backtrac-file-detail}
     \end{center}
