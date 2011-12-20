@@ -187,6 +187,8 @@ regression occurs.
     \label{tab:tests-catalog}
 \end{table}
 
+\ \\[2cm]
+
 \subsubsection{Clients}
 
 \begin{table}[H]
@@ -248,6 +250,8 @@ regression occurs.
     \label{tab:tests-core}
 \end{table}
 
+\ \\[0.5cm]
+
 \section{System Testing}
 
 To test that the system conforms to the requirements defined in the Software
@@ -268,12 +272,6 @@ system should be able to backup large directory trees effectively and that the
 client should backup changed files immediately.
 
 \subsection{Large Directory Trees}
-
-Requirement \textsc{NFuncReq1} states that the backup system should be able to
-backup large directory structures containing 10,000 items. To test the
-performance of the system against this requirement, a differing numbers of
-randomly-generated files are placed in a directory structure and the system is
-started.
 
 \begin{table}
     \centering
@@ -306,6 +304,12 @@ started.
     \label{tab:performance}
 \end{table}
 
+Requirement \textsc{NFuncReq1} states that the backup system should be able to
+backup large directory structures containing 10,000 items. To test the
+performance of the system against this requirement, a differing numbers of
+randomly-generated files are placed in a directory structure and the system is
+started.
+
 The time taken to initially backup the files is recorded, as is the time taken
 for subsequent startup procedures to complete. These results are detailed in
 table \ref{tab:performance}, and graphed in figure \ref{fig:performance-graph}.
@@ -328,6 +332,72 @@ the initial backup and subsequent startup phases. This is a very satisfactory
 result, showing that a directory tree containing 10,000 files can easily be
 backed up in under 11 minutes, and subsequent startup takes only 1 minute.
 
+\subsection{Performance on a Latent, Slow Network}
+
+The performance tests carried out in the previous section are under ideal
+network conditions, with no traffic and minimum latency on the link between
+server and client. This is, however, an admittedly unrealistic scenario.
+
+For this reason, the same test was repeated with simulated congestion on the
+network. A latency of 20ms is introduced---increasing round-trip time to
+40ms---with a bandwidth cap of 1Mbit.
+
+\begin{table}
+    \centering
+    \begin{tabular}{ l l l }
+        Number of Files & Initial Backup Time   & Subsequent Startup Time
+        \\ \toprule
+        1,000           & 2m 29s                & 8s
+        \\ \\
+        2,000           & 5m 05s                & 14s
+        \\ \\
+        3,000           & 7m 28s                & 22s
+        \\ \\
+        4,000           & 9m 59s                & 29s
+        \\ \\
+        5,000           & 12m 32s               & 37s
+        \\ \\
+        6,000           & 15m 45s               & 45s
+        \\ \\
+        7,000           & 17m 24s               & 51s
+        \\ \\
+        8,000           & 19m 56s               & 59s
+        \\ \\
+        9,000           & 22m 19s               & 1m 07s
+        \\ \\
+        10,000          & 29m 58s               & 1m 16s
+        \\ \bottomrule
+    \end{tabular}
+    \caption{Time taken for initial backup and subsequent indexing of directory
+    trees on a latent, slow network connection}
+    \label{tab:performance-latency}
+\end{table}
+
+The test is repeated in exactly the same way, with 1-10,000 files of 1KB in
+size. Table \ref{tab:performance-latency} details the results of this more
+realistic simulation.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{performance-latency}
+    \end{center}
+    \caption{Graph showing system performance with differing numbers of files
+    on a latent, slow network connection}
+    \label{fig:performance-graph-latency}
+\end{figure}
+
+The results of this simulation are also graphed in figure
+\ref{fig:performance-graph-latency}, which shows that even with the addition of
+network latency and restricted bandwidth, the system retains its linear
+performance characteristic ($O(n)$) in both initial backup and subsequent
+startup times.
+
+Of course, more accurate figures could be obtained by carrying out tests on the
+system in a live, commercial environment. However, with the sensitive nature of
+corporate data, this would be a less-than-trivial operation. Also, it is felt
+that this simulation of latent/congested network conditions accurately models
+a busy corporate system, so further user testing would add limited value.
+
 \subsection{Continuous File System Protection}
 
 \textsc{FuncReq24} states that the system should provide continuous file system
@@ -343,6 +413,8 @@ almost all of cases. Unfortunately, there is no meaningful variable to test
 this response time against (as file size has no effect on the time taken to
 recognize the change), so there is no data available for this test.
 
+\newpage
+
 \section{Evaluation}
 
 The software produced in this project has met every requirement set out in the
@@ -355,16 +427,25 @@ this project in the initial stages and have provided a detailed evaluation.
 \begin{quote}
 \begin{em}
 
-    At Servat, we are mainly an accounting systems provider, installing and
-    maintaining DataFile for our clients. We also resell a remote backup
+    Servat supplies, installs and supports accounting systems which include
+    Datafile (on premise), SAP Business One (on premise or hosted via remote
+    desktop-Citrix) and Aqilla (Cloud Based). We also resell a remote backup
     system, however, called Vembu. This is re-branded as our own product,
-    DataSquirrel. DataSquirrel backs up customer data over the internet to
-    a server in the cloud.
+    DataSquirrel. DataSquirrel backs up customer data over the Internet to
+    a server hosted on Amazon's EC2 cloud platform. 
+
+    I have personally been involved in backup systems for 30 years and have
+    learned that they can never be as simple as one might assume. Through our
+    implementation and support work we a  have wide experience of maintaining
+    user backups and development copies of various systems.
+
+    Robert has tackled a number of the issues with considerable initiative and
+    also identified a gap in the market. 
 
     The software Rob has produced is of a standard we would consider marketing
     as an in-house alternative to our DataSquirrel product. There are, however,
     a number of things which prevent us from doing so.
-    
+
     Firstly, the backup system does not support Windows operating systems,
     which is a definite must in our customer environments, which are almost
     entirely Windows-based. Also, the backups themselves are not encrypted,
@@ -378,10 +459,24 @@ this project in the initial stages and have provided a detailed evaluation.
     written at the beginning of the project, and performs well in all areas. In
     particular, the web interface is well designed and intuitive, which would
     allow less technical personnel to recover files without contacting us
-    unnecessarily. All-in-all, an impressive piece of work!
+    unnecessarily. All-in-all, a well-made piece of software.
 
+    We hope Robert will find time and resources to continue this project after
+    graduation in which case we will continue support and hope to be involved
+    in the public launch.
+
+    Good Luck,
+
+    Chris Brown
+    Director,
+    Servat
 \end{em}
+
+    ---Personal communication from Chris Brown (\emph{chris@servat.co.uk}),
+    received 4/5/2011
 \end{quote}
+
+\newpage
 
 \subsection{Methodology}
 

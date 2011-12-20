@@ -20,9 +20,13 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage[bindingoffset=1cm,margin=3.5cm]{geometry}
+\usepackage{pdfpages}
 
 \pagestyle{fancy}
 \headheight=14pt
+
+\lhead[\leftmark]{}
+\rhead[]{\rightmark}
 
 \newcommand{\umlDiamond}{%
     \put(0,0){\line(1,1){1}}%
